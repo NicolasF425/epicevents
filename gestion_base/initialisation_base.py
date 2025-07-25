@@ -7,6 +7,12 @@ from sqlalchemy import (
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import relationship, validates
 from sqlalchemy.sql import func
+from urllib.parse import quote
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import sys
+import os
+
 
 Base = declarative_base()
 
@@ -45,7 +51,6 @@ class Collaborateur(Base):
     # Index
     __table_args__ = (
         Index('idx_collaborateur_departement', 'departement_id'),
-        Index('idx_collaborateur_email', 'email'),
     )
 
     @property
@@ -83,7 +88,6 @@ class Client(Base):
     __table_args__ = (
         Index('idx_client_commercial', 'commercial_id'),
         Index('idx_client_entreprise', 'nom_entreprise'),
-        Index('idx_client_email', 'email'),
     )
 
     @property
@@ -267,7 +271,7 @@ def init_data(session):
     statuts_contrat_data = [
         ("En attente"),
         ("Signé"),
-        ("Annulé"),
+        ("Annulé")
     ]
 
     for libelle in statuts_contrat_data:
@@ -291,15 +295,22 @@ def init_data(session):
     session.commit()
 
 
-# EXECUTION DES FONCTIONS
-if __name__ == "__main__":
-    from urllib.parse import quote
-    from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
+def get_password():
+    """Importe le module password depuis la racine du projet"""
+    parent_dir = os.path.dirname(os.path.dirname(__file__))
+    if parent_dir not in sys.path:
+        sys.path.insert(0, parent_dir)
+
+    import params
+    return params.PASSWORD
+
+
+def init_base():
+    pwd = get_password()
 
     # Configuration de la base de données
     username = "root"
-    password = quote("Acess2Base:;")  # encode les caractères spéciaux
+    password = quote(pwd)  # encode les caractères spéciaux
     host = "localhost"
     port = 3306
     dbname = "epicevents"
@@ -314,3 +325,7 @@ if __name__ == "__main__":
     # Initialiser les données de base
     with SessionLocal() as session:
         init_data(session)
+
+
+# initialisation des tables
+init_base()

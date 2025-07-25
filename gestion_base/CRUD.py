@@ -1,6 +1,45 @@
-from init_session import create_session
 from sqlalchemy import select, update, delete
 from initialisation_base import Client, Contrat, Evenement
+import sys
+import os
+from urllib.parse import quote
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base
+
+
+Base = declarative_base()
+
+
+def get_password():
+    """Importe le module password depuis la racine du projet"""
+    parent_dir = os.path.dirname(os.path.dirname(__file__))
+    if parent_dir not in sys.path:
+        sys.path.insert(0, parent_dir)
+
+    import params
+    return params.PASSWORD
+
+
+def create_session():
+    pwd = get_password()
+
+    # Configuration de la base de données
+    username = "root"
+    password = quote(pwd)  # encode les caractères spéciaux
+    host = "localhost"
+    port = 3306
+    dbname = "epicevents"
+
+    DATABASE_URL = f"mysql+pymysql://{username}:{password}@{host}:{port}/{dbname}"
+
+    engine = create_engine(DATABASE_URL, echo=True)
+    Base.metadata.create_all(engine)
+
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+    with SessionLocal() as session:
+        return session
 
 
 # CREATE
@@ -104,7 +143,6 @@ def get_evenements_by_idSupport(idCollab):
 
 
 def update_client(idClient, aModifier, nouvelleValeur):
-
     session = create_session()
 
     match aModifier:
@@ -116,6 +154,62 @@ def update_client(idClient, aModifier, nouvelleValeur):
             stmt = update(Client).where(Client.id == idClient).values(telephone=nouvelleValeur)
         case "nom_entreprise":
             stmt = update(Client).where(Client.id == idClient).values(nom_entreprise=nouvelleValeur)
+    try:
+        session.execute(stmt)
+        session.commit()
+    finally:
+        session.close()
+
+
+def update_contrat(idContrat, aModifier, nouvelleValeur):
+    session = create_session()
+
+    match aModifier:
+        case "client_id":
+            stmt = update(Client).where(Client.id == idContrat).values(client_id=nouvelleValeur)
+        case "commercial_id":
+            stmt = update(Client).where(Client.id == idContrat).values(montant_total=nouvelleValeur)
+        case "montant_total":
+            stmt = update(Client).where(Client.id == idContrat).values(telephone=nouvelleValeur)
+        case "montant_restant":
+            stmt = update(Client).where(Client.id == idContrat).values(montant_restant=nouvelleValeur)
+        case "statut_id":
+            stmt = update(Client).where(Client.id == idContrat).values(statut_id=nouvelleValeur)
+        case "date_signature":
+            stmt = update(Client).where(Client.id == idContrat).values(date_signature=nouvelleValeur)
+        case "date_fin_prevue":
+            stmt = update(Client).where(Client.id == idContrat).values(date_fin_prevue=nouvelleValeur)
+    try:
+        session.execute(stmt)
+        session.commit()
+    finally:
+        session.close()
+
+
+def update_evenement(idEvenement, aModifier, nouvelleValeur):
+    session = create_session()
+
+    match aModifier:
+        case "nom":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(nom=nouvelleValeur)
+        case "contrat_id":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(contrat_id=nouvelleValeur)
+        case "responsable_support_id":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(responsable_support_id=nouvelleValeur)
+        case "date_debut":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(date_debut=nouvelleValeur)
+        case "date_fin":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(date_fin=nouvelleValeur)
+        case "lieu":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(lieu=nouvelleValeur)
+        case "adresse_lieu":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(adresse_lieu=nouvelleValeur)
+        case "nombre_participants":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(nombre_participants=nouvelleValeur)
+        case "statut_id":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(statut_id=nouvelleValeur)
+        case "notes":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(notes=nouvelleValeur)
     try:
         session.execute(stmt)
         session.commit()
@@ -136,9 +230,9 @@ def delete_client(idClient):
         session.close()
 
 
-def delete_evenement(idEvenement):
+def delete_contrat(idContrat):
     session = create_session()
-    stmt = delete(Evenement).where(Evenement.id == idEvenement)
+    stmt = delete(Contrat).where(Contrat.id == idContrat)
     try:
         session.execute(stmt)
         session.commit()
@@ -146,9 +240,9 @@ def delete_evenement(idEvenement):
         session.close()
 
 
-def delete_contrat(idContrat):
+def delete_evenement(idEvenement):
     session = create_session()
-    stmt = delete(Contrat).where(Contrat.id == idContrat)
+    stmt = delete(Evenement).where(Evenement.id == idEvenement)
     try:
         session.execute(stmt)
         session.commit()
