@@ -36,7 +36,7 @@ class Collaborateur(Base):
     __tablename__ = 'collaborateurs'
 
     id = Column(Integer, primary_key=True)
-    login = Column(String(100), nullable=False)
+    login = Column(String(100), unique=True, nullable=False)
     password = Column(String(100), nullable=False)
     email = Column(String(255), nullable=False, unique=True)
     departement_id = Column(Integer, ForeignKey('departements.id'), nullable=False)
@@ -50,6 +50,7 @@ class Collaborateur(Base):
 
     # Index
     __table_args__ = (
+        Index('idx_collaborateur_login', 'login'),
         Index('idx_collaborateur_departement', 'departement_id'),
     )
 

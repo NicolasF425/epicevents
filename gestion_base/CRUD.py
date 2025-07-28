@@ -1,11 +1,12 @@
 from sqlalchemy import select, update, delete
-from initialisation_base import Client, Contrat, Evenement
+from initialisation_base import Collaborateur, Client, Contrat, Evenement
 import sys
 import os
 from urllib.parse import quote
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
+from gestion_mdp.gestion_hashage import hash_password
 
 
 Base = declarative_base()
@@ -47,6 +48,7 @@ def create_session():
 def add_collaborateur(collaborateur):
     try:
         session = create_session()
+        collaborateur.password = hash_password(collaborateur.password)
         session.add(collaborateur)
         session.commit()
     finally:
@@ -80,6 +82,22 @@ def add_contrat(contrat):
         session.close()
 
 # READ
+
+
+def get_collaborateur_by_id(idCollaborateur):
+    session = create_session()
+    selection = select(Collaborateur).where(Collaborateur.id == idCollaborateur)
+    result = session.execute(selection)
+    collaborateur = result.one()
+    return collaborateur
+
+
+def get_collaborateur_by_login(loginCollaborateur):
+    session = create_session()
+    selection = select(Collaborateur).where(Collaborateur.login == loginCollaborateur)
+    result = session.execute(selection)
+    collaborateur = result.one()
+    return collaborateur
 
 
 def get_all_clients():
