@@ -34,7 +34,6 @@ def create_session():
     DATABASE_URL = f"mysql+pymysql://{username}:{password}@{host}:{port}/{dbname}"
 
     engine = create_engine(DATABASE_URL, echo=True)
-    Base.metadata.create_all(engine)
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

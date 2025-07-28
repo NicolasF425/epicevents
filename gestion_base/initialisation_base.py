@@ -87,7 +87,6 @@ class Client(Base):
     # Index
     __table_args__ = (
         Index('idx_client_commercial', 'commercial_id'),
-        Index('idx_client_entreprise', 'nom_entreprise'),
     )
 
     @property
@@ -96,20 +95,6 @@ class Client(Base):
 
     def __repr__(self):
         return f"<Client(entreprise='{self.nom_entreprise}', contact='{self.contact_complet}')>"
-
-
-class StatutContrat(Base):
-    """Table des statuts possibles pour les contrats"""
-    __tablename__ = 'statuts_contrat'
-
-    id = Column(Integer, primary_key=True)
-    libelle = Column(String(50), nullable=False, unique=True)
-
-    # Relation
-    contrats = relationship("Contrat", back_populates="statut")
-
-    def __repr__(self):
-        return f"<StatutContrat(libelle='{self.libelle}')>"
 
 
 class Contrat(Base):
@@ -121,15 +106,12 @@ class Contrat(Base):
     commercial_id = Column(Integer, ForeignKey('collaborateurs.id'), nullable=False)
     montant_total = Column(DECIMAL(10, 2), nullable=False)
     montant_restant = Column(DECIMAL(10, 2), nullable=False)
-    statut_id = Column(Integer, ForeignKey('statuts_contrat.id'), nullable=False)
     date_creation = Column(Date, nullable=False, default=date.today)
     date_signature = Column(Date, nullable=True)
-    date_fin_prevue = Column(Date)
 
     # Relations
     client = relationship("Client", back_populates="contrats")
     commercial = relationship("Collaborateur", foreign_keys=[commercial_id], back_populates="contrats_commercial")
-    statut = relationship("StatutContrat", back_populates="contrats")
     evenements = relationship("Evenement", back_populates="contrat")
 
     # Contraintes et index
@@ -138,7 +120,6 @@ class Contrat(Base):
         CheckConstraint('montant_restant <= montant_total', name='chk_montant_restant_coherent'),
         Index('idx_contrat_client', 'client_id'),
         Index('idx_contrat_commercial', 'commercial_id'),
-        Index('idx_contrat_statut', 'statut_id'),
         Index('idx_contrat_montant', 'montant_restant'),
     )
 
@@ -162,20 +143,6 @@ class Contrat(Base):
         return f"<Contrat(numero='{self.numero_contrat}', client='{self.client.nom_entreprise}')>"
 
 
-class StatutEvenement(Base):
-    """Table des statuts possibles pour les Ã©vÃ©nements"""
-    __tablename__ = 'statuts_evenement'
-
-    id = Column(Integer, primary_key=True)
-    libelle = Column(String(50), nullable=False, unique=True)
-
-    # Relation
-    evenements = relationship("Evenement", back_populates="statut")
-
-    def __repr__(self):
-        return f"<StatutEvenement(libelle='{self.libelle}')>"
-
-
 class Evenement(Base):
     """Table des évènements"""
     __tablename__ = 'evenements'
@@ -189,7 +156,6 @@ class Evenement(Base):
     lieu = Column(String(300))
     adresse_lieu = Column(Text)
     nombre_participants = Column(Integer)
-    statut_id = Column(Integer, ForeignKey('statuts_evenement.id'), nullable=False)
     notes = Column(Text)
     date_creation = Column(DateTime, default=func.now())
     derniere_maj = Column(DateTime, default=func.now(), onupdate=func.now())
@@ -197,7 +163,6 @@ class Evenement(Base):
     # Relations
     contrat = relationship("Contrat", back_populates="evenements")
     responsable_support = relationship("Collaborateur", back_populates="evenements_responsable")
-    statut = relationship("StatutEvenement", back_populates="evenements")
 
     # Contraintes et index
     __table_args__ = (
@@ -205,7 +170,6 @@ class Evenement(Base):
         Index('idx_evenement_contrat', 'contrat_id'),
         Index('idx_evenement_responsable', 'responsable_support_id'),
         Index('idx_evenement_dates', 'date_debut', 'date_fin'),
-        Index('idx_evenement_statut', 'statut_id'),
         Index('idx_evenement_periode', 'date_debut', 'date_fin'),
     )
 
@@ -266,31 +230,6 @@ def init_data(session):
         if not session.query(Departement).filter_by(nom=nom).first():
             dept = Departement(nom=nom)
             session.add(dept)
-
-    # Statuts contrats
-    statuts_contrat_data = [
-        ("En attente"),
-        ("Signé"),
-        ("Annulé")
-    ]
-
-    for libelle in statuts_contrat_data:
-        if not session.query(StatutContrat).filter_by(libelle=libelle).first():
-            statut = StatutContrat(libelle=libelle)
-            session.add(statut)
-
-    # Statuts évènements
-    statuts_evenement_data = [
-        ("Planifié"),
-        ("En cours"),
-        ("Terminé"),
-        ("Annulé")
-    ]
-
-    for libelle in statuts_evenement_data:
-        if not session.query(StatutEvenement).filter_by(libelle=libelle).first():
-            statut = StatutEvenement(libelle=libelle)
-            session.add(statut)
 
     session.commit()
 
