@@ -1,6 +1,7 @@
 from base_managing.CRUD import get_collaborateur_by_login
 from utilities.gestion_token import JWTManager
 from utilities.gestion_hashage import verify_password
+from views.main_menu_view import MainMenuView
 
 
 class LoginControler:
@@ -19,10 +20,8 @@ class LoginControler:
                 }
                 token = jwt.create_token(payload)
                 jwt.write_token(token, "token.txt")
-                loaded_token = jwt.read_token("token.txt")
-                decoded_token = jwt.verify_token(loaded_token)
-                print(decoded_token)
-                print(type(decoded_token))
+                view = MainMenuView()
+                view.display_items()
             else:
                 print('login ou mot de passe incorrect')
         else:

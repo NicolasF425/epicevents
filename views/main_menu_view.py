@@ -1,0 +1,80 @@
+from utilities.gestion_token import JWTManager
+from controlers.main_menu_controler import MainMenuControler
+from utilities.params import FILENAME
+from utilities.clear_screen import clear_screen
+
+
+class MainMenuView:
+    num = 0
+    mapping = {}
+    controler = MainMenuControler()
+
+    def check_token_validity(self):
+        jwt = JWTManager()
+        token = jwt.read_token(FILENAME)
+        token = jwt.verify_token(token)
+        if token is not None:
+            return token
+        else:
+            return False
+
+    def build_menu(self):
+        token = self.check_token_validity()
+
+        if token is not False:
+            # gestion collaborateurs
+            departement_id = token["departement_id"]
+            # si departement gestion accès autorisé
+            if departement_id == 3:
+                self.num += 1
+                self.mapping["create_collaborateur"] = self.num
+            # liste des clients
+            self.num += 1
+            self.mapping["show_clients"] = self.num
+            # liste des contrats
+            self.num += 1
+            self.mapping["show_contrats"] = self.num
+            # liste des evenements
+            self.num += 1
+            self.mapping["show_evenements"] = self.num
+            # quitter
+            self.num += 1
+            self.mapping["quitter"] = self.num
+        else:
+            print("Erreur de token")
+
+    def item_manage_collaborateur(self, num):
+        print(str(num)+") Gérer les collaborateurs")
+
+    def item_show_clients(self, num):
+        print(str(num)+") Lister les clients")
+
+    def item_show_contrats(self, num):
+        print(str(num)+") Lister les contrats")
+
+    def item_show_evenements(self, num):
+        print(str(num)+") Lister les évènements")
+
+    def item_quitter(self, num):
+        print(str(num)+") Quitter")
+
+    def display_items(self):
+        self.build_menu()
+        clear_screen()
+        for cle, valeur in self.mapping.items():
+            match cle:
+                case "manage_collaborateur":
+                    self.item_manage_collaborateur(valeur)
+                case "show_clients":
+                    self.item_show_clients(valeur)
+                case "show_contrats":
+                    self.item_show_contrats(valeur)
+                case "show_evenements":
+                    self.item_show_evenements(valeur)
+                case "quitter":
+                    self.item_quitter(valeur)
+
+    def select_action(self):
+        num_action = str(input("Numéro d'action: "))
+        if num_action > 0 and num_action <= self.num:
+            self.controler.select_action(num_action, self.mapping)

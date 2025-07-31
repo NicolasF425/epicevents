@@ -1,3 +1,8 @@
+from views.show_clients_view import ShowClientsView
+from views.show_contrats_view import ShowContratsView
+from views.show_evenements_view import ShowEvenementsView
+
+
 class MainMenuControler:
 
     def select_action(self, num_action, mapping):
@@ -10,11 +15,13 @@ class MainMenuControler:
                 # view "create_collaborateur"
                 pass
             case "show_clients":
-                # view "show_clients"
-                pass
+                view = ShowClientsView()
+                view.display_clients()
             case "show_contrats":
-                # view "show_contrats"
-                pass
-            case "show_clients":
-                # view "show_evenements"
+                view = ShowContratsView()
+                view.display_contrats()
+            case "show_evenements":
+                view = ShowEvenementsView()
+                view.display_evenements()
+            case "quitter":
                 pass
