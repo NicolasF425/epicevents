@@ -1,6 +1,6 @@
 from base_managing.CRUD import get_collaborateur_by_login
 from utilities.gestion_token import JWTManager
-from utilities.gestion_hashage import hash_password, verify_password
+from utilities.gestion_hashage import verify_password
 
 
 class LoginControler:
@@ -9,8 +9,6 @@ class LoginControler:
         user = get_collaborateur_by_login(login)
         if user is not None:
             # vérification du mot de passe
-            print(user.password)
-            print(hash_password(password))
             if verify_password(password, user.password):
                 # création du token
                 jwt = JWTManager()
@@ -24,7 +22,10 @@ class LoginControler:
                 loaded_token = jwt.read_token("token.txt")
                 decoded_token = jwt.verify_token(loaded_token)
                 print(decoded_token)
+                print(type(decoded_token))
             else:
                 print('login ou mot de passe incorrect')
         else:
-            print('utilisateur non trouvé')
+            # pour debug
+            # print('utilisateur non trouvé')
+            print('login ou mot de passe incorrect')
