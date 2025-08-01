@@ -81,19 +81,25 @@ def get_all_collaborateurs():
 
 
 def get_collaborateur_by_id(idCollaborateur):
-    session = create_session()
-    selection = select(Collaborateur).where(Collaborateur.id == idCollaborateur)
-    result = session.execute(selection)
-    collaborateur = result.scalars().one()
-    return collaborateur
+    try:
+        session = create_session()
+        selection = select(Collaborateur).where(Collaborateur.id == idCollaborateur)
+        result = session.execute(selection)
+        collaborateur = result.scalars().one()
+        return collaborateur
+    except:
+        return False
 
 
 def get_collaborateur_by_login(loginCollaborateur):
-    session = create_session()
-    selection = select(Collaborateur).where(Collaborateur.login == loginCollaborateur)
-    result = session.execute(selection)
-    collaborateur = result.scalars().one()
-    return collaborateur
+    try:
+        session = create_session()
+        selection = select(Collaborateur).where(Collaborateur.login == loginCollaborateur)
+        result = session.execute(selection)
+        collaborateur = result.scalars().one()
+        return collaborateur
+    except:
+        return False
 
 
 def get_all_clients():
@@ -144,12 +150,28 @@ def get_contrats_by_idCommercial(idCollab):
     return contrats
 
 
+def get_contrats_by_id(id):
+    session = create_session()
+    selection = select(Contrat).where(Contrat.id == id)
+    result = session.execute(selection)
+    contrat = result.scalars().one()
+    return contrat
+
+
 def get_evenements_by_idSupport(idCollab):
     session = create_session()
     selection = select(Evenement).where(Evenement.responsable_support_id == idCollab)
     result = session.execute(selection)
     evenements = result.scalars().all()
     return evenements
+
+
+def get_evenements_by_id(id):
+    session = create_session()
+    selection = select(Evenement).where(Evenement.id == id)
+    result = session.execute(selection)
+    evenement = result.scalars().one()
+    return evenement
 
 
 def get_nom_departement_by_id(idDepartement):

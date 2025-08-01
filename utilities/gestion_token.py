@@ -43,7 +43,7 @@ class JWTManager:
 
     def write_token(self, token, filename):
         '''
-        Ecrit le token qui expire et le token de refresh dans un fichier
+        Ecrit le token dans un fichier
         '''
 
         f = open(filename, 'w', encoding='utf-8')

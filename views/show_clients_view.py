@@ -6,11 +6,16 @@ from utilities.clear_screen import clear_screen
 class ShowClientsView(CommonView):
 
     def display_clients(self):
-        clients = get_all_clients()
-
         clear_screen()
+        token = self.check_token_validity()
 
-        for client in clients:
-            id = client.id
-            entreprise = client.nom_entreprise
-            print(str(id)+" "+entreprise)
+        if token is not False:
+            print("CLIENTS\n\n")
+            clients = get_all_clients()
+            for client in clients:
+                id = client.id
+                entreprise = client.nom_entreprise
+                print(f"{"║ "+str(id)[:5]:<5} | {entreprise[:30]:<30} ║")
+            input("")
+        else:
+            print("Session expirée")

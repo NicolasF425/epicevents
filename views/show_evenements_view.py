@@ -6,11 +6,16 @@ from utilities.clear_screen import clear_screen
 class ShowEvenementsView(CommonView):
 
     def display_evenements(self):
-        evenements = get_all_evenements()
-
         clear_screen()
+        token = self.check_token_validity()
 
-        for evenement in evenements:
-            id = evenement.id
-            nom = evenement.nom
-            print(str(id)+" "+nom)
+        if token is not False:
+            print("EVENEMENTS\n\n")
+            evenements = get_all_evenements()
+            for evenement in evenements:
+                id = evenement.id
+                nom = evenement.nom
+                print(f"{"║ "+str(id)[:5]:<5} | {nom[:40]:<40} ║")
+            input("")
+        else:
+            print("Session expirée")
