@@ -3,7 +3,7 @@ from urllib.parse import quote
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
-from base_managing.initialisation_base import Collaborateur, Client, Contrat, Evenement
+from base_managing.initialisation_base import Collaborateur, Client, Contrat, Evenement, Departement
 from utilities.gestion_hashage import hash_password
 from base_managing.params import PASSWORD
 
@@ -12,11 +12,9 @@ Base = declarative_base()
 
 
 def create_session():
-    pwd = PASSWORD
-
     # Configuration de la base de données
     username = "root"
-    password = quote(pwd)  # encode les caractères spéciaux
+    password = quote(PASSWORD)  # encode les caractères spéciaux
     host = "localhost"
     port = 3306
     dbname = "epicevents"
@@ -70,7 +68,16 @@ def add_contrat(contrat):
     finally:
         session.close()
 
+
 # READ
+
+
+def get_all_collaborateurs():
+    session = create_session()
+    selection = select(Collaborateur)
+    result = session.execute(selection)
+    all_collaborateurs = result.scalars().all()
+    return all_collaborateurs
 
 
 def get_collaborateur_by_id(idCollaborateur):
@@ -143,6 +150,15 @@ def get_evenements_by_idSupport(idCollab):
     result = session.execute(selection)
     evenements = result.scalars().all()
     return evenements
+
+
+def get_nom_departement_by_id(idDepartement):
+    session = create_session()
+    selection = select(Departement).where(Departement.id == idDepartement)
+    result = session.execute(selection)
+    departement = result.scalars().one()
+    nom_departement = departement.nom
+    return nom_departement
 
 
 # UPDATE

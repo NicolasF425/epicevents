@@ -27,7 +27,7 @@ class MainMenuView:
             # si departement gestion accès autorisé
             if departement_id == 3:
                 self.num += 1
-                self.mapping["create_collaborateur"] = self.num
+                self.mapping["manage_collaborateur"] = self.num
             # liste des clients
             self.num += 1
             self.mapping["show_clients"] = self.num
@@ -74,7 +74,6 @@ class MainMenuView:
                 case "quitter":
                     self.item_quitter(valeur)
 
-    def select_action(self):
-        num_action = str(input("Numéro d'action: "))
+        num_action = int(input("Numéro d'action: "))
         if num_action > 0 and num_action <= self.num:
             self.controler.select_action(num_action, self.mapping)
