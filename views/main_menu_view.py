@@ -1,7 +1,7 @@
 from utilities.gestion_token import JWTManager
 from controlers.main_menu_controler import MainMenuControler
 from utilities.params import FILENAME
-from utilities.constantes import GESTION
+from utilities.constantes import GESTION, RED, RESET
 from utilities.clear_screen import clear_screen
 
 
@@ -9,6 +9,7 @@ class MainMenuView:
     num = 0
     mapping = {}
     controler = MainMenuControler()
+    color = RED
 
     def check_token_validity(self):
         jwt = JWTManager()
@@ -45,7 +46,7 @@ class MainMenuView:
             print("Erreur de token")
 
     def item_manage_collaborateur(self, num):
-        print(str(num)+") Gérer les collaborateurs")
+        print(self.color+str(num)+") Gérer les collaborateurs"+RESET)
 
     def item_show_clients(self, num):
         print(str(num)+") Lister les clients")

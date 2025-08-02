@@ -1,5 +1,5 @@
 from utilities.clear_screen import clear_screen
-from utilities.constantes import GESTION
+from utilities.constantes import GESTION, RED, RESET
 from base_managing.CRUD import get_nom_departement_by_id
 from views.common_view import CommonView
 from controlers.show_single_collaborateur_controler import ShowSingleCollaborateursControler
@@ -7,12 +7,13 @@ from controlers.show_single_collaborateur_controler import ShowSingleCollaborate
 
 class ShowSingleCollaborateurView(CommonView):
     controler = ShowSingleCollaborateursControler()
+    color = RED
 
     def display_single_collaborateur(self, collaborateur):
         clear_screen()
         token = self.check_token_validity()
         if token is not False:
-            print("DONNEES COLLABORATEUR\n\n")
+            print(self.color+"DONNEES COLLABORATEUR\n\n"+RESET)
             id = collaborateur.id
             login = collaborateur.login
             email = collaborateur.email

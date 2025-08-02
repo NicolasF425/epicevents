@@ -1,3 +1,10 @@
 COMMERCIAL = 1
 SUPPORT = 2
 GESTION = 3
+
+RED = '\033[31m'
+GREEN = '\033[32m'
+BLUE = '\033[34m'
+PURPLE = '\033[35m'
+CYAN = '\033[36m'
+RESET = '\033[m'
