@@ -59,8 +59,8 @@ class MainMenuView:
         print(str(num)+") Quitter")
 
     def display_items(self):
-        self.build_menu()
         clear_screen()
+        self.build_menu()
         for cle, valeur in self.mapping.items():
             match cle:
                 case "manage_collaborateur":

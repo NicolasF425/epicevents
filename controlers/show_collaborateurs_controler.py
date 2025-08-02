@@ -6,14 +6,21 @@ from views.show_single_collaborateur_view import ShowSingleCollaborateurView
 class ShowCollaborateursControler(CommonControler):
 
     def select_action(self, id_collaborateur):
+        # si le token est toujours valide
         if self.check_token_validity() is not False:
             if id_collaborateur != "":
+                id_collaborateur = int(id_collaborateur)
                 # selection d'une fiche collaborateur
                 collaborateur = get_collaborateur_by_id(id_collaborateur)
                 if collaborateur is not False:
                     view = ShowSingleCollaborateurView()
                     view.display_single_collaborateur(collaborateur)
+                else:
+                    print("id incorrect !")
             else:
-                print("id incorrect !")
+                # retour au menu
+                from views.main_menu_view import MainMenuView
+                view = MainMenuView()
+                view.display_items()
         else:
             print("Session expirée")

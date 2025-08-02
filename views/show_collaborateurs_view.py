@@ -5,7 +5,7 @@ from controlers.show_collaborateurs_controler import ShowCollaborateursControler
 
 
 class ShowCollaborateursView(CommonView):
-    controler = ShowCollaborateursControler
+    controler = ShowCollaborateursControler()
 
     def display_collaborateurs(self):
         clear_screen()
@@ -22,6 +22,8 @@ class ShowCollaborateursView(CommonView):
                 email = collaborateur.email
                 nom_departement = get_nom_departement_by_id(collaborateur.departement_id)
                 print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} | {nom_departement[:20]:<20}║")
-            input("")
+            id_collaborateur = input("Entrez le numéro de collaborateur ou appuyez "
+                                     "sur Entrée pour retourner au menu : ")
+            self.controler.select_action(id_collaborateur)
         else:
             print("Session expirée")

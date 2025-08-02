@@ -6,7 +6,7 @@ from views.main_menu_view import MainMenuView
 
 class LoginControler:
 
-    def check_credentials(login, password):
+    def check_credentials(self, login, password):
         user = get_collaborateur_by_login(login)
         if user is not None:
             # vérification du mot de passe

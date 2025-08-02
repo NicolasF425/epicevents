@@ -3,6 +3,7 @@ from urllib.parse import quote
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.exc import NoResultFound
 from base_managing.initialisation_base import Collaborateur, Client, Contrat, Evenement, Departement
 from utilities.gestion_hashage import hash_password
 from base_managing.params import PASSWORD
@@ -87,8 +88,12 @@ def get_collaborateur_by_id(idCollaborateur):
         result = session.execute(selection)
         collaborateur = result.scalars().one()
         return collaborateur
-    except:
+    except NoResultFound:
+        print("collaborateur non trouvé")
         return False
+    finally:
+        if session:
+            session.close()
 
 
 def get_collaborateur_by_login(loginCollaborateur):
@@ -98,8 +103,12 @@ def get_collaborateur_by_login(loginCollaborateur):
         result = session.execute(selection)
         collaborateur = result.scalars().one()
         return collaborateur
-    except:
+    except NoResultFound:
+        print("collaborateur non trouvé")
         return False
+    finally:
+        if session:
+            session.close()
 
 
 def get_all_clients():
@@ -107,6 +116,7 @@ def get_all_clients():
     selection = select(Client)
     result = session.execute(selection)
     all_clients = result.scalars().all()
+    session.close()
     return all_clients
 
 
@@ -115,6 +125,7 @@ def get_all_contrats():
     selection = select(Contrat)
     result = session.execute(selection)
     all_contrats = result.scalars().all()
+    session.close()
     return all_contrats
 
 
@@ -123,6 +134,7 @@ def get_all_evenements():
     selection = select(Evenement)
     result = session.execute(selection)
     all_evenements = result.scalars().all()
+    session.close()
     return all_evenements
 
 

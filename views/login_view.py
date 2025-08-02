@@ -5,7 +5,7 @@ from controlers.login_controler import LoginControler
 
 class LoginView:
 
-    login_controler = LoginControler
+    login_controler = LoginControler()
 
     def display_view(self):
         clear_screen()
