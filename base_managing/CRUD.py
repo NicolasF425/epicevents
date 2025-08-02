@@ -81,6 +81,33 @@ def get_all_collaborateurs():
     return all_collaborateurs
 
 
+def get_all_clients():
+    session = create_session()
+    selection = select(Client)
+    result = session.execute(selection)
+    all_clients = result.scalars().all()
+    session.close()
+    return all_clients
+
+
+def get_all_contrats():
+    session = create_session()
+    selection = select(Contrat)
+    result = session.execute(selection)
+    all_contrats = result.scalars().all()
+    session.close()
+    return all_contrats
+
+
+def get_all_evenements():
+    session = create_session()
+    selection = select(Evenement)
+    result = session.execute(selection)
+    all_evenements = result.scalars().all()
+    session.close()
+    return all_evenements
+
+
 def get_collaborateur_by_id(idCollaborateur):
     try:
         session = create_session()
@@ -111,33 +138,6 @@ def get_collaborateur_by_login(loginCollaborateur):
             session.close()
 
 
-def get_all_clients():
-    session = create_session()
-    selection = select(Client)
-    result = session.execute(selection)
-    all_clients = result.scalars().all()
-    session.close()
-    return all_clients
-
-
-def get_all_contrats():
-    session = create_session()
-    selection = select(Contrat)
-    result = session.execute(selection)
-    all_contrats = result.scalars().all()
-    session.close()
-    return all_contrats
-
-
-def get_all_evenements():
-    session = create_session()
-    selection = select(Evenement)
-    result = session.execute(selection)
-    all_evenements = result.scalars().all()
-    session.close()
-    return all_evenements
-
-
 def get_client_by_id(idClient):
     session = create_session()
     selection = select(Client).where(Client.id == idClient)
@@ -162,7 +162,7 @@ def get_contrats_by_idCommercial(idCollab):
     return contrats
 
 
-def get_contrats_by_id(id):
+def get_contrat_by_id(id):
     session = create_session()
     selection = select(Contrat).where(Contrat.id == id)
     result = session.execute(selection)

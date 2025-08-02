@@ -1,6 +1,7 @@
 from utilities.gestion_token import JWTManager
 from controlers.main_menu_controler import MainMenuControler
 from utilities.params import FILENAME
+from utilities.constantes import GESTION
 from utilities.clear_screen import clear_screen
 
 
@@ -25,7 +26,7 @@ class MainMenuView:
             # gestion collaborateurs
             departement_id = token["departement_id"]
             # si departement gestion accès autorisé
-            if departement_id == 3:
+            if departement_id == GESTION:
                 self.num += 1
                 self.mapping["manage_collaborateur"] = self.num
             # liste des clients
