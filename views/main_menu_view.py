@@ -1,7 +1,8 @@
 from utilities.gestion_token import JWTManager
 from controlers.main_menu_controler import MainMenuControler
 from utilities.params import FILENAME
-from utilities.constantes import GESTION, RED, RESET
+from utilities.constantes import COMMERCIAL, GESTION, SUPPORT
+from utilities.constantes import COMMERCIAL_COLOR, SUPPORT_COLOR, RESET
 from utilities.clear_screen import clear_screen
 
 
@@ -9,7 +10,6 @@ class MainMenuView:
     num = 0
     mapping = {}
     controler = MainMenuControler()
-    color = RED
 
     def check_token_validity(self):
         jwt = JWTManager()
@@ -26,16 +26,24 @@ class MainMenuView:
         if token is not False:
             # gestion collaborateurs
             departement_id = token["departement_id"]
-            # si departement gestion accès autorisé
+            # si departement gestion
             if departement_id == GESTION:
                 self.num += 1
                 self.mapping["manage_collaborateur"] = self.num
+            # si departement commercial
+            if departement_id == COMMERCIAL:
+                self.num += 1
+                self.mapping["my_clients"] = self.num
             # liste des clients
             self.num += 1
             self.mapping["show_clients"] = self.num
             # liste des contrats
             self.num += 1
             self.mapping["show_contrats"] = self.num
+            # si departement support
+            if departement_id == SUPPORT:
+                self.num += 1
+                self.mapping["my_evenements"] = self.num
             # liste des evenements
             self.num += 1
             self.mapping["show_evenements"] = self.num
@@ -46,13 +54,19 @@ class MainMenuView:
             print("Erreur de token")
 
     def item_manage_collaborateur(self, num):
-        print(self.color+str(num)+") Gérer les collaborateurs"+RESET)
+        print(SUPPORT_COLOR+str(num)+") Gérer les collaborateurs"+RESET)
+
+    def item_my_clients(self, num):
+        print(COMMERCIAL_COLOR+str(num)+") Mes clients"+RESET)
 
     def item_show_clients(self, num):
         print(str(num)+") Lister les clients")
 
     def item_show_contrats(self, num):
         print(str(num)+") Lister les contrats")
+
+    def item_my_evenements(self, num):
+        print(SUPPORT_COLOR+str(num)+") Mes évènements"+RESET)
 
     def item_show_evenements(self, num):
         print(str(num)+") Lister les évènements")
@@ -67,10 +81,14 @@ class MainMenuView:
             match cle:
                 case "manage_collaborateur":
                     self.item_manage_collaborateur(valeur)
+                case "my_clients":
+                    self.item_my_clients(valeur)
                 case "show_clients":
                     self.item_show_clients(valeur)
                 case "show_contrats":
                     self.item_show_contrats(valeur)
+                case "my_evenements":
+                    self.item_my_evenements(valeur)
                 case "show_evenements":
                     self.item_show_evenements(valeur)
                 case "quitter":

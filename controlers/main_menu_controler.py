@@ -14,12 +14,18 @@ class MainMenuControler:
                     case "manage_collaborateur":
                         view = ShowCollaborateursView()
                         view.display_collaborateurs()
+                    case "my_clients":
+                        view = ShowClientsView()
+                        view.display_clients(True)
                     case "show_clients":
                         view = ShowClientsView()
                         view.display_clients()
                     case "show_contrats":
                         view = ShowContratsView()
                         view.display_contrats()
+                    case "show_evenements":
+                        view = ShowEvenementsView()
+                        view.display_evenements(True)
                     case "show_evenements":
                         view = ShowEvenementsView()
                         view.display_evenements()
