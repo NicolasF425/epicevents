@@ -1,6 +1,6 @@
 from views.common_view import CommonView
 from utilities.clear_screen import clear_screen
-from utilities.constantes import COMMERCIAL, BLUE, RESET
+from utilities.constantes import BLUE, RESET
 
 
 class ShowSingleClientView(CommonView):

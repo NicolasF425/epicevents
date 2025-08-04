@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.exc import NoResultFound
-from base_managing.initialisation_base import Collaborateur, Client, Contrat, Evenement, Departement
+from base_managing.models import Collaborateur, Client, Contrat, Evenement, Departement
 from utilities.gestion_hashage import hash_password
 from base_managing.params import PASSWORD
 

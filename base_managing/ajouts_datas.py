@@ -1,4 +1,4 @@
-from base_managing.initialisation_base import Collaborateur, Client
+from base_managing.models import Collaborateur, Client
 from base_managing.CRUD import add_collaborateur, add_client
 
 
