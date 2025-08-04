@@ -136,6 +136,7 @@ class Evenement(Base):
 
     id = Column(Integer, primary_key=True)
     nom = Column(String(200), nullable=False)
+    client_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
     contrat_id = Column(Integer, ForeignKey('contrats.id'), nullable=False)
     responsable_support_id = Column(Integer, ForeignKey('collaborateurs.id'), nullable=True)
     date_debut = Column(DateTime, nullable=False)
@@ -148,6 +149,7 @@ class Evenement(Base):
     derniere_maj = Column(DateTime, default=func.now(), onupdate=func.now())
 
     # Relations
+    client = relationship("Client", back_populates="evenements")
     contrat = relationship("Contrat", back_populates="evenements")
     responsable_support = relationship("Collaborateur", back_populates="evenements_responsable")
 

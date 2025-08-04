@@ -25,10 +25,9 @@ class ShowSingleCollaborateurView(CommonView):
             print(" 4) département: "+nom_departement+" / "+str(collaborateur.departement_id))
             print("Appuyez sur entrée pour retourner à l'écran précédent")
             if token["departement_id"] == GESTION:
-                print("Ou entrez le numéro d'élément à modifier")
+                print("ou entrez le numéro d'élément à modifier")
                 action = input("Votre choix: ")
             else:
-                action = input("Votre choix: ")
                 action = ""
             self.controler.select_action(action)
         else:
