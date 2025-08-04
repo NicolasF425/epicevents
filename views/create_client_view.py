@@ -1,33 +1,22 @@
 from views.common_view import CommonView
 from utilities.clear_screen import clear_screen
-from utilities.constantes import COMMERCIAL, COMMERCIAL_COLOR, RESET
-from base_managing.CRUD import get_collaborateur_by_id
+from utilities.constantes import COMMERCIAL_COLOR, RESET
 
 
 class CreateClientView(CommonView):
 
-    def input_datas():
+    def input_datas(self):
         clear_screen()
         print(COMMERCIAL_COLOR+"NOUVEAU CLIENT\n\n"+RESET)
 
         nom_complet = input("nom complet: ")
         email = input("email: ")
         telephone = input("téléphone: ")
-        entreprise = input("entreprise: ")
-        OK = False
-        while not OK:
-            try:
-                commercial_id = int(input("identifiant du commercial: "))
-                result = get_collaborateur_by_id(commercial_id)
-                if result is not False:
-                    if result.departement_id == COMMERCIAL:
-                        OK = True
-                    else:
-                        print("Veillez entrez l'identifiant d'un commercial\n")
-                else:
-                    print("identifiant non trouvé\n")
-            except ValueError:
-                print("Veuillez entrer une valeur numérique")
-
-            datas = [nom_complet, email, telephone, entreprise, commercial_id]
+        nom_entreprise = input("nom entreprise: ")
+        token = self.check_token_validity()
+        if token is not False:
+            commercial_id = token["id"]
+            datas = [nom_complet, email, telephone, nom_entreprise, commercial_id]
             return datas
+        else:
+            print("Session expirée")

@@ -198,6 +198,25 @@ def get_nom_departement_by_id(idDepartement):
 # UPDATE
 
 
+def update_collaborateur(idCollaborateur, aModifier, nouvelleValeur):
+    session = create_session()
+
+    match aModifier:
+        case "login":
+            stmt = update(Client).where(Client.id == idCollaborateur).values(nom_complet=nouvelleValeur)
+        case "password":
+            stmt = update(Client).where(Client.id == idCollaborateur).values(password=hash_password(nouvelleValeur))
+        case "email":
+            stmt = update(Client).where(Client.id == idCollaborateur).values(email=nouvelleValeur)
+        case "departement_id":
+            stmt = update(Client).where(Client.id == idCollaborateur).values(nom_entreprise=nouvelleValeur)
+    try:
+        session.execute(stmt)
+        session.commit()
+    finally:
+        session.close()
+
+
 def update_client(idClient, aModifier, nouvelleValeur):
     session = create_session()
 

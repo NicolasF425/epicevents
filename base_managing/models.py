@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 from sqlalchemy import (
-    Column, Integer, String, Text, DateTime, Date,
+    Column, Integer, String, Text, DateTime, Date, Boolean,
     DECIMAL, ForeignKey, CheckConstraint, Index
 )
 from sqlalchemy.orm import declarative_base
@@ -95,7 +95,7 @@ class Contrat(Base):
     montant_total = Column(DECIMAL(10, 2), nullable=False)
     montant_restant = Column(DECIMAL(10, 2), nullable=False)
     date_creation = Column(Date, nullable=False, default=date.today)
-    date_signature = Column(Date, nullable=True)
+    est_signe = Column(Boolean, nullable=False, default=False)
 
     # Relations
     client = relationship("Client", back_populates="contrats")
@@ -118,10 +118,6 @@ class Contrat(Base):
         if hasattr(self, 'montant_total') and montant > self.montant_total:
             raise ValueError("Le montant restant ne peut pas être supérieur au montant total")
         return montant
-
-    @property
-    def est_signe(self):
-        return self.date_signature is not None
 
     @property
     def est_paye_integralement(self):
