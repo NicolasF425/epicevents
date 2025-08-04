@@ -74,6 +74,7 @@ class Client(Base):
     # Relations
     commercial = relationship("Collaborateur", back_populates="clients_geres")
     contrats = relationship("Contrat", back_populates="client")
+    evenements = relationship("Evenement", back_populates="client")
 
     # Index
     __table_args__ = (
