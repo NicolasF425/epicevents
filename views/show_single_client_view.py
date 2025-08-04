@@ -1,9 +1,11 @@
 from views.common_view import CommonView
+from controlers.show_single_client_controler import ShowSingleClientControler
 from utilities.clear_screen import clear_screen
 from utilities.constantes import COMMERCIAL, COMMERCIAL_COLOR, RESET
 
 
 class ShowSingleClientView(CommonView):
+    controler = ShowSingleClientControler
 
     def display_single_client(self, client):
         clear_screen()
@@ -23,7 +25,7 @@ class ShowSingleClientView(CommonView):
             print(" 4) entreprise:        "+entreprise)
 
             if token["departement_id"] == COMMERCIAL:
-                self.controler.idCollaborateur = id
+                self.controler.idCollaborateur = token["id"]
                 print("Appuyez sur entrée pour retourner à l'écran précédent")
                 print("ou entrez le numéro d'élément à modifier")
                 action = int(input("Votre choix: "))

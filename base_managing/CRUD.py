@@ -295,6 +295,16 @@ def update_evenement(idEvenement, aModifier, nouvelleValeur):
 # DELETE
 
 
+def delete_collaborateur(loginCollaborateur):
+    session = create_session()
+    stmt = delete(Collaborateur).where(Collaborateur.login == loginCollaborateur)
+    try:
+        session.execute(stmt)
+        session.commit()
+    finally:
+        session.close()
+
+
 def delete_client(idClient):
     session = create_session()
     stmt = delete(Client).where(Client.id == idClient)

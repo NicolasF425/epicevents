@@ -1,14 +1,18 @@
 from controlers.common_controler import CommonControler
+from base_managing.CRUD import update_client
 
 
 class ShowSingleClientControler(CommonControler):
-    idCollaborateur = 0
+    idClient = 0
 
     def check_action(self, action):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if action != "":
-                pass
+                # modification d'un champ
+                from views.show_single_client_view import ShowSingleClientView
+                view = ShowSingleClientView()
+                view.display_update(action)
             else:
                 # retour à la liste des clients
                 from views.show_clients_view import ShowClientsView
@@ -17,20 +21,6 @@ class ShowSingleClientControler(CommonControler):
         else:
             print("Session expirée")
 
-    def display_update(self, field_number):
-        print("\n")
-        match field_number:
-            case 1:
-                new_login = input("nouveau login: ")
-                return "login", new_login
-            case 2:
-                new_password = input("nouveau mot de passe: ")
-                return "password", new_password
-            case 3:
-                new_email = input("nouvel email: ")
-                return "email", new_email
-            case 4:
-                new_departement_id = int(input("nouvel id departement: "))
-                return "departement_id", new_departement_id
-        if self.controler.check_token_validity() is not False:
-            self.controler.save_new_value()
+    def save_new_value(idClient, field, value):
+        if idClient > 0:
+            update_client(idClient, field, value)

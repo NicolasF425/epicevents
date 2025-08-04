@@ -30,7 +30,7 @@ class ShowSingleCollaborateurView(CommonView):
             else:
                 input("Appuyez sur entrée pour retourner à l'écran précédent")
                 action = ""
-            self.controler.check_action(action, id)
+            self.controler.check_action(action)
         else:
             print("Session expirée")
 

@@ -1,7 +1,7 @@
 from base_managing.CRUD import get_all_collaborateurs, get_nom_departement_by_id
 from views.common_view import CommonView
 from utilities.clear_screen import clear_screen
-from utilities.constantes import RED, RESET
+from utilities.constantes import GESTION_COLOR, RESET
 from controlers.show_collaborateurs_controler import ShowCollaborateursControler
 
 
@@ -13,7 +13,7 @@ class ShowCollaborateursView(CommonView):
         token = self.check_token_validity()
 
         if token is not False:
-            print(RED+"COLLABORATEURS\n\n"+RESET)
+            print(GESTION_COLOR+"COLLABORATEURS\n\n"+RESET)
             collaborateurs = get_all_collaborateurs()
             print(f"{"║ id"[:5]:<5} | {"login"[:25]:<25} | {"email"[:25]:<25} | {"departement"[:20]:<20}"+"║\n")
 
@@ -24,8 +24,9 @@ class ShowCollaborateursView(CommonView):
                 nom_departement = get_nom_departement_by_id(collaborateur.departement_id)
 
                 print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} | {nom_departement[:20]:<20}║")
-            id_collaborateur = input("Entrez le numéro de collaborateur ou appuyez "
-                                     "sur Entrée pour retourner au menu : ")
-            self.controler.select_action(id_collaborateur)
+            collaborateur = input("\nEntrez l'id d'un collaborateur à modifier,\n"
+                                  "entrez le login de l'utilisateur à supprimer\n"
+                                  "ou appuyez sur Entrée pour retourner au menu : ")
+            self.controler.select_action(collaborateur)
         else:
             print("Session expirée")
