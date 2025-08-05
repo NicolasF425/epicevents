@@ -24,9 +24,20 @@ class ShowCollaborateursView(CommonView):
                 nom_departement = get_nom_departement_by_id(collaborateur.departement_id)
 
                 print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} | {nom_departement[:20]:<20}║")
-            collaborateur = input("\nEntrez l'id d'un collaborateur à modifier,\n"
-                                  "entrez le login de l'utilisateur à supprimer\n"
-                                  "ou appuyez sur Entrée pour retourner au menu : ")
-            self.controler.select_action(collaborateur)
+            print("\n 1) Créer un nouveau collaborateur")
+            print(" 2) Modifier un collaborateur")
+            print(" 3) Supprimer un collaborateur")
+            choix = input("\nEntrez le numéro d'un action "
+                          "ou appuyez sur Entrée pour retourner au menu : ")
+            if choix == "1":
+                collaborateur = 0
+            elif choix == "2":
+                input("Entrez l'id du collaborateur à modifier: ")
+            elif choix == "3":
+                input("Entrez l'id du collaborateur à supprimer: ")
+            else:
+                choix = ""
+                collaborateur = 0
+            self.controler.select_action(choix, collaborateur)
         else:
             print("Session expirée")

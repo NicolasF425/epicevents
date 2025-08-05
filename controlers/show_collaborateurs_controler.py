@@ -1,30 +1,42 @@
-from base_managing.CRUD import get_collaborateur_by_id, get_collaborateur_by_login, delete_collaborateur
+from base_managing.CRUD import get_collaborateur_by_id, delete_collaborateur
 from controlers.common_controler import CommonControler
 from views.show_single_collaborateur_view import ShowSingleCollaborateurView
+from views.create_collaborateur_view import CreateCollaborateurView
 
 
 class ShowCollaborateursControler(CommonControler):
 
-    def select_action(self, collaborateur):
+    def select_action(self, choix, collaborateur):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
-            if collaborateur != "":
-                try:
-                    collaborateur = int(collaborateur)
-                    # selection d'une fiche collaborateur
-                    collaborateur = get_collaborateur_by_id(collaborateur)
-                    if collaborateur is not False:
-                        view = ShowSingleCollaborateurView()
-                        view.display_single_collaborateur(collaborateur)
-                    else:
+            if choix != "":
+                if choix == "1":
+                    view = CreateCollaborateurView()
+                    view.input_datas()
+                if choix == "2":  # modification
+                    try:
+                        collaborateur = int(collaborateur)
+                        # selection d'une fiche collaborateur
+                        collaborateur = get_collaborateur_by_id(collaborateur)
+                        if collaborateur is not False:
+                            view = ShowSingleCollaborateurView()
+                            view.display_single_collaborateur(collaborateur)
+                        else:
+                            print("id incorrect !")
+                    except ValueError:
+                        # si ce n'est pas un nombre
+                        print("Entrez un nombre")
+                if choix == "3":
+                    try:
+                        collaborateur = int(collaborateur)
+                    except ValueError:
+                        # si ce n'est pas un nombre
+                        print("Entrez un nombre")
+                    try:
+                        if type(collaborateur) is int:
+                            delete_collaborateur(collaborateur)
+                    except ValueError:
                         print("id incorrect !")
-                except ValueError:
-                    # si ce n'est pas un nombre
-                    if get_collaborateur_by_login(collaborateur) is not False:
-                        delete_collaborateur(collaborateur)
-                        print("Collaborateur supprimé")
-                    else:
-                        print("Login non trouvé")
             else:
                 # retour au menu
                 from views.main_menu_view import MainMenuView

@@ -295,9 +295,9 @@ def update_evenement(idEvenement, aModifier, nouvelleValeur):
 # DELETE
 
 
-def delete_collaborateur(loginCollaborateur):
+def delete_collaborateur(idCollaborateur):
     session = create_session()
-    stmt = delete(Collaborateur).where(Collaborateur.login == loginCollaborateur)
+    stmt = delete(Collaborateur).where(Collaborateur.id == idCollaborateur)
     try:
         session.execute(stmt)
         session.commit()
