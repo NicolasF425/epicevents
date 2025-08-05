@@ -1,6 +1,6 @@
 from controlers.common_controler import CommonControler
-from base_managing.CRUD import add_client
-from base_managing.models import Client
+from base_managing.CRUD import add_contrat
+from base_managing.models import Contrat
 from utilities.pause import pause
 
 
@@ -9,13 +9,13 @@ class CreateClientControler(CommonControler):
     def save_new_client(self, datas):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
-            client = Client()
-            client.nom_complet = datas[0]
-            client.email = datas[1]
-            client.telephone = datas[2]
-            client.nom_entreprise = datas[3]
-            client.commercial_id = datas[4]
-            add_client(client)
+            contrat = Contrat()
+            contrat.client_id = datas[0]
+            contrat.commercial_id = datas[1]
+            contrat.montant_total = datas[2]
+            contrat.montant_restant = datas[3]
+            contrat.est_signe = datas[4]
+            add_contrat(contrat)
         else:
             from views.login_view import LoginView
             print("Session expirée")

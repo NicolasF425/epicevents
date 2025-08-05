@@ -52,19 +52,19 @@ def add_client(client):
         session.close()
 
 
-def add_evenement(evenement):
+def add_contrat(contrat):
     try:
         session = create_session()
-        session.add(evenement)
+        session.add(contrat)
         session.commit()
     finally:
         session.close()
 
 
-def add_contrat(contrat):
+def add_evenement(evenement):
     try:
         session = create_session()
-        session.add(contrat)
+        session.add(evenement)
         session.commit()
     finally:
         session.close()

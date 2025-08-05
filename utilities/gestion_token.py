@@ -32,36 +32,19 @@ class JWTManager:
             print("Token invalide")
             return None
 
-    def decode_without_verification(self, token) -> Optional[Dict[str, Any]]:
-        """Décode un token sans vérification (pour debug)"""
-        try:
-            decoded = jwt.decode(token, options={"verify_signature": False})
-            return decoded
-        except Exception as e:
-            print(f"Erreur lors du décodage: {e}")
-            return None
-
     def write_token(self, token, filename):
         '''
         Ecrit le token dans un fichier
         '''
-
         f = open(filename, 'w', encoding='utf-8')
-
         f.write(token)
-
         f.close()
 
     def read_token(self, filename):
         '''
         Lit le token à partir du fichier
         '''
-
         f = open(filename, 'r', encoding='utf-8')
-
-        # lit toutes les lignes et supprime les retours à la ligne
         token = f.readline().strip()
-
         f.close()
-
         return token

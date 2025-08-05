@@ -1,21 +1,20 @@
 from controlers.common_controler import CommonControler
-from base_managing.CRUD import add_client
-from base_managing.models import Client
+from base_managing.CRUD import add_evenement
+from base_managing.models import Evenement
 from utilities.pause import pause
 
 
-class CreateClientControler(CommonControler):
+class CreateEvenementControler(CommonControler):
 
     def save_new_client(self, datas):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
-            client = Client()
-            client.nom_complet = datas[0]
-            client.email = datas[1]
-            client.telephone = datas[2]
-            client.nom_entreprise = datas[3]
-            client.commercial_id = datas[4]
-            add_client(client)
+            evenement = Evenement()
+            evenement.nom = datas[0]
+            evenement.client_id = datas[1]
+            evenement.contrat_id = datas[2]
+            evenement.responsable_support_id = datas[3]
+            add_evenement(evenement)
         else:
             from views.login_view import LoginView
             print("Session expirée")
