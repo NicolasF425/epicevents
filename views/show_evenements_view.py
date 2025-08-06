@@ -21,6 +21,20 @@ class ShowEvenementsView(CommonView):
                 id = evenement.id
                 nom = evenement.nom
                 print(f"{"║ "+str(id)[:5]:<5} | {nom[:40]:<40} ║")
-            input("")
+            print("\n 1) Créer un nouvel événement")
+            print(" 2) Modifier un événement")
+            print(" 3) Supprimer un événement")
+            choix = input("\nEntrez le numéro d'une action "
+                          "ou appuyez sur Entrée pour retourner au menu : ")
+            if choix == "1":
+                evenement = 0
+            elif choix == "2":
+                evenement = input("Entrez l'id de l'événement à modifier: ")
+            elif choix == "3":
+                evenement = input("Entrez l'id de l'événement à supprimer: ")
+            else:
+                choix = ""
+                evenement = 0
+
         else:
             print("Session expirée")

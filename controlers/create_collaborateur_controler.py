@@ -15,6 +15,10 @@ class CreateCollaborateurControler(CommonControler):
             collaborateur.email = datas[2]
             collaborateur.departement_id = datas[3]
             add_collaborateur(collaborateur)
+            print("Nouveau collaborateur créé")
+            from views.show_collaborateurs_view import ShowCollaborateursView
+            view = ShowCollaborateursView()
+            view.display_collaborateurs()
         else:
             from views.login_view import LoginView
             print("Session expirée")

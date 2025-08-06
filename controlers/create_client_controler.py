@@ -16,6 +16,9 @@ class CreateClientControler(CommonControler):
             client.nom_entreprise = datas[3]
             client.commercial_id = datas[4]
             add_client(client)
+            from views.show_clients_view import ShowClientsView
+            view = ShowClientsView()
+            view.display_clients(filtered=True)
         else:
             from views.login_view import LoginView
             print("Session expirée")

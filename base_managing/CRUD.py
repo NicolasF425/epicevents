@@ -178,7 +178,7 @@ def get_evenements_by_idSupport(idCollab):
     return evenements
 
 
-def get_evenements_by_id(id):
+def get_evenement_by_id(id):
     session = create_session()
     selection = select(Evenement).where(Evenement.id == id)
     result = session.execute(selection)

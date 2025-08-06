@@ -20,6 +20,9 @@ class JWTManager:
         token = jwt.encode(payload_copy, self.secret_key, algorithm=self.algorithm)
         return token
 
+    def renew_token():
+        pass
+
     def verify_token(self, token: str) -> Optional[Dict[str, Any]]:
         """Vérifie et décode un token JWT"""
         try:
