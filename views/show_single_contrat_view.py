@@ -1,9 +1,11 @@
 from views.common_view import CommonView
+from controlers.show_single_contrat_controler import ShowSingleContratControler
 from utilities.clear_screen import clear_screen
 from utilities.constantes import CYAN, RESET
 
 
 class ShowSingleContratView(CommonView):
+    controler = ShowSingleContratControler()
 
     def display_single_contrat(self, contrat):
         clear_screen()

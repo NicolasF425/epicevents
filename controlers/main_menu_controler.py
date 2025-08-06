@@ -17,6 +17,12 @@ class MainMenuControler:
                     case "my_clients":
                         view = ShowClientsView()
                         view.display_clients(True)
+                    case "my_contrats":
+                        view = ShowContratsView()
+                        view.display_contrats(True)
+                    case "my_evenements":
+                        view = ShowEvenementsView()
+                        view.display_evenements(True)
                     case "show_clients":
                         view = ShowClientsView()
                         view.display_clients()

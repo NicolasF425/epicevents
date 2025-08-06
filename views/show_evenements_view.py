@@ -1,7 +1,7 @@
 from base_managing.CRUD import get_all_evenements, get_evenements_by_idSupport
 from views.common_view import CommonView
 from utilities.clear_screen import clear_screen
-from utilities.constantes import GREEN, RESET
+from utilities.constantes import SUPPORT_COLOR, RESET
 
 
 class ShowEvenementsView(CommonView):
@@ -12,11 +12,11 @@ class ShowEvenementsView(CommonView):
 
         if token is not False:
             if not filtered:
-                print(GREEN+"EVENEMENTS\n\n"+RESET)
+                print(SUPPORT_COLOR+"EVENEMENTS\n\n"+RESET)
                 evenements = get_all_evenements()
             else:
                 print("MES EVENEMENTS\n\n")
-                evenements = get_evenements_by_idSupport()
+                evenements = get_evenements_by_idSupport(token["id"])
             for evenement in evenements:
                 id = evenement.id
                 nom = evenement.nom
