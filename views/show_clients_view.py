@@ -23,8 +23,14 @@ class ShowClientsView(CommonView):
                 id = client.id
                 entreprise = client.nom_entreprise
                 print(f"{"║ "+str(id)[:5]:<5} | {entreprise[:30]:<30} ║")
-            id_client = input("Entrez le numéro de client ou appuyez "
-                              "sur Entrée pour retourner au menu : ")
-            self.controler.select_action(id_client)
+            idClient = 0
+            action = input("\n 1) Créer un nouveau client\n"
+                           " 2) Modifier un client\n"
+                           " 3) Supprimer un client\n"
+                           " ou appuyez sur Entrée pour retourner au menu : ")
+            if action in ("2", "3"):
+                idClient = input("Entrez l'id du client: ")
+                idClient = int(idClient)
+            self.controler.select_action(action, idClient)
         else:
             print("Session expirée")

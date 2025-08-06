@@ -1,5 +1,5 @@
 from controlers.common_controler import CommonControler
-from base_managing.CRUD import update_client
+from base_managing.CRUD import update_client, get_client_by_id
 
 
 class ShowSingleClientControler(CommonControler):
@@ -12,7 +12,8 @@ class ShowSingleClientControler(CommonControler):
                 # modification d'un champ
                 from views.show_single_client_view import ShowSingleClientView
                 view = ShowSingleClientView()
-                view.display_update(action)
+                action = int(action)
+                view.display_update(self.idClient, action)
             else:
                 # retour à la liste des clients
                 from views.show_clients_view import ShowClientsView
@@ -21,6 +22,10 @@ class ShowSingleClientControler(CommonControler):
         else:
             print("Session expirée")
 
-    def save_new_value(idClient, field, value):
+    def save_new_value(self, idClient, field, value):
         if idClient > 0:
             update_client(idClient, field, value)
+            from views.show_single_client_view import ShowSingleClientView
+            view = ShowSingleClientView()
+            client = get_client_by_id(idClient)
+            view.display_single_client(client)
