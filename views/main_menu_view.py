@@ -30,6 +30,8 @@ class MainMenuView:
             if departement_id == GESTION:
                 self.num += 1
                 self.mapping["manage_collaborateur"] = self.num
+                self.num += 1
+                self.mapping["add_support_evenement"] = self.num
             # si departement commercial
             if departement_id == COMMERCIAL:
                 self.num += 1
@@ -58,6 +60,9 @@ class MainMenuView:
     def item_manage_collaborateur(self, num):
         print(SUPPORT_COLOR+str(num)+") Gérer les collaborateurs"+RESET)
 
+    def item_add_support_evenement(self, num):
+        print(SUPPORT_COLOR+str(num)+") Affecter un support à un événement"+RESET)
+
     def item_my_clients(self, num):
         print(COMMERCIAL_COLOR+str(num)+") Mes clients"+RESET)
 
@@ -82,10 +87,14 @@ class MainMenuView:
     def display_items(self):
         clear_screen()
         self.build_menu()
+        # cle = action
+        # valeur = numéro associé
         for cle, valeur in self.mapping.items():
             match cle:
                 case "manage_collaborateur":
                     self.item_manage_collaborateur(valeur)
+                case "add_support_evenement":
+                    self.item_add_support_evenement(valeur)
                 case "my_clients":
                     self.item_my_clients(valeur)
                 case "my_contrats":

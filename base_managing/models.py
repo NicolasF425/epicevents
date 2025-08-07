@@ -35,6 +35,7 @@ class Collaborateur(Base):
     password = Column(String(100), nullable=False)
     email = Column(String(255), nullable=False, unique=True)
     departement_id = Column(Integer, ForeignKey('departements.id'), nullable=False)
+    est_actif = Column(Boolean, nullable=False, default=True)
 
     # Relations
     departement = relationship("Departement", back_populates="collaborateurs")
@@ -173,31 +174,3 @@ class Evenement(Base):
 
     def __repr__(self):
         return f"<Evenement(nom='{self.nom}', date_debut='{self.date_debut}')>"
-
-
-'''
-class HistoriqueModification(Base):
-    """Table d'audit pour tracer les modifications"""
-    __tablename__ = 'historique_modifications'
-
-    id = Column(Integer, primary_key=True)
-    table_name = Column(String(50), nullable=False)
-    record_id = Column(Integer, nullable=False)
-    action = Column(String(20), nullable=False)  # INSERT, UPDATE, DELETE
-    ancien_valeur = Column(Text)  # JSON serialized
-    nouvelle_valeur = Column(Text)  # JSON serialized
-    utilisateur_id = Column(Integer, ForeignKey('collaborateurs.id'))
-    date_modification = Column(DateTime, default=func.now())
-
-    # Relation
-    utilisateur = relationship("Collaborateur", back_populates="modifications")
-
-    # Index
-    __table_args__ = (
-        Index('idx_historique_table_record', 'table_name', 'record_id'),
-        Index('idx_historique_date', 'date_modification'),
-    )
-
-    def __repr__(self):
-        return f"<HistoriqueModification(table='{self.table_name}', action='{self.action}')>"
-'''

@@ -13,7 +13,7 @@ class CreateEvenementControler(CommonControler):
             evenement.nom = datas[0]
             evenement.client_id = datas[1]
             evenement.contrat_id = datas[2]
-            evenement.responsable_support_id = datas[3]
+            evenement.responsable_support_id = None
             add_evenement(evenement)
         else:
             from views.login_view import LoginView

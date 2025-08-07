@@ -18,7 +18,7 @@ client2 = Client(nom_complet="Pierre Denis", email="pierre.denis@brico.fr", tele
 contrat1 = Contrat(client_id=1, commercial_id=1, montant_total=5000.56, montant_restant=2500.25)
 
 evenement1 = Evenement(nom="Journée spéciale plantes vertes", client_id=1, contrat_id=1,
-                       responsable_support_id=2, date_debut=datetime(2026, 8, 15, 10, 30, 0),
+                       date_debut=datetime(2026, 8, 15, 10, 30, 0),
                        date_fin=datetime(2026, 8, 16, 19, 30, 0),
                        lieu="en magasin",
                        adresse_lieu="3 allée des platanes, 44000 NANTES",

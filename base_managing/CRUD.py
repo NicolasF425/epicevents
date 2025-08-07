@@ -178,6 +178,14 @@ def get_evenements_by_idSupport(idCollab):
     return evenements
 
 
+def get_evenements_without_support():
+    session = create_session()
+    selection = select(Evenement).where(Evenement.responsable_support_id is None)
+    result = session.execute(selection)
+    evenements = result.scalars().all()
+    return evenements
+
+
 def get_evenement_by_id(id):
     session = create_session()
     selection = select(Evenement).where(Evenement.id == id)

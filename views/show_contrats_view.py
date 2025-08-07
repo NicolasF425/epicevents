@@ -1,10 +1,12 @@
 from base_managing.CRUD import get_all_contrats, get_client_by_id, get_contrats_by_idCommercial
 from views.common_view import CommonView
+from controlers.show_contrats_controler import ShowcontratsControler
 from utilities.clear_screen import clear_screen
 from utilities.constantes import COMMERCIAL_COLOR, RESET
 
 
 class ShowContratsView(CommonView):
+    controler = ShowcontratsControler()
 
     def display_contrats(self, filtered=False):
         clear_screen()
@@ -37,6 +39,8 @@ class ShowContratsView(CommonView):
             else:
                 choix = ""
                 contrat = 0
+
+            self.controler.select_action(choix, contrat)
 
         else:
             print("Session expirée")

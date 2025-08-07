@@ -14,6 +14,9 @@ class MainMenuControler:
                     case "manage_collaborateur":
                         view = ShowCollaborateursView()
                         view.display_collaborateurs()
+                    case "add_support_evenement":
+                        view = ShowEvenementsView()
+                        view.display_evenements("evenements_sans_support")
                     case "my_clients":
                         view = ShowClientsView()
                         view.display_clients(True)
@@ -22,7 +25,7 @@ class MainMenuControler:
                         view.display_contrats(True)
                     case "my_evenements":
                         view = ShowEvenementsView()
-                        view.display_evenements(True)
+                        view.display_evenements("mes_evenements")
                     case "show_clients":
                         view = ShowClientsView()
                         view.display_clients()
