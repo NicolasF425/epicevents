@@ -6,6 +6,7 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.exc import NoResultFound
 from base_managing.models import Collaborateur, Client, Contrat, Evenement, Departement
 from utilities.gestion_hashage import hash_password
+from sentry_sdk import capture_exception
 
 
 Base = declarative_base()
@@ -41,6 +42,10 @@ def add_collaborateur(collaborateur):
         collaborateur.password = hash_password(collaborateur.password)
         session.add(collaborateur)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)  # Envoie l'erreur à Sentry
+        raise  # Pour que l'erreur ne soit pas silencieuse
     finally:
         session.close()
 
@@ -50,6 +55,10 @@ def add_client(client):
         session = create_session()
         session.add(client)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -59,6 +68,10 @@ def add_contrat(contrat):
         session = create_session()
         session.add(contrat)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -68,6 +81,10 @@ def add_evenement(evenement):
         session = create_session()
         session.add(evenement)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -80,6 +97,7 @@ def get_all_collaborateurs():
     selection = select(Collaborateur)
     result = session.execute(selection)
     all_collaborateurs = result.scalars().all()
+    session.close()
     return all_collaborateurs
 
 
@@ -213,16 +231,20 @@ def update_collaborateur(idCollaborateur, aModifier, nouvelleValeur):
 
     match aModifier:
         case "login":
-            stmt = update(Client).where(Client.id == idCollaborateur).values(nom_complet=nouvelleValeur)
+            stmt = update(Collaborateur).where(Collaborateur.id == idCollaborateur).values(nom_complet=nouvelleValeur)
         case "password":
-            stmt = update(Client).where(Client.id == idCollaborateur).values(password=hash_password(nouvelleValeur))
+            stmt = update(Collaborateur).where(Collaborateur.id).values(password=hash_password(nouvelleValeur))
         case "email":
-            stmt = update(Client).where(Client.id == idCollaborateur).values(email=nouvelleValeur)
+            stmt = update(Collaborateur).where(Collaborateur.id).values(email=nouvelleValeur)
         case "departement_id":
-            stmt = update(Client).where(Client.id == idCollaborateur).values(nom_entreprise=nouvelleValeur)
+            stmt = update(Collaborateur).where(Collaborateur.id).values(nom_entreprise=nouvelleValeur)
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -242,6 +264,10 @@ def update_client(idClient, aModifier, nouvelleValeur):
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -251,22 +277,26 @@ def update_contrat(idContrat, aModifier, nouvelleValeur):
 
     match aModifier:
         case "client_id":
-            stmt = update(Client).where(Client.id == idContrat).values(client_id=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(client_id=nouvelleValeur)
         case "commercial_id":
-            stmt = update(Client).where(Client.id == idContrat).values(montant_total=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(montant_total=nouvelleValeur)
         case "montant_total":
-            stmt = update(Client).where(Client.id == idContrat).values(telephone=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(telephone=nouvelleValeur)
         case "montant_restant":
-            stmt = update(Client).where(Client.id == idContrat).values(montant_restant=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(montant_restant=nouvelleValeur)
         case "statut_id":
-            stmt = update(Client).where(Client.id == idContrat).values(statut_id=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(statut_id=nouvelleValeur)
         case "date_signature":
-            stmt = update(Client).where(Client.id == idContrat).values(date_signature=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(date_signature=nouvelleValeur)
         case "date_fin_prevue":
-            stmt = update(Client).where(Client.id == idContrat).values(date_fin_prevue=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(date_fin_prevue=nouvelleValeur)
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -298,6 +328,10 @@ def update_evenement(idEvenement, aModifier, nouvelleValeur):
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -311,6 +345,10 @@ def delete_collaborateur(idCollaborateur):
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -321,6 +359,10 @@ def delete_client(idClient):
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -331,6 +373,10 @@ def delete_contrat(idContrat):
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
 
@@ -341,5 +387,9 @@ def delete_evenement(idEvenement):
     try:
         session.execute(stmt)
         session.commit()
+    except Exception as e:
+        session.rollback()
+        capture_exception(e)
+        raise
     finally:
         session.close()
