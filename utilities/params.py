@@ -1,3 +1,0 @@
-SECRET_KEY = "ABC987xcv456mlk@"
-REFRESH_SECRET_KEY = "    "
-FILENAME = "token.txt"

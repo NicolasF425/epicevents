@@ -6,16 +6,18 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.exc import NoResultFound
 from base_managing.models import Collaborateur, Client, Contrat, Evenement, Departement
 from utilities.gestion_hashage import hash_password
-from base_managing.params import PASSWORD
 
 
 Base = declarative_base()
 
 
 def create_session():
+    import os
+    pwd = os.getenv("sql_epicevents")
+
     # Configuration de la base de données
-    username = "root"
-    password = quote(PASSWORD)  # encode les caractères spéciaux
+    username = "epicevents"
+    password = quote(pwd)  # encode les caractères spéciaux
     host = "localhost"
     port = 3306
     dbname = "epicevents"

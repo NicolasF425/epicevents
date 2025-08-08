@@ -1,11 +1,18 @@
 from views.login_view import LoginView
 import sentry_sdk
+from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()  # Charge automatiquement le fichier .env
 
 sentry_sdk.init(
-    dsn="https://709ac84f126afba33f99a2c28a17ae1b@o4509790547148800.ingest.de.sentry.io/4509790549901392",
+    dsn=os.getenv("dsn"),
     # Add data like request headers and IP for users,
     # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+    integrations=[SqlalchemyIntegration()],
+    traces_sample_rate=1.0,  # Active la collecte de performance (1.0 = 100% des traces)
     send_default_pii=True,
 )
 

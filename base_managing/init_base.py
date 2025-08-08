@@ -1,7 +1,6 @@
 from urllib.parse import quote
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from base_managing.params import PASSWORD
 from base_managing.models import Base, Departement
 
 
@@ -25,10 +24,11 @@ def init_data(session):
 
 
 def init_base():
-    pwd = PASSWORD
+    import os
+    pwd = os.getenv("sql_epicevents")
 
     # Configuration de la base de données
-    username = "root"
+    username = "epicevents"
     password = quote(pwd)  # encode les caractères spéciaux
     host = "localhost"
     port = 3306

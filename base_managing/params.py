@@ -1,1 +1,0 @@
-PASSWORD = "Acess2Base:;"

@@ -1,12 +1,15 @@
 import jwt
 import datetime
 from typing import Dict, Any, Optional
-from utilities.params import SECRET_KEY
+import os
 
 
 class JWTManager:
+
+    filename = os.getenv("FILENAME")
+
     def __init__(self, algorithm: str = 'HS256'):
-        self.secret_key = SECRET_KEY
+        self.secret_key = os.getenv("SECRET_KEY")
         self.algorithm = algorithm
 
     def create_token(self, payload: Dict[str, Any], expires_in_hours: int = 1):
