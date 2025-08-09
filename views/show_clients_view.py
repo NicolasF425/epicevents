@@ -19,8 +19,10 @@ class ShowClientsView(CommonView):
             else:
                 print(BLUE+"MES CLIENTS\n\n"+RESET)
                 clients = get_clients_by_idCommercial(int(token["id"]))
+            ids_clients = []
             for client in clients:
                 id = client.id
+                ids_clients.append(id)
                 entreprise = client.nom_entreprise
                 print(f"{"║ "+str(id)[:5]:<5} | {entreprise[:30]:<30} ║")
             if not filtered:
@@ -35,15 +37,16 @@ class ShowClientsView(CommonView):
             else:
                 print("\n 1) Créer un nouveau client")
                 print(" 2) Voir ou modifier un client")
-                print(" 3) Supprimer un client")
                 choix = input("\nEntrez le numéro d'une action "
                               "ou appuyez sur Entrée pour retourner au menu : ")
                 if choix == "1":
                     client = 0
                 elif choix == "2":
                     client = input("Entrez l'id du client: ")
-                elif choix == "3":
-                    client = input("Entrez l'id du client à supprimer: ")
+                    int_client = int(client)
+                    if int_client not in ids_clients:
+                        print("id incorrect")
+                        client = 0
                 else:
                     choix = ""
                     client = 0

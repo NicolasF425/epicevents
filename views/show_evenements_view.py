@@ -22,8 +22,10 @@ class ShowEvenementsView(CommonView):
             elif filtered == "evenements_sans_support":
                 print(GESTION_COLOR+"AFFECTER UN SUPPORT A UN EVENEMENT\n\n"+RESET)
                 evenements = get_evenements_without_support()
+            ids_evenements = []
             for evenement in evenements:
                 id = evenement.id
+                ids_evenements.append(id)
                 nom = evenement.nom
                 print(f"{"║ "+str(id)[:5]:<5} | {nom[:40]:<40} ║")
             modificateur = 0    # pour choix action
@@ -42,8 +44,18 @@ class ShowEvenementsView(CommonView):
                         evenement = 0
                     elif modificateur == 1:
                         evenement = input("Entrez l'id de l'événement à modifier: ")
+                        int_evenement = int(evenement)
+                        if int_evenement not in ids_evenements:
+                            print("id incorrect")
+                            modificateur = 0
+                            evenement = 0
                     elif modificateur == 2:
                         evenement = input("Entrez l'id de l'événement à attribuer: ")
+                        int_evenement = int(evenement)
+                        if int_evenement not in ids_evenements:
+                            print("id incorrect")
+                            modificateur = 0
+                            evenement = 0
                 else:
                     modificateur = ""
                     evenement = 0

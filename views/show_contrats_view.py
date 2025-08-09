@@ -19,8 +19,10 @@ class ShowContratsView(CommonView):
             else:
                 print(COMMERCIAL_COLOR+"MES CONTRATS\n\n"+RESET)
                 contrats = get_contrats_by_idCommercial(token["id"])
+            ids_contrats = []
             for contrat in contrats:
                 id = contrat.id
+                ids_contrats.append(id)
                 client = contrat.client_id
                 nom_client = get_client_by_id(client).nom_entreprise
                 print(f"{"║ "+str(id)[:5]:<5} | {nom_client[:30]:<30} ║")
@@ -34,8 +36,16 @@ class ShowContratsView(CommonView):
                 contrat = 0
             elif choix == "2":
                 contrat = input("Entrez l'id du contrat à modifier: ")
+                int_contrat = int(contrat)
+                if int_contrat not in ids_contrats:
+                    print("id incorrect")
+                    contrat = 0
             elif choix == "3":
                 contrat = input("Entrez l'id du collaborateur à supprimer: ")
+                int_contrat = int(contrat)
+                if int_contrat not in ids_contrats:
+                    print("id incorrect")
+                    contrat = 0
             else:
                 choix = ""
                 contrat = 0
