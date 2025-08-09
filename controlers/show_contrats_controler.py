@@ -43,6 +43,12 @@ class ShowcontratsControler(CommonControler):
                             view.display_contrats()
                     except ValueError:
                         print("id incorrect !")
+            elif choix in ["4", "5", "6"]:
+                filtres = ["mes contrats", "non signe", "non totalement paye"]
+                from views.show_contrats_view import ShowContratsView
+                view = ShowContratsView()
+                view.filter = filtres[int(choix)-4]
+                view.display_contrats()
             else:
                 # retour au menu
                 from views.main_menu_view import MainMenuView
