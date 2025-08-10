@@ -34,7 +34,7 @@ class MainMenuControler:
                         view.display_contrats()
                     case "show_evenements":
                         view = ShowEvenementsView()
-                        view.display_evenements(True)
+                        view.display_evenements()
                     case "show_evenements":
                         view = ShowEvenementsView()
                         view.display_evenements()

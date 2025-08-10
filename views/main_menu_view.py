@@ -1,9 +1,9 @@
 from utilities.gestion_token import JWTManager
 from controlers.main_menu_controler import MainMenuControler
-from utilities.params import FILENAME
 from utilities.constantes import COMMERCIAL, GESTION, SUPPORT
 from utilities.constantes import COMMERCIAL_COLOR, SUPPORT_COLOR, RESET
 from utilities.clear_screen import clear_screen
+import os
 
 
 class MainMenuView:
@@ -13,7 +13,7 @@ class MainMenuView:
 
     def check_token_validity(self):
         jwt = JWTManager()
-        token = jwt.read_token(FILENAME)
+        token = jwt.read_token(os.getenv("FILENAME"))
         token = jwt.verify_token(token)
         if token is not None:
             return token

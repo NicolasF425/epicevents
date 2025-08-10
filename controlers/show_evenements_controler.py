@@ -5,7 +5,7 @@ from views.create_evenement_view import CreateEvenementView
 from utilities.pause import pause
 
 
-class ShowevenementsControler(CommonControler):
+class ShowEvenementsControler(CommonControler):
 
     def select_action(self, choix, evenement):
         # si le token est toujours valide
