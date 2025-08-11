@@ -37,7 +37,7 @@ class ShowContratsView(CommonView):
 
             print("\n 4) aucun filtre")
             print(" 5) afficher non signés")
-            print(" 6) afficher non tatalement payés")
+            print(" 6) afficher non totalement payés")
             choix = input("\nEntrez le numéro d'une action "
                           "ou appuyez sur Entrée pour retourner au menu : ")
             if choix in ["1", "2", "3"]:

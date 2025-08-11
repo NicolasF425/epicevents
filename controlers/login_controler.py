@@ -19,8 +19,8 @@ class LoginControler:
                     'id': user.id,
                     'departement_id': user.departement_id
                 }
-                token = jwt.create_token(payload)
-                jwt.write_token(token, os.getenv("FILENAME"))
+                tokens = jwt.create_tokens(payload)
+                jwt.write_tokens(tokens, os.getenv("FILENAME"))
                 view = MainMenuView()
                 view.display_items()
             else:

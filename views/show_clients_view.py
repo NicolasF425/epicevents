@@ -26,7 +26,7 @@ class ShowClientsView(CommonView):
                 entreprise = client.nom_entreprise
                 print(f"{"║ "+str(id)[:5]:<5} | {entreprise[:30]:<30} ║")
             if not filtered:
-                print(" 1) Voir un client")
+                print("\n 1) Voir un client")
                 choix = input("ou appuyez sur Entrée pour retourner au menu : ")
                 if choix == "1":
                     client = input("Entrez l'id du client: ")
