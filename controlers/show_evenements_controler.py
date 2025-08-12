@@ -15,18 +15,14 @@ class ShowEvenementsControler(CommonControler):
                     view = CreateEvenementView()
                     view.input_datas()
                 if choix == "2":  # modification
-                    try:
-                        evenement = int(evenement)
-                        # selection d'une fiche evenement
-                        evenement = get_evenement_by_id(evenement)
-                        if evenement is not False:
-                            view = ShowSingleEvenementView()
-                            view.display_single_evenement(evenement)
-                        else:
-                            print("id incorrect !")
-                    except ValueError:
-                        # si ce n'est pas un nombre
-                        print("Entrez un nombre")
+                    evenement = int(evenement)
+                    # selection d'une fiche evenement
+                    evenement = get_evenement_by_id(evenement)
+                    if evenement is not False:
+                        view = ShowSingleEvenementView()
+                        view.display_single_evenement(evenement)
+                    else:
+                        print("id incorrect !")
                 if choix == "3":
                     try:
                         evenement = int(evenement)

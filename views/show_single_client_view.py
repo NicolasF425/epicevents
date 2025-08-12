@@ -25,7 +25,7 @@ class ShowSingleClientView(CommonView):
             print(" 4) entreprise:        "+entreprise)
 
             if token["departement_id"] == COMMERCIAL:
-                print("Appuyez sur entrée pour retourner à l'écran précédent")
+                print("\nAppuyez sur entrée pour retourner à l'écran précédent")
                 print("ou entrez le numéro d'élément à modifier")
                 action = input("Votre choix: ")
             else:
@@ -49,7 +49,7 @@ class ShowSingleClientView(CommonView):
                 new_telephone = input("nouveau numéro de téléphone: ")
                 datas = ["telephone", new_telephone]
             case 4:
-                new_nom_entreprise = int(input("nouveau nom d'entreprise: "))
+                new_nom_entreprise = input("nouveau nom d'entreprise: ")
                 datas = ["nom_entreprise", new_nom_entreprise]
 
         if self.controler.check_token_validity() is not False:

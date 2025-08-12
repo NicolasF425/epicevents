@@ -30,23 +30,29 @@ class ShowEvenementsView(CommonView):
                 nom = evenement.nom
                 print(f"{"║ "+str(id)[:5]:<5} | {nom[:40]:<40} ║")
 
-            modificateur = 0    # pour choix action
+            modificateur = -1    # pour choix action différencié
             if token["departement_id"] == COMMERCIAL:
                 print("\n 1) Créer un événement")
+                modificateur = 0
             if token["departement_id"] == SUPPORT:
-                print(" 1) Modifier un événement")
-                modificateur = 1
+                if ids_evenements.count() > 0:
+                    print(" 1) Modifier un événement")
+                    modificateur = 1
             if token["departement_id"] == GESTION:
-                print(" 1) Attribuer un événement")
-                modificateur = 2
+                if ids_evenements.count() > 0:
+                    print(" 1) Attribuer un événement")
+                    modificateur = 2
             choix = input("\nEntrez le numéro d'une action \n"
                           "ou appuyez sur Entrée pour retourner au menu : ")
-            if choix == "1":
+            # si action disponible et choisie
+            if choix == "1" and modificateur > -1:
                 if modificateur == 0:
+                    choix = "1"
                     evenement = 0
                 elif modificateur == 1:
                     evenement = input("Entrez l'id de l'événement à modifier: ")
                     int_evenement = int(evenement)
+                    choix = "2"
                     if int_evenement not in ids_evenements:
                         print("id incorrect")
                         modificateur = 0
@@ -56,11 +62,11 @@ class ShowEvenementsView(CommonView):
                     int_evenement = int(evenement)
                     if int_evenement not in ids_evenements:
                         print("id incorrect")
-                        modificateur = 0
+                        choix = "3"
                         evenement = 0
             else:
-                modificateur = ""
+                choix = ""
                 evenement = 0
-            self.controler.select_action(modificateur, evenement)
+            self.controler.select_action(choix, evenement)
         else:
             print("Session expirée")
