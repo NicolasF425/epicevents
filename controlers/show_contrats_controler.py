@@ -1,20 +1,22 @@
-from base_managing.CRUD import get_contrat_by_id, delete_contrat
+from base_managing.CRUD import get_contrat_by_id
 from controlers.common_controler import CommonControler
 from views.show_single_contrat_view import ShowSingleContratView
 from views.create_contrat_view import CreateContratView
-from utilities.pause import pause
+from utilities.constantes import COMMERCIAL, GESTION
 
 
 class ShowcontratsControler(CommonControler):
 
     def select_action(self, choix, contrat):
-        # si le token est toujours valide
-        if self.check_token_validity() is not False:
-            if choix in ["1", "2", "3"]:
-                if choix == "1":
+        token = self.check_token_validity()
+
+        if token is not False:
+            if choix in ["1", "2"]:
+                if choix == "1" and token['departement_id'] == GESTION:    # creation
                     view = CreateContratView()
                     view.input_datas()
-                if choix == "2":  # modification
+                if (choix == "1" and token['departement_id'] == COMMERCIAL) or \
+                   (choix == "2" and token['departement_id'] == GESTION):  # modification
                     try:
                         contrat = int(contrat)
                         # selection d'une fiche contrat
@@ -27,27 +29,11 @@ class ShowcontratsControler(CommonControler):
                     except ValueError:
                         # si ce n'est pas un nombre
                         print("Entrez un nombre")
-                if choix == "3":
-                    try:
-                        contrat = int(contrat)
-                    except ValueError:
-                        # si ce n'est pas un nombre
-                        print("Entrez un nombre")
-                    try:
-                        if type(contrat) is int:
-                            delete_contrat(contrat)
-                            print("contrat supprimé")
-                            pause(3)
-                            from views.show_contrats_view import ShowContratsView
-                            view = ShowContratsView()
-                            view.display_contrats()
-                    except ValueError:
-                        print("id incorrect !")
-            elif choix in ["4", "5", "6"]:
+            elif choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
                 filtres = ["mes contrats", "non signe", "non totalement paye"]
                 from views.show_contrats_view import ShowContratsView
                 view = ShowContratsView()
-                view.filter = filtres[int(choix)-4]
+                view.filter = filtres[int(choix)-3]
                 view.display_contrats()
             else:
                 # retour au menu

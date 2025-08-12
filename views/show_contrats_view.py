@@ -2,7 +2,7 @@ from base_managing.CRUD import get_all_contrats, get_client_by_id, get_contrats_
 from views.common_view import CommonView
 from controlers.show_contrats_controler import ShowcontratsControler
 from utilities.clear_screen import clear_screen
-from utilities.constantes import COMMERCIAL_COLOR, RESET
+from utilities.constantes import GESTION, COMMERCIAL, COMMERCIAL_COLOR, RESET
 
 
 class ShowContratsView(CommonView):
@@ -31,35 +31,46 @@ class ShowContratsView(CommonView):
                         nom_client = get_client_by_id(client).nom_entreprise
                         print(f"{"║ "+str(id)[:5]:<5} | {nom_client[:30]:<30} ║")
 
-            print("\n 1) Créer un nouveau contrat")
-            print(" 2) Modifier un contrat")
-            print(" 3) Supprimer un contrat")
+            compteur = 1
+            create = False
+            update = False
+            if token['departement_id'] == GESTION:
+                print("\n "+str(compteur)+") Créer un nouveau contrat")
+                compteur += 1
+                create = True
+            if (token['departement_id'] == GESTION and filtered is False) or \
+               (token['departement_id'] == COMMERCIAL and filtered is True):
+                print(" "+str(compteur)+") Modifier un contrat")
+                compteur += 1
+                update = True
+            if token['departement_id'] == COMMERCIAL and filtered is True:
+                print("\n "+str(compteur)+") aucun filtre")
+                print("\n "+str(compteur+1)+") afficher non signés")
+                print("\n "+str(compteur+2)+") afficher non totalement payés")
 
-            print("\n 4) aucun filtre")
-            print(" 5) afficher non signés")
-            print(" 6) afficher non totalement payés")
             choix = input("\nEntrez le numéro d'une action "
                           "ou appuyez sur Entrée pour retourner au menu : ")
-            if choix in ["1", "2", "3"]:
-                if choix == "1":
+
+            if choix == "1" and create is True:  # GESTION
+                contrat = 0
+            elif choix == 1 and create is False and update is True:  # COMMERCIAL
+                contrat = input("Entrez l'id du contrat à modifier: ")
+                int_contrat = int(contrat)
+                if int_contrat not in ids_contrats:
+                    print("id incorrect")
                     contrat = 0
-                elif choix == "2":
-                    contrat = input("Entrez l'id du contrat à modifier: ")
-                    int_contrat = int(contrat)
-                    if int_contrat not in ids_contrats:
-                        print("id incorrect")
-                        contrat = 0
-                elif choix == "3":
-                    contrat = input("Entrez l'id du contrat à supprimer: ")
-                    int_contrat = int(contrat)
-                    if int_contrat not in ids_contrats:
-                        print("id incorrect")
-                        contrat = 0
-                else:
-                    choix = ""
+            elif choix == "2" and create is True and update is True:    # GESTION
+                contrat = input("Entrez l'id du contrat à modifier: ")
+                int_contrat = int(contrat)
+                if int_contrat not in ids_contrats:
+                    print("id incorrect")
                     contrat = 0
-                self.controler.select_action(choix, contrat)
-            if choix in ["4", "5", "6"]:
+            else:
+                choix = ""
+                contrat = 0
+            self.controler.select_action(choix, contrat)
+
+            if choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
                 self.controler.select_action(choix, 0)
         else:
             print("Session expirée")

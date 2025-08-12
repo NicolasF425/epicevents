@@ -35,12 +35,12 @@ class ShowEvenementsView(CommonView):
                 print("\n 1) Créer un événement")
                 modificateur = 0
             if token["departement_id"] == SUPPORT:
-                if ids_evenements.count() > 0:
-                    print(" 1) Modifier un événement")
+                if len(ids_evenements) > 0:
+                    print("\n 1) Modifier un événement")
                     modificateur = 1
             if token["departement_id"] == GESTION:
-                if ids_evenements.count() > 0:
-                    print(" 1) Attribuer un événement")
+                if len(ids_evenements) > 0:
+                    print("\n 1) Attribuer un événement")
                     modificateur = 2
             choix = input("\nEntrez le numéro d'une action \n"
                           "ou appuyez sur Entrée pour retourner au menu : ")

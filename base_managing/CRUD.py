@@ -14,6 +14,8 @@ Base = declarative_base()
 
 def create_session():
     import os
+    from dotenv import load_dotenv
+    load_dotenv()
     pwd = os.getenv("sql_epicevents")
 
     # Configuration de la base de données
@@ -199,11 +201,14 @@ def get_evenements_by_idSupport(idCollab):
 
 
 def get_evenements_without_support():
-    session = create_session()
-    selection = select(Evenement).where(Evenement.responsable_support_id is None)
-    result = session.execute(selection)
-    evenements = result.scalars().all()
-    return evenements
+    try:
+        session = create_session()
+        selection = select(Evenement).where(Evenement.responsable_support_id.is_(None))
+        result = session.execute(selection)
+        evenements = result.scalars().all()
+        return evenements
+    finally:
+        session.close()
 
 
 def get_evenement_by_id(id):

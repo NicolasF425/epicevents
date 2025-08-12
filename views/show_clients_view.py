@@ -47,6 +47,8 @@ class ShowClientsView(CommonView):
                     if int_client not in ids_clients:
                         print("id incorrect")
                         client = 0
+                    else:
+                        client = int_client
                 else:
                     choix = ""
                     client = 0

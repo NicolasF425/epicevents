@@ -1,8 +1,7 @@
-from base_managing.CRUD import get_evenement_by_id, delete_evenement
+from base_managing.CRUD import get_evenement_by_id
 from controlers.common_controler import CommonControler
 from views.show_single_evenement_view import ShowSingleEvenementView
 from views.create_evenement_view import CreateEvenementView
-from utilities.pause import pause
 
 
 class ShowEvenementsControler(CommonControler):
@@ -24,21 +23,7 @@ class ShowEvenementsControler(CommonControler):
                     else:
                         print("id incorrect !")
                 if choix == "3":
-                    try:
-                        evenement = int(evenement)
-                    except ValueError:
-                        # si ce n'est pas un nombre
-                        print("Entrez un nombre")
-                    try:
-                        if type(evenement) is int:
-                            delete_evenement(evenement)
-                            print("evenement supprimé")
-                            pause(3)
-                            from views.show_evenements_view import ShowEvenementsView
-                            view = ShowEvenementsView()
-                            view.display_evenements()
-                    except ValueError:
-                        print("id incorrect !")
+                    pass
             else:
                 # retour au menu
                 from views.main_menu_view import MainMenuView

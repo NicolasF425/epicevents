@@ -2,6 +2,7 @@ from urllib.parse import quote
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from base_managing.models import Base, Departement
+from dotenv import load_dotenv
 
 
 # Configuration pour créer les données de base
@@ -47,4 +48,5 @@ def init_base():
 
 
 # initialisation des tables
+load_dotenv()
 init_base()

@@ -26,6 +26,4 @@ class LoginControler:
             else:
                 print('login ou mot de passe incorrect')
         else:
-            # pour debug
-            # print('utilisateur non trouvé')
             print('login ou mot de passe incorrect')
