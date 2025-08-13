@@ -3,13 +3,14 @@ from base_managing.CRUD import update_contrat
 
 
 class ShowSingleContratControler(CommonControler):
-    idCollaborateur = 0
 
-    def check_action(self, action):
+    def check_action(self, action, id):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if action != "":
-                pass
+                from views.show_single_contrat_view import ShowSingleContratView
+                view = ShowSingleContratView()
+                view.display_update(action, id)
             else:
                 # retour à la liste des contrats
                 from views.show_contrats_view import ShowContratsView

@@ -293,10 +293,8 @@ def update_contrat(idContrat, aModifier, nouvelleValeur):
             stmt = update(Contrat).where(Contrat.id == idContrat).values(telephone=nouvelleValeur)
         case "montant_restant":
             stmt = update(Contrat).where(Contrat.id == idContrat).values(montant_restant=nouvelleValeur)
-        case "statut_id":
+        case "est_signe":
             stmt = update(Contrat).where(Contrat.id == idContrat).values(statut_id=nouvelleValeur)
-        case "date_signature":
-            stmt = update(Contrat).where(Contrat.id == idContrat).values(date_signature=nouvelleValeur)
         case "date_fin_prevue":
             stmt = update(Contrat).where(Contrat.id == idContrat).values(date_fin_prevue=nouvelleValeur)
     try:

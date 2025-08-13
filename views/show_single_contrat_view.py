@@ -21,28 +21,37 @@ class ShowSingleContratView(CommonView):
             statut_contrat = contrat.est_signe
 
             print(" id: "+str(id))
-            print(" id / nom client:"+str(client_id)+" / ")
-            print(" 1) id / commercial: "+str(commercial_id)+" / ")
-            print(" 2) montant total: "+str(montant_total)+" / ")
-            print(" 3) montant restant: "+str(montant_restant)+" / ")
-            print(" date création: "+date_creation)
-            print(" 4) contrat signé: "+statut_contrat)
+            print("\n id client:"+str(client_id))
+            print(" 1) id commercial: "+str(commercial_id))
+            print(" 2) montant total: "+str(montant_total))
+            print(" 3) montant restant: "+str(montant_restant))
+            print(f" date création: {date_creation.strftime('%d/%m/%Y %H:%M:%S')}")
+            est_signe = "non"
+            if statut_contrat:
+                est_signe = "oui"
+            print(" 4) contrat signé: "+est_signe)
+            action = input("\nEntrez le numéro de l'élément à "
+                           "modifier ou appyez sur Entrée pour revenir au menu: ")
+            self.controler.check_action(action, id)
 
-    def display_update(self, field_number):
+    def display_update(self, field_number, id):
         print("\n")
+        infos = []
         match field_number:
             case 1:
                 new_commercial_id = input("id du nouveau commercial associé : ")
-                return "commercial_id", new_commercial_id
+                infos = ["commercial_id", new_commercial_id]
             case 2:
                 new_montant_total = input("nouveau montant total: ")
-                return "montant_total", new_montant_total
+                infos = ["montant_total", new_montant_total]
             case 3:
                 new_montant_restant = input("nouveau montant restant: ")
-                return "email", new_montant_restant
+                infos = ["montant_restant", new_montant_restant]
             case 4:
                 new_est_signe = int(input("nouveau statut (0=non signé, 1=signé): "))
-                return "departement_id", new_est_signe
+                new_est_signe = bool(int(new_est_signe))
+                infos = ["est_signe", new_est_signe]
 
         if self.controler.check_token_validity() is not False:
-            self.controler.save_new_value()
+            if infos:
+                self.controler.save_new_value(id, infos[0], infos[1])

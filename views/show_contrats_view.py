@@ -29,7 +29,12 @@ class ShowContratsView(CommonView):
                         ids_contrats.append(id)
                         client = contrat.client_id
                         nom_client = get_client_by_id(client).nom_entreprise
-                        print(f"{"║ "+str(id)[:5]:<5} | {nom_client[:30]:<30} ║")
+                        montant_restant = contrat.montant_restant
+                        est_signe = "non"
+                        if contrat.est_signe:
+                            est_signe = "oui"
+                        print(f"{"║ "+str(id)[:5]:<5} | {nom_client[:30]:<30} | {str(montant_restant)[:15]:<15} \
+                              | {est_signe[:5]:<5} ║")
 
             compteur = 1
             create = False
@@ -40,20 +45,20 @@ class ShowContratsView(CommonView):
                 create = True
             if (token['departement_id'] == GESTION and filtered is False) or \
                (token['departement_id'] == COMMERCIAL and filtered is True):
-                print(" "+str(compteur)+") Modifier un contrat")
+                print("\n "+str(compteur)+") Modifier un contrat")
                 compteur += 1
                 update = True
             if token['departement_id'] == COMMERCIAL and filtered is True:
                 print("\n "+str(compteur)+") aucun filtre")
-                print("\n "+str(compteur+1)+") afficher non signés")
-                print("\n "+str(compteur+2)+") afficher non totalement payés")
+                print(" "+str(compteur+1)+") afficher non signés")
+                print(" "+str(compteur+2)+") afficher non totalement payés")
 
             choix = input("\nEntrez le numéro d'une action "
                           "ou appuyez sur Entrée pour retourner au menu : ")
 
             if choix == "1" and create is True:  # GESTION
                 contrat = 0
-            elif choix == 1 and create is False and update is True:  # COMMERCIAL
+            elif choix == "1" and create is False and update is True:  # COMMERCIAL
                 contrat = input("Entrez l'id du contrat à modifier: ")
                 int_contrat = int(contrat)
                 if int_contrat not in ids_contrats:
