@@ -1,4 +1,5 @@
 from base_managing.CRUD import get_all_evenements, get_evenements_by_idSupport, get_evenements_without_support
+from base_managing.CRUD import get_collaborateurs_by_idDepartement
 from views.common_view import CommonView
 from controlers.show_evenements_controler import ShowEvenementsControler
 from utilities.clear_screen import clear_screen
@@ -70,3 +71,21 @@ class ShowEvenementsView(CommonView):
             self.controler.select_action(choix, evenement)
         else:
             print("Session expirée")
+
+    def attribute_support_evenement(self, idEvenement):
+        collaborateurs = get_collaborateurs_by_idDepartement(SUPPORT)
+        ids = []
+        print("\n")
+        for collaborateur in collaborateurs:
+            id = collaborateur.id
+            ids.append(id)
+            login = collaborateur.login
+            email = collaborateur.email
+            print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} ║")
+        print("\n")
+        idSupport = input("Entrez l'id du collaborateur à affecter: ")
+        if idSupport in ids:
+            idSupport = int(idSupport)
+            self.controler.attribute_support_evenenement(idEvenement, idSupport)
+        else:
+            print("id non trouvé")

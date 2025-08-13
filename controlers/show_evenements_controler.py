@@ -1,4 +1,4 @@
-from base_managing.CRUD import get_evenement_by_id
+from base_managing.CRUD import get_evenement_by_id, update_evenement
 from controlers.common_controler import CommonControler
 from views.show_single_evenement_view import ShowSingleEvenementView
 from views.create_evenement_view import CreateEvenementView
@@ -31,3 +31,6 @@ class ShowEvenementsControler(CommonControler):
                 view.display_items()
         else:
             print("Session expirée")
+
+    def attribute_support_evenenement(self, idEvenement, idSupport):
+        update_evenement(idEvenement, "responsable_support_id", idSupport)

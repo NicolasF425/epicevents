@@ -145,6 +145,21 @@ def get_collaborateur_by_id(idCollaborateur):
             session.close()
 
 
+def get_collaborateurs_by_idDepartement(idDepartement):
+    try:
+        session = create_session()
+        selection = select(Collaborateur).where(Collaborateur.departement_id == idDepartement)
+        result = session.execute(selection)
+        collaborateur = result.scalars().one()
+        return collaborateur
+    except NoResultFound:
+        print("Aucun collaborateur trouvé")
+        return False
+    finally:
+        if session:
+            session.close()
+
+
 def get_collaborateur_by_login(loginCollaborateur):
     try:
         session = create_session()
@@ -328,8 +343,6 @@ def update_evenement(idEvenement, aModifier, nouvelleValeur):
             stmt = update(Evenement).where(Evenement.id == idEvenement).values(adresse_lieu=nouvelleValeur)
         case "nombre_participants":
             stmt = update(Evenement).where(Evenement.id == idEvenement).values(nombre_participants=nouvelleValeur)
-        case "statut_id":
-            stmt = update(Evenement).where(Evenement.id == idEvenement).values(statut_id=nouvelleValeur)
         case "notes":
             stmt = update(Evenement).where(Evenement.id == idEvenement).values(notes=nouvelleValeur)
     try:
