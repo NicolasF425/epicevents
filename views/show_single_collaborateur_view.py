@@ -18,37 +18,42 @@ class ShowSingleCollaborateurView(CommonView):
             email = collaborateur.email
             nom_departement = get_nom_departement_by_id(collaborateur.departement_id)
             print(" id: "+str(id))
-            print(" 1) login:       "+login)
+            print("\n 1) login:       "+login)
             print(" 2) mot de passe: ****")
             print(" 3) email:       "+email)
             print(" 4) id / nom département: "+str(collaborateur.departement_id)+" / "+nom_departement)
+
             if token["departement_id"] == GESTION:
                 self.controler.idCollaborateur = id
-                print("Appuyez sur entrée pour retourner à l'écran précédent")
+                print("\nAppuyez sur entrée pour retourner à l'écran précédent")
                 print("ou entrez le numéro d'élément à modifier")
                 action = int(input("Votre choix: "))
             else:
                 input("Appuyez sur entrée pour retourner à l'écran précédent")
                 action = ""
-            self.controler.check_action(action)
+            self.controler.check_action(action, id)
         else:
             print("Session expirée")
 
-    def display_update(self, field_number):
+    def display_update(self, field_number, id):
         print("\n")
+        infos = []
         match field_number:
             case 1:
                 new_login = input("nouveau login: ")
-                return "login", new_login
+                infos = ["login", new_login]
             case 2:
                 new_password = input("nouveau mot de passe: ")
-                return "password", new_password
+                infos = ["password", new_password]
             case 3:
                 new_email = input("nouvel email: ")
-                return "email", new_email
+                infos = ["email", new_email]
             case 4:
                 new_departement_id = int(input("nouvel id departement: "))
-                return "departement_id", new_departement_id
+                infos = ["departement_id", new_departement_id]
 
         if self.controler.check_token_validity() is not False:
-            self.controler.save_new_value()
+            if infos:
+                self.controler.save_new_value(id, infos[0], infos[1])
+        else:
+            print("Session expirée")

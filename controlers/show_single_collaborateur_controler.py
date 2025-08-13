@@ -3,16 +3,15 @@ from base_managing.CRUD import update_collaborateur
 
 
 class ShowSingleCollaborateursControler(CommonControler):
-    idCollaborateur = 0
 
-    def check_action(self, action):
+    def check_action(self, action, id):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if action != "":
                 # modification d'un champ
                 from views.show_single_collaborateur_view import ShowSingleCollaborateurView
                 view = ShowSingleCollaborateurView()
-                view.display_update(action)
+                view.display_update(action, id)
             else:
                 # retour à la liste des collaborateurs
                 from views.show_collaborateurs_view import ShowCollaborateursView
@@ -21,6 +20,11 @@ class ShowSingleCollaborateursControler(CommonControler):
         else:
             print("Session expirée")
 
-    def save_new_value(idCollaborateur, field, value):
+    def save_new_value(self, idCollaborateur, field, value):
         if idCollaborateur > 0:
-            update_collaborateur(id, field, value)
+            update_collaborateur(idCollaborateur, field, value)
+
+        # retour à la liste des collaborateurs
+        from views.show_collaborateurs_view import ShowCollaborateursView
+        view = ShowCollaborateursView()
+        view.display_collaborateurs()

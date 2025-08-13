@@ -23,8 +23,8 @@ class ShowCollaborateursView(CommonView):
                 login = collaborateur.login
                 email = collaborateur.email
                 nom_departement = get_nom_departement_by_id(collaborateur.departement_id)
-
                 print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} | {nom_departement[:20]:<20}║")
+
             print("\n 1) Créer un nouveau collaborateur")
             print(" 2) Modifier un collaborateur")
             choix = input("\nEntrez le numéro d'une action "

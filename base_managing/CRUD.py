@@ -236,13 +236,17 @@ def update_collaborateur(idCollaborateur, aModifier, nouvelleValeur):
 
     match aModifier:
         case "login":
-            stmt = update(Collaborateur).where(Collaborateur.id == idCollaborateur).values(nom_complet=nouvelleValeur)
+            stmt = update(Collaborateur).where(Collaborateur.id == idCollaborateur) \
+                .values(login=nouvelleValeur)
         case "password":
-            stmt = update(Collaborateur).where(Collaborateur.id).values(password=hash_password(nouvelleValeur))
+            stmt = update(Collaborateur).where(Collaborateur.id == idCollaborateur) \
+                .values(password=hash_password(nouvelleValeur))
         case "email":
-            stmt = update(Collaborateur).where(Collaborateur.id).values(email=nouvelleValeur)
+            stmt = update(Collaborateur).where(Collaborateur.id == idCollaborateur) \
+                .values(email=nouvelleValeur)
         case "departement_id":
-            stmt = update(Collaborateur).where(Collaborateur.id).values(nom_entreprise=nouvelleValeur)
+            stmt = update(Collaborateur).where(Collaborateur.departement_id == idCollaborateur) \
+                .values(departement_id=nouvelleValeur)
     try:
         session.execute(stmt)
         session.commit()

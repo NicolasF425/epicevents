@@ -1,8 +1,7 @@
-from base_managing.CRUD import get_collaborateur_by_id, delete_collaborateur
+from base_managing.CRUD import get_collaborateur_by_id
 from controlers.common_controler import CommonControler
 from views.show_single_collaborateur_view import ShowSingleCollaborateurView
 from views.create_collaborateur_view import CreateCollaborateurView
-from utilities.pause import pause
 
 
 class ShowCollaborateursControler(CommonControler):
@@ -10,7 +9,7 @@ class ShowCollaborateursControler(CommonControler):
     def select_action(self, choix, collaborateur):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
-            if choix in ["1", "2", "3"]:
+            if choix in ["1", "2"]:
                 if choix == "1":
                     view = CreateCollaborateurView()
                     view.input_datas()
@@ -27,22 +26,6 @@ class ShowCollaborateursControler(CommonControler):
                     except ValueError:
                         # si ce n'est pas un nombre
                         print("Entrez un nombre")
-                if choix == "3":
-                    try:
-                        collaborateur = int(collaborateur)
-                    except ValueError:
-                        # si ce n'est pas un nombre
-                        print("Entrez un nombre")
-                    try:
-                        if type(collaborateur) is int:
-                            delete_collaborateur(collaborateur)
-                            print("Collaborateur supprimé")
-                            pause(3)
-                            from views.show_collaborateurs_view import ShowCollaborateursView
-                            view = ShowCollaborateursView()
-                            view.display_collaborateurs()
-                    except ValueError:
-                        print("id incorrect !")
             else:
                 # retour au menu
                 from views.main_menu_view import MainMenuView
