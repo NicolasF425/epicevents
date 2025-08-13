@@ -7,7 +7,7 @@ from utilities.constantes import CYAN, RESET
 class ShowSingleContratView(CommonView):
     controler = ShowSingleContratControler()
 
-    def display_single_contrat(self, contrat):
+    def display_single_contrat(self, contrat, update=False):
         clear_screen()
         token = self.check_token_validity()
         if token is not False:
@@ -30,8 +30,12 @@ class ShowSingleContratView(CommonView):
             if statut_contrat:
                 est_signe = "oui"
             print(" 4) contrat signé: "+est_signe)
-            action = input("\nEntrez le numéro de l'élément à "
-                           "modifier ou appyez sur Entrée pour revenir au menu: ")
+            if not update:
+                action = input("\nAppuyez sur Entrée pour revenir au menu: ")
+                action = ""
+            else:
+                action = input("\nEntrez le numéro de l'élément à "
+                               "modifier ou appuyez sur Entrée pour revenir au menu: ")
             self.controler.check_action(action, id)
 
     def display_update(self, field_number, id):

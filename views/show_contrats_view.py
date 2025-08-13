@@ -48,6 +48,9 @@ class ShowContratsView(CommonView):
                 print("\n "+str(compteur)+") Modifier un contrat")
                 compteur += 1
                 update = True
+            else:
+                print("\n "+str(compteur)+") Voir les détail d'un contrat")
+                compteur += 1
             if token['departement_id'] == COMMERCIAL and filtered is True:
                 print("\n "+str(compteur)+") aucun filtre")
                 print(" "+str(compteur+1)+") afficher non signés")
@@ -64,6 +67,12 @@ class ShowContratsView(CommonView):
                 if int_contrat not in ids_contrats:
                     print("id incorrect")
                     contrat = 0
+            elif choix == "1" and create is False and update is False:
+                contrat = input("Entrez l'id du contrat: ")
+                int_contrat = int(contrat)
+                if int_contrat not in ids_contrats:
+                    print("id incorrect")
+                    contrat = 0
             elif choix == "2" and create is True and update is True:    # GESTION
                 contrat = input("Entrez l'id du contrat à modifier: ")
                 int_contrat = int(contrat)
@@ -73,7 +82,7 @@ class ShowContratsView(CommonView):
             else:
                 choix = ""
                 contrat = 0
-            self.controler.select_action(choix, contrat)
+            self.controler.select_action(choix, contrat, update)
 
             if choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
                 self.controler.select_action(choix, 0)

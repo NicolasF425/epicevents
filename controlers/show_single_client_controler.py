@@ -3,9 +3,8 @@ from base_managing.CRUD import update_client, get_client_by_id
 
 
 class ShowSingleClientControler(CommonControler):
-    idClient = 0
 
-    def check_action(self, action):
+    def check_action(self, action, id):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if action != "":
@@ -13,7 +12,7 @@ class ShowSingleClientControler(CommonControler):
                 from views.show_single_client_view import ShowSingleClientView
                 view = ShowSingleClientView()
                 action = int(action)
-                view.display_update(self.idClient, action)
+                view.display_update(id, action)
             else:
                 # retour à la liste des clients
                 from views.show_clients_view import ShowClientsView

@@ -7,7 +7,7 @@ from utilities.constantes import COMMERCIAL, GESTION
 
 class ShowcontratsControler(CommonControler):
 
-    def select_action(self, choix, contrat):
+    def select_action(self, choix, contrat, update=False):
         token = self.check_token_validity()
 
         if token is not False:
@@ -15,8 +15,8 @@ class ShowcontratsControler(CommonControler):
                 if choix == "1" and token['departement_id'] == GESTION:    # creation
                     view = CreateContratView()
                     view.input_datas()
-                if (choix == "1" and token['departement_id'] == COMMERCIAL) or \
-                   (choix == "2" and token['departement_id'] == GESTION):  # modification
+                elif (choix == "1" and token['departement_id'] == COMMERCIAL) or \
+                     (choix == "2" and token['departement_id'] == GESTION):  # modification
                     try:
                         contrat = int(contrat)
                         # selection d'une fiche contrat
@@ -24,6 +24,19 @@ class ShowcontratsControler(CommonControler):
                         if contrat is not False:
                             view = ShowSingleContratView()
                             view.display_single_contrat(contrat)
+                        else:
+                            print("id incorrect !")
+                    except ValueError:
+                        # si ce n'est pas un nombre
+                        print("Entrez un nombre")
+                else:
+                    try:
+                        contrat = int(contrat)
+                        # selection d'une fiche contrat
+                        contrat = get_contrat_by_id(contrat)
+                        if contrat is not False:
+                            view = ShowSingleContratView()
+                            view.display_single_contrat(contrat, update)
                         else:
                             print("id incorrect !")
                     except ValueError:
