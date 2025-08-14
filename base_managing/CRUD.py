@@ -95,39 +95,53 @@ def add_evenement(evenement):
 
 
 def get_all_collaborateurs():
-    session = create_session()
-    selection = select(Collaborateur)
-    result = session.execute(selection)
-    all_collaborateurs = result.scalars().all()
-    session.close()
-    return all_collaborateurs
+    try:
+        session = create_session()
+        selection = select(Collaborateur)
+        result = session.execute(selection)
+        all_collaborateurs = result.scalars().all()
+        session.close()
+        return all_collaborateurs
+    finally:
+        session.close()
 
 
 def get_all_clients():
-    session = create_session()
-    selection = select(Client)
-    result = session.execute(selection)
-    all_clients = result.scalars().all()
-    session.close()
-    return all_clients
+    try:
+        session = create_session()
+        selection = select(Client)
+        result = session.execute(selection)
+        all_clients = result.scalars().all()
+        session.close()
+        return all_clients
+    finally:
+        session.close()
 
 
 def get_all_contrats():
-    session = create_session()
-    selection = select(Contrat)
-    result = session.execute(selection)
-    all_contrats = result.scalars().all()
-    session.close()
-    return all_contrats
+    try:
+        session = create_session()
+        selection = select(Contrat)
+        result = session.execute(selection)
+        all_contrats = result.scalars().all()
+        session.close()
+        return all_contrats
+    finally:
+        if session:
+            session.close()
 
 
 def get_all_evenements():
-    session = create_session()
-    selection = select(Evenement)
-    result = session.execute(selection)
-    all_evenements = result.scalars().all()
-    session.close()
-    return all_evenements
+    try:
+        session = create_session()
+        selection = select(Evenement)
+        result = session.execute(selection)
+        all_evenements = result.scalars().all()
+        session.close()
+        return all_evenements
+    finally:
+        if session:
+            session.close()
 
 
 def get_collaborateur_by_id(idCollaborateur):
@@ -176,43 +190,58 @@ def get_collaborateur_by_login(loginCollaborateur):
 
 
 def get_client_by_id(idClient):
-    session = create_session()
-    selection = select(Client).where(Client.id == idClient)
-    result = session.execute(selection)
-    client = result.scalars().one()
-    return client
+    try:
+        session = create_session()
+        selection = select(Client).where(Client.id == idClient)
+        result = session.execute(selection)
+        client = result.scalars().one()
+        return client
+    finally:
+        session.close()
 
 
 def get_clients_by_idCommercial(idCollab):
-    session = create_session()
-    selection = select(Client).where(Client.commercial_id == idCollab)
-    result = session.execute(selection)
-    clients = result.scalars().all()
-    return clients
+    try:
+        session = create_session()
+        selection = select(Client).where(Client.commercial_id == idCollab)
+        result = session.execute(selection)
+        clients = result.scalars().all()
+        return clients
+    finally:
+        session.close()
 
 
 def get_contrats_by_idCommercial(idCollab):
-    session = create_session()
-    selection = select(Contrat).where(Contrat.commercial_id == idCollab)
-    result = session.execute(selection)
-    contrats = result.scalars().all()
-    return contrats
+    try:
+        session = create_session()
+        selection = select(Contrat).where(Contrat.commercial_id == idCollab)
+        result = session.execute(selection)
+        contrats = result.scalars().all()
+        return contrats
+    finally:
+        session.close()
 
 
 def get_contrat_by_id(id):
-    session = create_session()
-    selection = select(Contrat).where(Contrat.id == id)
-    result = session.execute(selection)
-    contrat = result.scalars().one()
-    return contrat
+    try:
+        session = create_session()
+        selection = select(Contrat).where(Contrat.id == id)
+        result = session.execute(selection)
+        contrat = result.scalars().one()
+        return contrat
+    finally:
+        session.close()
 
 
-def get_evenements_by_idSupport(idCollab):
-    session = create_session()
-    selection = select(Evenement).where(Evenement.responsable_support_id == idCollab)
-    result = session.execute(selection)
-    evenements = result.scalars().all()
-    return evenements
+def get_evenements_by_idSupport(idCollaborateur):
+    try:
+        session = create_session()
+        selection = select(Evenement).where(Evenement.responsable_support_id == idCollaborateur)
+        result = session.execute(selection)
+        evenements = result.scalars().all()
+        return evenements
+    finally:
+        session.close()
 
 
 def get_evenements_without_support():
@@ -227,26 +256,33 @@ def get_evenements_without_support():
 
 
 def get_evenement_by_id(id):
-    session = create_session()
-    selection = select(Evenement).where(Evenement.id == id)
-    result = session.execute(selection)
-    evenement = result.scalars().one()
-    return evenement
+    try:
+        session = create_session()
+        selection = select(Evenement).where(Evenement.id == id)
+        result = session.execute(selection)
+        evenement = result.scalars().one()
+        return evenement
+    finally:
+        session.close()
 
 
 def get_nom_departement_by_id(idDepartement):
-    session = create_session()
-    selection = select(Departement).where(Departement.id == idDepartement)
-    result = session.execute(selection)
-    departement = result.scalars().one()
-    nom_departement = departement.nom
-    return nom_departement
+    try:
+        session = create_session()
+        selection = select(Departement).where(Departement.id == idDepartement)
+        result = session.execute(selection)
+        departement = result.scalars().one()
+        nom_departement = departement.nom
+        return nom_departement
+    finally:
+        session.close()
 
 
 # UPDATE
 
 
 def update_collaborateur(idCollaborateur, aModifier, nouvelleValeur):
+
     session = create_session()
 
     match aModifier:
@@ -324,6 +360,7 @@ def update_contrat(idContrat, aModifier, nouvelleValeur):
 
 
 def update_evenement(idEvenement, aModifier, nouvelleValeur):
+
     session = create_session()
 
     match aModifier:

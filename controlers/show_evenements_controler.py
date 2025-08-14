@@ -23,7 +23,14 @@ class ShowEvenementsControler(CommonControler):
                     else:
                         print("id incorrect !")
                 if choix == "3":
-                    pass
+                    evenement = int(evenement)
+                    # selection d'une fiche evenement
+                    evenement = get_evenement_by_id(evenement)
+                    if evenement is not False:
+                        view = ShowSingleEvenementView()
+                        view.display_single_evenement(evenement)
+                    else:
+                        print("id incorrect !")
             else:
                 # retour au menu
                 from views.main_menu_view import MainMenuView

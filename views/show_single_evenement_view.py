@@ -1,6 +1,8 @@
 from views.common_view import CommonView
 from utilities.clear_screen import clear_screen
 from controlers.show_single_evenement_controler import ShowSingleEvenementControler
+from base_managing.CRUD import get_collaborateurs_by_idDepartement
+from utilities.constantes import SUPPORT, GESTION
 
 
 class ShowSingleEvenementView(CommonView):
@@ -10,15 +12,29 @@ class ShowSingleEvenementView(CommonView):
         clear_screen()
         token = self.check_token_validity()
         if token is not False:
-            print("DONNEES EVENEMENT\n\n")
-            print("id: "+str(evenement.id))
-            print("nom: "+evenement.nom)
-            print("id client: "+evenement.client_id)
-            print("id contrat: "+evenement.contrat_id)
+            if token['departement_id'] == SUPPORT:
+                idSupport = 0
+                print("DONNEES EVENEMENT\n\n")
+                print(" 1) id: "+str(evenement.id))
+                print(" 2) nom: "+evenement.nom)
+                print(" 3) id client: "+str(evenement.client_id))
+                print(" 4) id contrat: "+str(evenement.contrat_id))
+                action = input("\nEntrez le numéro de l'élément à "
+                               "modifier ou appyez sur Entrée pour revenir au menu: ")
+            if token['departement_id'] == GESTION:
+                collaborateurs = get_collaborateurs_by_idDepartement(SUPPORT)
+                print(f"{"║ id"[:5]:<5} | {"login"[:25]:<25} | {"email"[:25]:<25} ║\n")
+                ids_collaborateurs = []
+                for collaborateur in collaborateurs:
+                    id = collaborateur.id
+                    ids_collaborateurs.append(id)
+                    login = collaborateur.login
+                    email = collaborateur.email
+                    print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} ║")
+                    print("\nEntrez le numéro de collaborateur support à affecter")
+                    action = input("ou appyez sur Entrée pour revenir au menu: ")
 
-            action = input("\nEntrez le numéro de l'élément à "
-                           "modifier ou appyez sur Entrée pour revenir au menu: ")
-            self.controler.check_action(action, id)
+            self.controler.check_action(action, evenement.id, idSupport, token['departement_id'])
 
     def display_update(self, field_number, id):
         print("\n")

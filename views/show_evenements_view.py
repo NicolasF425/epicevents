@@ -3,7 +3,7 @@ from base_managing.CRUD import get_collaborateurs_by_idDepartement
 from views.common_view import CommonView
 from controlers.show_evenements_controler import ShowEvenementsControler
 from utilities.clear_screen import clear_screen
-from utilities.constantes import COMMERCIAL, SUPPORT, GESTION, SUPPORT_COLOR, GESTION_COLOR, RESET
+from utilities.constantes import COMMERCIAL, SUPPORT, GESTION, SUPPORT_COLOR, GESTION_COLOR, COMMERCIAL_COLOR, RESET
 
 
 class ShowEvenementsView(CommonView):
@@ -33,7 +33,7 @@ class ShowEvenementsView(CommonView):
 
             modificateur = -1    # pour choix action différencié
             if token["departement_id"] == COMMERCIAL:
-                print("\n 1) Créer un événement")
+                print(COMMERCIAL_COLOR+"\n 1) Créer un événement"+RESET)
                 modificateur = 0
             if token["departement_id"] == SUPPORT:
                 if len(ids_evenements) > 0:
@@ -56,14 +56,15 @@ class ShowEvenementsView(CommonView):
                     choix = "2"
                     if int_evenement not in ids_evenements:
                         print("id incorrect")
-                        modificateur = 0
+                        choix = ""
                         evenement = 0
                 elif modificateur == 2:
                     evenement = input("Entrez l'id de l'événement à attribuer: ")
                     int_evenement = int(evenement)
+                    choix = "3"
                     if int_evenement not in ids_evenements:
                         print("id incorrect")
-                        choix = "3"
+                        choix = ""
                         evenement = 0
             else:
                 choix = ""
