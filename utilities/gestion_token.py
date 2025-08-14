@@ -18,7 +18,7 @@ class JWTManager:
 
         # Access token (courte durée)
         access_payload = payload.copy()
-        access_payload['exp'] = now + datetime.timedelta(minutes=15)
+        access_payload['exp'] = now + datetime.timedelta(minutes=1)
         access_payload['iat'] = now
         access_payload['type'] = 'access'
 
@@ -26,7 +26,8 @@ class JWTManager:
 
         # Refresh token (longue durée)
         refresh_payload = {
-            'user_id': payload.get('user_id'),
+            'id': payload.get('id'),
+            'departement_id': payload.get('departement_id'),
             'exp': now + datetime.timedelta(days=1),
             'iat': now,
             'type': 'refresh'
@@ -48,12 +49,13 @@ class JWTManager:
             if payload.get('type') != 'refresh':
                 raise ValueError("Token invalide - type incorrect")
 
-            if not payload.get('user_id'):
-                raise ValueError("Token invalide - user_id manquant")
+            if not payload.get('id'):
+                raise ValueError("Token invalide - id user manquant")
 
             # Créer de nouveaux tokens
             new_payload = {
-                'user_id': payload['user_id'],
+                'id': payload['id'],
+                'departement_id': payload['departement_id']
             }
 
             return self.create_tokens(new_payload)  # CORRIGÉ: était create_token
@@ -100,7 +102,6 @@ class JWTManager:
             # Essayer de rafraîchir automatiquement
             refreshed_tokens = self._auto_refresh_token(filename)
             if refreshed_tokens:
-                print("Token rafraîchi avec succès")
                 # Retourner les données décodées du nouveau token
                 try:
                     return jwt.decode(refreshed_tokens['access_token'], self.secret_key, algorithms=[self.algorithm])
@@ -208,7 +209,7 @@ class JWTManager:
 
         token_data = self.verify_token(filename=filename)
         if token_data:
-            return token_data.get('user_id')
+            return token_data.get('id')
         return None
 
     def write_tokens(self, tokens_dict: Dict[str, str], filename: str = None):
@@ -286,7 +287,7 @@ class JWTManager:
                                             algorithms=[self.algorithm],
                                             options={"verify_exp": False})
                 info['access_token'] = {
-                    'user_id': access_payload.get('user_id'),
+                    'id': access_payload.get('id'),
                     'expires': datetime.datetime.fromtimestamp(access_payload.get('exp', 0), tz=datetime.timezone.utc),
                     'type': access_payload.get('type')
                 }
@@ -300,7 +301,7 @@ class JWTManager:
                                              algorithms=[self.algorithm],
                                              options={"verify_exp": False})
                 info['refresh_token'] = {
-                    'user_id': refresh_payload.get('user_id'),
+                    'id': refresh_payload.get('id'),
                     'expires': datetime.datetime.fromtimestamp(refresh_payload.get('exp', 0),
                                                                tz=datetime.timezone.utc),
                     'type': refresh_payload.get('type')

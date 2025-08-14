@@ -3,6 +3,7 @@ from views.common_view import CommonView
 from utilities.constantes import COMMERCIAL, GESTION, SUPPORT
 from utilities.constantes import COMMERCIAL_COLOR, SUPPORT_COLOR, RESET
 from utilities.clear_screen import clear_screen
+from utilities.pause import pause
 
 
 class MainMenuView(CommonView):
@@ -12,6 +13,8 @@ class MainMenuView(CommonView):
 
     def build_menu(self):
         token = self.check_token_validity()
+        print(token)
+        pause(3)
 
         if token is not False:
             # gestion collaborateurs
