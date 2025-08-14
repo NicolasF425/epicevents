@@ -30,7 +30,7 @@ class ShowClientsView(CommonView):
                 choix = input("ou appuyez sur Entrée pour retourner au menu : ")
                 if choix == "1":
                     client = input("Entrez l'id du client: ")
-                    choix = 2
+                    choix = "2"
                 else:
                     choix = ""
                     client = 0

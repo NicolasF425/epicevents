@@ -18,7 +18,7 @@ class JWTManager:
 
         # Access token (courte durée)
         access_payload = payload.copy()
-        access_payload['exp'] = now + datetime.timedelta(minutes=1)
+        access_payload['exp'] = now + datetime.timedelta(minutes=10)
         access_payload['iat'] = now
         access_payload['type'] = 'access'
 

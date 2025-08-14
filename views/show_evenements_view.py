@@ -31,38 +31,42 @@ class ShowEvenementsView(CommonView):
                 nom = evenement.nom
                 print(f"{"║ "+str(id)[:5]:<5} | {nom[:40]:<40} ║")
 
-            modificateur = -1    # pour choix action différencié
+            modificateur = -1    # pour differencier choix action
+            print("\n 1) Voir les détails d'un événement")
             if token["departement_id"] == COMMERCIAL:
-                print(COMMERCIAL_COLOR+"\n 1) Créer un événement"+RESET)
+                print(COMMERCIAL_COLOR+" 2) Créer un événement"+RESET)
                 modificateur = 0
             if token["departement_id"] == SUPPORT:
                 if len(ids_evenements) > 0:
-                    print("\n 1) Modifier un événement")
+                    print(" 2) Modifier un événement")
                     modificateur = 1
             if token["departement_id"] == GESTION:
                 if len(ids_evenements) > 0:
-                    print("\n 1) Attribuer un événement")
+                    print(" 2) Attribuer un événement")
                     modificateur = 2
             choix = input("\nEntrez le numéro d'une action \n"
                           "ou appuyez sur Entrée pour retourner au menu : ")
             # si action disponible et choisie
-            if choix == "1" and modificateur > -1:
+            if choix == "1":
+                evenement = input("Entrez l'id de l'événement à modifier: ")
+                evenement = int(evenement)
+            elif choix == "2" and modificateur > -1:
                 if modificateur == 0:
-                    choix = "1"
+                    choix = "2"
                     evenement = 0
                 elif modificateur == 1:
                     evenement = input("Entrez l'id de l'événement à modifier: ")
-                    int_evenement = int(evenement)
-                    choix = "2"
-                    if int_evenement not in ids_evenements:
+                    evenement = int(evenement)
+                    choix = "3"
+                    if evenement not in ids_evenements:
                         print("id incorrect")
                         choix = ""
                         evenement = 0
                 elif modificateur == 2:
                     evenement = input("Entrez l'id de l'événement à attribuer: ")
-                    int_evenement = int(evenement)
-                    choix = "3"
-                    if int_evenement not in ids_evenements:
+                    evenement = int(evenement)
+                    choix = "4"
+                    if evenement not in ids_evenements:
                         print("id incorrect")
                         choix = ""
                         evenement = 0

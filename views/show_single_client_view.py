@@ -29,10 +29,9 @@ class ShowSingleClientView(CommonView):
                 print("ou entrez le numéro d'élément à modifier")
                 action = input("Votre choix: ")
             else:
-                input("Appuyez sur entrée pour retourner à l'écran précédent")
+                input("\nAppuyez sur entrée pour retourner à l'écran précédent")
                 action = ""
-            self.controler.idClient = id
-            self.controler.check_action(action)
+            self.controler.check_action(action, id)
         else:
             print("Session expirée")
 
