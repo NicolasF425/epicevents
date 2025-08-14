@@ -19,9 +19,10 @@ class ShowSingleEvenementView(CommonView):
                 print(" 2) nom: "+evenement.nom)
                 print(" 3) id client: "+str(evenement.client_id))
                 print(" 4) id contrat: "+str(evenement.contrat_id))
-                action = input("\nEntrez le numéro de l'élément à "
-                               "modifier ou appyez sur Entrée pour revenir au menu: ")
+                element = input("\nEntrez le numéro de l'élément à "
+                                "modifier ou appyez sur Entrée pour revenir au menu: ")
             if token['departement_id'] == GESTION:
+                element = 0
                 collaborateurs = get_collaborateurs_by_idDepartement(SUPPORT)
                 print(f"{"║ id"[:5]:<5} | {"login"[:25]:<25} | {"email"[:25]:<25} ║\n")
                 ids_collaborateurs = []
@@ -31,10 +32,11 @@ class ShowSingleEvenementView(CommonView):
                     login = collaborateur.login
                     email = collaborateur.email
                     print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} ║")
-                    print("\nEntrez le numéro de collaborateur support à affecter")
-                    action = input("ou appyez sur Entrée pour revenir au menu: ")
-
-            self.controler.check_action(action, evenement.id, idSupport, token['departement_id'])
+                print("\nEntrez le numéro de collaborateur support à affecter")
+                inputIdSupport = input("ou appyez sur Entrée pour revenir au menu: ")
+                if inputIdSupport != "":
+                    idSupport = int(inputIdSupport)
+            self.controler.check_action(element, evenement.id, idSupport, token['departement_id'])
 
     def display_update(self, field_number, id):
         print("\n")

@@ -5,18 +5,22 @@ from base_managing.CRUD import update_evenement
 
 class ShowSingleEvenementControler(CommonControler):
 
-    def check_action(self, action, id, idSupport, departementId):
+    def check_action(self, element, idEvenement, idSupport, departementId):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
-            if action != "":
+            if element != "":
                 if departementId == SUPPORT:
                     from views.show_single_evenement_view import ShowSingleEvenementView
                     view = ShowSingleEvenementView()
-                    view.display_update(action, id)
+                    view.display_update(element, idEvenement)
                 if departementId == GESTION:
-                    self.save_new_value(id, "responsable_support_id", idSupport)
+                    self.save_new_value(idEvenement, "responsable_support_id", idSupport)
+                    # retour à la liste des evenements
+                    from views.show_evenements_view import ShowEvenementsView
+                    view = ShowEvenementsView()
+                    view.display_evenements("evenements_sans_support")
             else:
-                # retour à la liste des collaborateurs
+                # retour à la liste des evenements
                 from views.show_evenements_view import ShowEvenementsView
                 view = ShowEvenementsView()
                 view.display_evenements()
@@ -25,4 +29,4 @@ class ShowSingleEvenementControler(CommonControler):
 
     def save_new_value(self, idEvenement, field, value):
         if idEvenement > 0:
-            update_evenement(id, field, value)
+            update_evenement(idEvenement, field, value)

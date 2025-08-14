@@ -164,7 +164,7 @@ def get_collaborateurs_by_idDepartement(idDepartement):
         session = create_session()
         selection = select(Collaborateur).where(Collaborateur.departement_id == idDepartement)
         result = session.execute(selection)
-        collaborateur = result.scalars().one()
+        collaborateur = result.scalars().all()
         return collaborateur
     except NoResultFound:
         print("Aucun collaborateur trouvé")
