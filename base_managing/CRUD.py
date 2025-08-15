@@ -7,13 +7,13 @@ from sqlalchemy.exc import NoResultFound
 from base_managing.models import Collaborateur, Client, Contrat, Evenement, Departement
 from utilities.gestion_hashage import hash_password
 from sentry_sdk import capture_exception
+import os
 
 
 Base = declarative_base()
 
 
 def create_session():
-    import os
     from dotenv import load_dotenv
     load_dotenv()
     pwd = os.getenv("sql_epicevents")
@@ -35,7 +35,7 @@ def create_session():
         return session
 
 
-# CREATE
+# CREATE (add)
 
 
 def add_collaborateur(collaborateur):
@@ -91,7 +91,7 @@ def add_evenement(evenement):
         session.close()
 
 
-# READ
+# READ (get)
 
 
 def get_all_collaborateurs():
@@ -112,7 +112,6 @@ def get_all_clients():
         selection = select(Client)
         result = session.execute(selection)
         all_clients = result.scalars().all()
-        session.close()
         return all_clients
     finally:
         session.close()

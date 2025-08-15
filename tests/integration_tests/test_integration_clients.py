@@ -17,4 +17,4 @@ def test_integration_display_clients(mock_input, mock_token, mock_clear, mock_ge
     with patch.object(ShowClientsControler, "select_action") as mock_select:
         view.display_clients(filtered=False)
         # On attend maintenant un int en premier paramètre
-        mock_select.assert_called_once_with(2, "123")
+        mock_select.assert_called_once_with("2", "123")

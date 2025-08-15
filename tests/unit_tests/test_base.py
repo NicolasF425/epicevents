@@ -20,7 +20,7 @@ class TestCreateSession:
         mock_session = Mock()
         mock_sessionmaker.return_value.return_value.__enter__.return_value = mock_session
 
-        # Act
+        # Action
         result = db_module.create_session()
 
         # Assert
@@ -35,7 +35,7 @@ class TestAddFunctions:
     @patch('base_managing.CRUD.create_session')
     @patch('base_managing.CRUD.hash_password')
     def test_add_collaborateur_success(self, mock_hash_password, mock_create_session):
-        # Arrange
+        # Mocks
         mock_session = Mock()
         mock_create_session.return_value = mock_session
         mock_hash_password.return_value = "hashed_password"
@@ -43,7 +43,7 @@ class TestAddFunctions:
         collaborateur = Mock()
         collaborateur.password = "plain_password"
 
-        # Act
+        # Action
         db_module.add_collaborateur(collaborateur)
 
         # Assert
@@ -57,7 +57,7 @@ class TestAddFunctions:
     @patch('base_managing.CRUD.hash_password')
     @patch('base_managing.CRUD.capture_exception')
     def test_add_collaborateur_exception(self, mock_capture_exception, mock_hash_password, mock_create_session):
-        # Arrange
+        # Mocks
         mock_session = Mock()
         mock_create_session.return_value = mock_session
         mock_session.commit.side_effect = Exception("Database error")
@@ -75,12 +75,12 @@ class TestAddFunctions:
 
     @patch('base_managing.CRUD.create_session')
     def test_add_client_success(self, mock_create_session):
-        # Arrange
+        # Mock
         mock_session = Mock()
         mock_create_session.return_value = mock_session
         client = Mock()
 
-        # Act
+        # Action
         db_module.add_client(client)
 
         # Assert
@@ -235,6 +235,44 @@ class TestReadFunctions:
         # Assert
         mock_session.execute.assert_called_once()
         assert result == mock_clients
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_contrats_by_idCommercial(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_contrats = [Mock(), Mock()]
+        mock_result.scalars.return_value.all.return_value = mock_contrats
+        mock_session.execute.return_value = mock_result
+
+        # Act
+        result = db_module.get_contrats_by_idCommercial(42)
+
+        # Assert
+        mock_session.execute.assert_called_once()
+        mock_select.assert_called_once()  # on s'assure que select() est bien utilisé
+        assert result == mock_contrats
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_contrat_by_id(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_contrat = Mock()
+        mock_result.scalars.return_value.one.return_value = mock_contrat
+        mock_session.execute.return_value = mock_result
+
+        # Act
+        result = db_module.get_contrat_by_id(5)
+
+        # Assert
+        mock_session.execute.assert_called_once()
+        mock_select.assert_called_once()
+        assert result == mock_contrat
 
     @patch('base_managing.CRUD.create_session')
     @patch('base_managing.CRUD.select')
