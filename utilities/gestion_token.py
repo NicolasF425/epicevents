@@ -150,34 +150,6 @@ class JWTManager:
             print(f"Erreur lors du refresh automatique: {e}")
             return None
 
-    def verify_specific_token_type(self, token: str, expected_type: str) -> Optional[Dict[str, Any]]:
-        """
-        Vérifie un token et s'assure qu'il est du bon type
-
-        Args:
-            token: Token à vérifier
-            expected_type: Type attendu ('access' ou 'refresh')
-
-        Returns:
-            Dict avec les données décodées ou None si invalide/mauvais type
-        """
-        try:
-            decoded = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
-
-            # Vérifier le type de token
-            if decoded.get('type') != expected_type:
-                print(f"Type de token incorrect. Attendu: {expected_type}, reçu: {decoded.get('type')}")
-                return None
-
-            return decoded
-
-        except jwt.ExpiredSignatureError:
-            print(f"{expected_type.capitalize()} token expiré")
-            return None
-        except jwt.InvalidTokenError:
-            print(f"{expected_type.capitalize()} token invalide")
-            return None
-
     def is_token_valid(self, filename: str = None) -> bool:
         """
         Vérifie rapidement si les tokens sont valides (avec refresh automatique)

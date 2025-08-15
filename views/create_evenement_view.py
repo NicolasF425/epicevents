@@ -6,7 +6,7 @@ from base_managing.CRUD import get_client_by_id, get_contrat_by_id
 
 class CreateEvenementView(CommonView):
 
-    def input_datas():
+    def input_datas(self):
         clear_screen()
         print(COMMERCIAL_COLOR+"NOUVEL EVENEMENT\n\n"+RESET)
 
