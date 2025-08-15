@@ -338,15 +338,13 @@ def update_contrat(idContrat, aModifier, nouvelleValeur):
         case "client_id":
             stmt = update(Contrat).where(Contrat.id == idContrat).values(client_id=nouvelleValeur)
         case "commercial_id":
-            stmt = update(Contrat).where(Contrat.id == idContrat).values(montant_total=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(commercial_id=nouvelleValeur)
         case "montant_total":
-            stmt = update(Contrat).where(Contrat.id == idContrat).values(telephone=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(montant_total=nouvelleValeur)
         case "montant_restant":
             stmt = update(Contrat).where(Contrat.id == idContrat).values(montant_restant=nouvelleValeur)
         case "est_signe":
-            stmt = update(Contrat).where(Contrat.id == idContrat).values(statut_id=nouvelleValeur)
-        case "date_fin_prevue":
-            stmt = update(Contrat).where(Contrat.id == idContrat).values(date_fin_prevue=nouvelleValeur)
+            stmt = update(Contrat).where(Contrat.id == idContrat).values(est_signe=nouvelleValeur)
     try:
         session.execute(stmt)
         session.commit()

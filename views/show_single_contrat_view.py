@@ -21,7 +21,7 @@ class ShowSingleContratView(CommonView):
             statut_contrat = contrat.est_signe
 
             print(" id: "+str(id))
-            print("\n id client:"+str(client_id))
+            print("\n id client: "+str(client_id))
             print(" 1) id commercial: "+str(commercial_id))
             print(" 2) montant total: "+str(montant_total))
             print(" 3) montant restant: "+str(montant_restant))
@@ -42,16 +42,16 @@ class ShowSingleContratView(CommonView):
         print("\n")
         infos = []
         match field_number:
-            case 1:
+            case "1":
                 new_commercial_id = input("id du nouveau commercial associé : ")
                 infos = ["commercial_id", new_commercial_id]
-            case 2:
+            case "2":
                 new_montant_total = input("nouveau montant total: ")
                 infos = ["montant_total", new_montant_total]
-            case 3:
+            case "3":
                 new_montant_restant = input("nouveau montant restant: ")
                 infos = ["montant_restant", new_montant_restant]
-            case 4:
+            case "4":
                 new_est_signe = int(input("nouveau statut (0=non signé, 1=signé): "))
                 new_est_signe = bool(int(new_est_signe))
                 infos = ["est_signe", new_est_signe]

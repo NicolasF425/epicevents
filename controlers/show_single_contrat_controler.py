@@ -19,6 +19,9 @@ class ShowSingleContratControler(CommonControler):
         else:
             print("Session expirée")
 
-    def save_new_value(idContrat, field, value):
+    def save_new_value(self, idContrat, field, value):
         if idContrat > 0:
-            update_contrat(id, field, value)
+            update_contrat(idContrat, field, value)
+            from views.show_contrats_view import ShowContratsView
+            view = ShowContratsView()
+            view.display_contrats()

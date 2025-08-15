@@ -23,7 +23,7 @@ class ShowcontratsControler(CommonControler):
                         contrat = get_contrat_by_id(contrat)
                         if contrat is not False:
                             view = ShowSingleContratView()
-                            view.display_single_contrat(contrat)
+                            view.display_single_contrat(contrat, update=True)
                         else:
                             print("id incorrect !")
                     except ValueError:
