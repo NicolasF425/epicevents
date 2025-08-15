@@ -3,6 +3,7 @@ from utilities.gestion_token import JWTManager
 from utilities.gestion_hashage import verify_password
 from views.main_menu_view import MainMenuView
 import os
+import sentry_sdk
 
 
 class LoginControler:
@@ -21,6 +22,10 @@ class LoginControler:
                 }
                 tokens = jwt.create_tokens(payload)
                 jwt.write_tokens(tokens, os.getenv("FILENAME"))
+                sentry_sdk.set_user({
+                    "id": user.id,          # ID unique de l'utilisateur
+                    "username": user.login,  # Nom d'utilisateur
+                })
                 view = MainMenuView()
                 view.display_items()
             else:

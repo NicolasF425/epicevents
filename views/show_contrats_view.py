@@ -2,7 +2,7 @@ from base_managing.CRUD import get_all_contrats, get_client_by_id, get_contrats_
 from views.common_view import CommonView
 from controlers.show_contrats_controler import ShowcontratsControler
 from utilities.clear_screen import clear_screen
-from utilities.constantes import GESTION, COMMERCIAL, COMMERCIAL_COLOR, RESET
+from utilities.constantes import GESTION, COMMERCIAL, GESTION_COLOR, COMMERCIAL_COLOR, RESET
 
 
 class ShowContratsView(CommonView):
@@ -40,7 +40,7 @@ class ShowContratsView(CommonView):
             create = False
             update = False
             if token['departement_id'] == GESTION:
-                print("\n "+str(compteur)+") Créer un nouveau contrat")
+                print("\n "+GESTION_COLOR+str(compteur)+") Créer un nouveau contrat"+RESET)
                 compteur += 1
                 create = True
             if (token['departement_id'] == GESTION and filtered is False) or \
