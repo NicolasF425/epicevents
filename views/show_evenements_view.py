@@ -25,6 +25,7 @@ class ShowEvenementsView(CommonView):
                 evenements = get_evenements_without_support()
 
             ids_evenements = []
+            print(f"{"║ "+"id"[:5]:<5} | {"nom"[:40]:<40} ║\n")
             for evenement in evenements:
                 id = evenement.id
                 ids_evenements.append(id)
@@ -81,13 +82,15 @@ class ShowEvenementsView(CommonView):
         collaborateurs = get_collaborateurs_by_idDepartement(SUPPORT)
         ids = []
         print("\n")
-        for collaborateur in collaborateurs:
-            id = collaborateur.id
-            ids.append(id)
-            login = collaborateur.login
-            email = collaborateur.email
-            print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} ║")
-        print("\n")
+        if collaborateurs:
+            print(f"{"║ "+"id"[:5]:<5} | {"login"[:25]:<25} | {"email"[:25]:<25} ║\n\n")
+            for collaborateur in collaborateurs:
+                id = collaborateur.id
+                ids.append(id)
+                login = collaborateur.login
+                email = collaborateur.email
+                print(f"{"║ "+str(id)[:5]:<5} | {login[:25]:<25} | {email[:25]:<25} ║")
+            print("\n")
         idSupport = input("Entrez l'id du collaborateur à affecter: ")
         if idSupport in ids:
             idSupport = int(idSupport)

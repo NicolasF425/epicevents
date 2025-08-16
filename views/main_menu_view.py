@@ -13,6 +13,7 @@ class MainMenuView(CommonView):
     def build_menu(self):
         token = self.check_token_validity()
 
+        # listage des elements à afficher et des actions possibles
         if token is not False:
             # gestion collaborateurs
             departement_id = token["departement_id"]
@@ -77,6 +78,7 @@ class MainMenuView(CommonView):
     def display_items(self):
         clear_screen()
         self.build_menu()
+        print("MENU PRINCIPAL\n\n")
         # cle = action
         # valeur = numéro associé
         for cle, valeur in self.mapping.items():

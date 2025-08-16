@@ -20,11 +20,13 @@ class ShowClientsView(CommonView):
                 print(BLUE+"MES CLIENTS\n\n"+RESET)
                 clients = get_clients_by_idCommercial(int(token["id"]))
             ids_clients = []
-            for client in clients:
-                id = client.id
-                ids_clients.append(id)
-                entreprise = client.nom_entreprise
-                print(f"{"║ "+str(id)[:5]:<5} | {entreprise[:30]:<30} ║")
+            print(f"{"║ "+"id"[:5]:<5} | {"entreprise"[:30]:<30} ║\n")
+            if clients:
+                for client in clients:
+                    id = client.id
+                    ids_clients.append(id)
+                    entreprise = client.nom_entreprise
+                    print(f"{"║ "+str(id)[:5]:<5} | {entreprise[:30]:<30} ║")
             if not filtered:
                 print("\n 1) Voir un client")
                 choix = input("ou appuyez sur Entrée pour retourner au menu : ")

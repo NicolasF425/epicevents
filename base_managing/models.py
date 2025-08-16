@@ -30,7 +30,7 @@ class Collaborateur(Base):
     """Table des collaborateurs Epic Events"""
     __tablename__ = 'collaborateurs'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     login = Column(String(100), unique=True, nullable=False)
     password = Column(String(100), nullable=False)
     email = Column(String(255), nullable=False, unique=True)
@@ -63,7 +63,7 @@ class Client(Base):
     """Table des clients Epic Events"""
     __tablename__ = 'clients'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nom_complet = Column(String(200), nullable=False)
     email = Column(String(255), nullable=False)
     telephone = Column(String(20))
@@ -90,7 +90,7 @@ class Contrat(Base):
     """Table des contrats clients"""
     __tablename__ = 'contrats'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     client_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
     commercial_id = Column(Integer, ForeignKey('collaborateurs.id'), nullable=False)
     montant_total = Column(DECIMAL(10, 2), nullable=False)
@@ -132,7 +132,7 @@ class Evenement(Base):
     """Table des évènements"""
     __tablename__ = 'evenements'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nom = Column(String(200), nullable=False)
     client_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
     contrat_id = Column(Integer, ForeignKey('contrats.id'), nullable=False)

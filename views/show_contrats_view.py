@@ -22,6 +22,8 @@ class ShowContratsView(CommonView):
                 contrats = get_contrats_by_idCommercial(token["id"])
             ids_contrats = []
             if contrats is not None:
+                print(f"{"║ "+"id"[:5]:<5} | {"nom client"[:30]:<30} | {"montant restant"[:15]:<15} \
+                              | {"est signe"[:5]:<5} ║\n")
                 for contrat in contrats:
                     if (self.filtre == "mes contrats") or (self.filtre == "non signe" and contrat.est_signe is False) \
                             or (self.filtre == "non totalement paye" and contrat.montant_restant > 0):
