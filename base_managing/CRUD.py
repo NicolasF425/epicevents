@@ -100,7 +100,6 @@ def get_all_collaborateurs():
         selection = select(Collaborateur)
         result = session.execute(selection)
         all_collaborateurs = result.scalars().all()
-        session.close()
         return all_collaborateurs
     finally:
         session.close()
@@ -114,7 +113,8 @@ def get_all_clients():
         all_clients = result.scalars().all()
         return all_clients
     finally:
-        session.close()
+        if session:
+            session.close()
 
 
 def get_all_contrats():
@@ -123,7 +123,6 @@ def get_all_contrats():
         selection = select(Contrat)
         result = session.execute(selection)
         all_contrats = result.scalars().all()
-        session.close()
         return all_contrats
     finally:
         if session:
@@ -136,7 +135,6 @@ def get_all_evenements():
         selection = select(Evenement)
         result = session.execute(selection)
         all_evenements = result.scalars().all()
-        session.close()
         return all_evenements
     finally:
         if session:

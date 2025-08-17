@@ -311,6 +311,160 @@ class TestReadFunctions:
         mock_session.execute.assert_called_once()
         assert result == "Test Department"
 
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_all_contrats_success(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_contrats = [Mock(), Mock()]
+        mock_result.scalars.return_value.all.return_value = mock_contrats
+        mock_session.execute.return_value = mock_result
+
+        # Act
+        result = db_module.get_all_contrats()
+
+        # Assert
+        mock_select.assert_called_once_with(Contrat)
+        mock_session.execute.assert_called_once()
+        mock_session.close.assert_called_once()
+        assert result == mock_contrats
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_all_evenements_success(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_evenements = [Mock(), Mock()]
+        mock_result.scalars.return_value.all.return_value = mock_evenements
+        mock_session.execute.return_value = mock_result
+
+        # Act
+        result = db_module.get_all_evenements()
+
+        # Assert
+        mock_select.assert_called_once_with(Evenement)
+        mock_session.execute.assert_called_once()
+        mock_session.close.assert_called_once()
+        assert result == mock_evenements
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_collaborateurs_by_idDepartement_success(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_collaborateurs = [Mock(), Mock()]
+        mock_result.scalars.return_value.all.return_value = mock_collaborateurs
+        mock_session.execute.return_value = mock_result
+
+        # Act
+        result = db_module.get_collaborateurs_by_idDepartement(1)
+
+        # Assert
+        mock_session.execute.assert_called_once()
+        mock_session.close.assert_called_once()
+        assert result == mock_collaborateurs
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    @patch('builtins.print')
+    def test_get_collaborateurs_by_idDepartement_not_found(self, mock_print, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_result.scalars.return_value.all.side_effect = NoResultFound()
+        mock_session.execute.return_value = mock_result
+
+        # Action
+        result = db_module.get_collaborateurs_by_idDepartement(999)
+
+        # Assert
+        mock_print.assert_called_once_with("Aucun collaborateur trouvé")
+        mock_session.close.assert_called_once()
+        assert result is False
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    @patch('builtins.print')
+    def test_get_collaborateur_by_login_not_found(self, mock_print, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_result.scalars.return_value.one.side_effect = NoResultFound()
+        mock_session.execute.return_value = mock_result
+
+        # Action
+        result = db_module.get_collaborateur_by_login("nonexistent_user")
+
+        # Assert
+        mock_print.assert_called_once_with("collaborateur non trouvé")
+        mock_session.close.assert_called_once()
+        assert result is False
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_client_by_id_success(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_client = Mock()
+        mock_result.scalars.return_value.one.return_value = mock_client
+        mock_session.execute.return_value = mock_result
+
+        # Action
+        result = db_module.get_client_by_id(1)
+
+        # Assert
+        mock_session.execute.assert_called_once()
+        mock_session.close.assert_called_once()
+        assert result == mock_client
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_evenements_by_idSupport_success(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_evenements = [Mock(), Mock()]
+        mock_result.scalars.return_value.all.return_value = mock_evenements
+        mock_session.execute.return_value = mock_result
+
+        # Action
+        result = db_module.get_evenements_by_idSupport(1)
+
+        # Assert
+        mock_session.execute.assert_called_once()
+        mock_session.close.assert_called_once()
+        assert result == mock_evenements
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.select')
+    def test_get_evenement_by_id_success(self, mock_select, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_result = Mock()
+        mock_evenement = Mock()
+        mock_result.scalars.return_value.one.return_value = mock_evenement
+        mock_session.execute.return_value = mock_result
+
+        # Act
+        result = db_module.get_evenement_by_id(1)
+
+        # Assert
+        mock_session.execute.assert_called_once()
+        mock_session.close.assert_called_once()
+        assert result == mock_evenement
+
 
 class TestUpdateFunctions:
     """Tests pour les fonctions de mise à jour (UPDATE)"""
@@ -398,6 +552,370 @@ class TestUpdateFunctions:
         # Assert
         mock_session.execute.assert_called_once_with(mock_stmt)
         mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    @patch('base_managing.CRUD.hash_password')
+    def test_update_collaborateur_login(self, mock_hash_password, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_collaborateur(1, "login", "nouveau_login")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+        mock_hash_password.assert_not_called()  # Ne doit pas être appelé pour login
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    @patch('base_managing.CRUD.hash_password')
+    def test_update_collaborateur_password(self, mock_hash_password, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+        mock_hash_password.return_value = "hashed_new_password"
+
+        # Act
+        db_module.update_collaborateur(1, "password", "nouveau_mot_de_passe")
+
+        # Assert
+        mock_hash_password.assert_called_once_with("nouveau_mot_de_passe")
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_collaborateur_email(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_collaborateur(1, "email", "nouvel@email.com")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_collaborateur_departement_id(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_collaborateur(1, "departement_id", 2)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    @patch('base_managing.CRUD.capture_exception')
+    def test_update_collaborateur_exception(self, mock_capture_exception, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_session.execute.side_effect = Exception("Database error")
+
+        # Act & Assert
+        with pytest.raises(Exception):
+            db_module.update_collaborateur(1, "login", "nouveau_login")
+
+        mock_session.rollback.assert_called_once()
+        mock_capture_exception.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_client_telephone(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_client(1, "telephone", "0987654321")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_client_nom_entreprise(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_client(1, "nom_entreprise", "Nouvelle Entreprise")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_contrat_client_id(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_contrat(1, "client_id", 5)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_contrat_commercial_id(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_contrat(1, "commercial_id", 3)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_contrat_montant_total(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_contrat(1, "montant_total", 15000.0)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_contrat_montant_restant(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_contrat(1, "montant_restant", 7500.0)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_contrat_est_signe(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_contrat(1, "est_signe", True)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    @patch('base_managing.CRUD.capture_exception')
+    def test_update_contrat_exception(self, mock_capture_exception, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_session.execute.side_effect = Exception("Database error")
+
+        # Act & Assert
+        with pytest.raises(Exception):
+            db_module.update_contrat(1, "client_id", 5)
+
+        mock_session.rollback.assert_called_once()
+        mock_capture_exception.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_contrat_id(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_evenement(1, "contrat_id", 2)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_date_debut(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+        nouvelle_date = datetime(2024, 12, 25, 10, 0)
+
+        # Act
+        db_module.update_evenement(1, "date_debut", nouvelle_date)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_date_fin(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+        nouvelle_date = datetime(2024, 12, 26, 18, 0)
+
+        # Act
+        db_module.update_evenement(1, "date_fin", nouvelle_date)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_lieu(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_evenement(1, "lieu", "Nouveau Lieu")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_adresse_lieu(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_evenement(1, "adresse_lieu", "456 Nouvelle Adresse")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_nombre_participants(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_evenement(1, "nombre_participants", 100)
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    def test_update_evenement_notes(self, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_stmt = Mock()
+        mock_update.return_value.where.return_value.values.return_value = mock_stmt
+
+        # Act
+        db_module.update_evenement(1, "notes", "Nouvelles notes importantes")
+
+        # Assert
+        mock_session.execute.assert_called_once_with(mock_stmt)
+        mock_session.commit.assert_called_once()
+        mock_session.close.assert_called_once()
+
+    @patch('base_managing.CRUD.create_session')
+    @patch('base_managing.CRUD.update')
+    @patch('base_managing.CRUD.capture_exception')
+    def test_update_evenement_exception(self, mock_capture_exception, mock_update, mock_create_session):
+        # Arrange
+        mock_session = Mock()
+        mock_create_session.return_value = mock_session
+        mock_session.execute.side_effect = Exception("Database error")
+
+        # Act & Assert
+        with pytest.raises(Exception):
+            db_module.update_evenement(1, "nom", "Nouveau Nom")
+
+        mock_session.rollback.assert_called_once()
+        mock_capture_exception.assert_called_once()
         mock_session.close.assert_called_once()
 
 
