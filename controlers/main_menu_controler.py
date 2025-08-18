@@ -39,4 +39,4 @@ class MainMenuControler:
                         view = ShowEvenementsView()
                         view.display_evenements()
                     case "quitter":
-                        pass
+                        print("A bientôt !")

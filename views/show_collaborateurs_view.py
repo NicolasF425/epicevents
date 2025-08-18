@@ -27,12 +27,19 @@ class ShowCollaborateursView(CommonView):
 
             print("\n 1) Créer un nouveau collaborateur")
             print(" 2) Modifier un collaborateur")
+            print(" 3) Supprimer un collaborateur")
             choix = input("\nEntrez le numéro d'une action "
                           "ou appuyez sur Entrée pour retourner au menu : ")
             if choix == "1":
                 collaborateur = 0
             elif choix == "2":
                 collaborateur = input("Entrez l'id du collaborateur à modifier: ")
+                int_collaborateur = int(collaborateur)
+                if int_collaborateur not in ids_collaborateurs:
+                    print("id incorrect")
+                    collaborateur = 0
+            elif choix == "3":
+                collaborateur = input("Entrez l'id du collaborateur à supprimer: ")
                 int_collaborateur = int(collaborateur)
                 if int_collaborateur not in ids_collaborateurs:
                     print("id incorrect")
