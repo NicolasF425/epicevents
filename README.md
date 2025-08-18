@@ -1,4 +1,4 @@
-## Application Pyhon dans le cadre d'une formation
+## Application Python dans le cadre d'une formation
 
 Notes : ce projet a été développé sous Windows. 
 
