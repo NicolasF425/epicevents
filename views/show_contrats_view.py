@@ -63,30 +63,33 @@ class ShowContratsView(CommonView):
 
             if choix == "1" and create is True:  # GESTION
                 contrat = 0
+                self.controler.select_action(choix, contrat, update)
             elif choix == "1" and create is False and update is True:  # COMMERCIAL
                 contrat = input("Entrez l'id du contrat à modifier: ")
                 int_contrat = int(contrat)
                 if int_contrat not in ids_contrats:
                     print("id incorrect")
                     contrat = 0
-            elif choix == "1" and create is False and update is False:
+                self.controler.select_action(choix, contrat, update)
+            elif choix == "1" and create is False and update is False:  # SUPPORT
                 contrat = input("Entrez l'id du contrat: ")
                 int_contrat = int(contrat)
                 if int_contrat not in ids_contrats:
                     print("id incorrect")
                     contrat = 0
+                self.controler.select_action(choix, contrat, update)
             elif choix == "2" and create is True and update is True:    # GESTION
                 contrat = input("Entrez l'id du contrat à modifier: ")
                 int_contrat = int(contrat)
                 if int_contrat not in ids_contrats:
                     print("id incorrect")
                     contrat = 0
+                self.controler.select_action(choix, contrat, update)
+            elif choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
+                self.controler.select_action(choix, 0)
             else:
                 choix = ""
                 contrat = 0
-            self.controler.select_action(choix, contrat, update)
-
-            if choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
-                self.controler.select_action(choix, 0)
+                self.controler.select_action(choix, contrat, update)
         else:
             print("Session expirée")

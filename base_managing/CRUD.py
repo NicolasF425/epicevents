@@ -219,10 +219,10 @@ def get_contrats_by_idCommercial(idCollab):
         session.close()
 
 
-def get_contrat_by_id(id):
+def get_contrat_by_id(idContrat):
     try:
         session = create_session()
-        selection = select(Contrat).where(Contrat.id == id)
+        selection = select(Contrat).where(Contrat.id == idContrat)
         result = session.execute(selection)
         contrat = result.scalars().one()
         return contrat

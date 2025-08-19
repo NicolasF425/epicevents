@@ -29,7 +29,7 @@ class ShowcontratsControler(CommonControler):
                     except ValueError:
                         # si ce n'est pas un nombre
                         print("Entrez un nombre")
-                else:
+                elif (choix == "2" and token['departement_id'] != COMMERCIAL):
                     try:
                         contrat = int(contrat)
                         # selection d'une fiche contrat
@@ -42,13 +42,13 @@ class ShowcontratsControler(CommonControler):
                     except ValueError:
                         # si ce n'est pas un nombre
                         print("Entrez un nombre")
-            elif choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
+            if choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
                 filtres = ["mes contrats", "non signe", "non totalement paye"]
                 from views.show_contrats_view import ShowContratsView
                 view = ShowContratsView()
-                view.filter = filtres[int(choix)-3]
-                view.display_contrats()
-            else:
+                view.filtre = filtres[int(choix)-2]
+                view.display_contrats(True)
+            if choix not in ["1", "2", "3", "4"]:
                 # retour au menu
                 from views.main_menu_view import MainMenuView
                 view = MainMenuView()
