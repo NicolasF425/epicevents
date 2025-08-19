@@ -20,6 +20,12 @@ class ShowSingleEvenementView(CommonView):
                 print(" 2) nom: "+evenement.nom)
                 print(" 3) id client: "+str(evenement.client_id))
                 print(" 4) id contrat: "+str(evenement.contrat_id))
+                print("Id responsable support: "+str(evenement.responsable_support_id))
+                print(f" date début: {evenement.date_debut.strftime('%d/%m/%Y %H:%M:%S')}")
+                print(f" date fin: {evenement.date_fin.strftime('%d/%m/%Y %H:%M:%S')}")
+                print(" Lieu: "+evenement.lieu+" "+evenement.adress_lieu)
+                print(" Attendus: "+str(evenement.nombre_participants))
+                print(" Notes: "+evenement.notes)
                 element = input("\nEntrez le numéro de l'élément à "
                                 "modifier ou appyez sur Entrée pour revenir au menu: ")
             elif token['departement_id'] == GESTION and update:
@@ -43,6 +49,12 @@ class ShowSingleEvenementView(CommonView):
                 print(" nom: "+evenement.nom)
                 print(" id client: "+str(evenement.client_id))
                 print(" id contrat: "+str(evenement.contrat_id))
+                print("Id responsable support: "+str(evenement.responsable_support_id))
+                print(f" date début: {evenement.date_debut.strftime('%d/%m/%Y %H:%M:%S')}")
+                print(f" date fin: {evenement.date_fin.strftime('%d/%m/%Y %H:%M:%S')}")
+                print(" Lieu: "+evenement.lieu+" "+evenement.adress_lieu)
+                print(" Attendus: "+str(evenement.nombre_participants))
+                print(" Notes: "+evenement.notes)
                 input("\n Appuyez sur Entrée pour revenir au menu: ")
                 element = ""
                 idSupport = 0
