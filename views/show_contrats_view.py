@@ -53,6 +53,9 @@ class ShowContratsView(CommonView):
             else:
                 print("\n "+str(compteur)+") Voir les détail d'un contrat")
                 compteur += 1
+            if token['departement_id'] == GESTION:
+                print("\n "+GESTION_COLOR+str(compteur)+") Supprimer un contrat"+RESET)
+                compteur += 1
             if token['departement_id'] == COMMERCIAL and filtered is True:
                 print("\n "+str(compteur)+") aucun filtre")
                 print(" "+str(compteur+1)+") afficher non signés")
@@ -87,6 +90,9 @@ class ShowContratsView(CommonView):
                 self.controler.select_action(choix, contrat, update)
             elif choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
                 self.controler.select_action(choix, 0)
+            elif choix == "3" and token['departement_id'] == GESTION:   # si suppression
+                contrat = input("Entrez l'id du contrat à supprimer: ")
+                self.controler.select_action(choix, contrat, update)
             else:
                 choix = ""
                 contrat = 0

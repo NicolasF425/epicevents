@@ -20,7 +20,7 @@ class ShowSingleEvenementView(CommonView):
                 print(" 2) nom: "+evenement.nom)
                 print(" 3) id client: "+str(evenement.client_id))
                 print(" 4) id contrat: "+str(evenement.contrat_id))
-                print("Id responsable support: "+str(evenement.responsable_support_id))
+                print(" Id responsable support: "+str(evenement.responsable_support_id))
                 print(f" date début: {evenement.date_debut.strftime('%d/%m/%Y %H:%M:%S')}")
                 print(f" date fin: {evenement.date_fin.strftime('%d/%m/%Y %H:%M:%S')}")
                 print(" Lieu: "+evenement.lieu+" "+evenement.adresse_lieu)

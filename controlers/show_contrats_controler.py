@@ -1,4 +1,4 @@
-from base_managing.CRUD import get_contrat_by_id
+from base_managing.CRUD import get_contrat_by_id, delete_contrat
 from controlers.common_controler import CommonControler
 from views.show_single_contrat_view import ShowSingleContratView
 from views.create_contrat_view import CreateContratView
@@ -42,6 +42,11 @@ class ShowcontratsControler(CommonControler):
                     except ValueError:
                         # si ce n'est pas un nombre
                         print("Entrez un nombre")
+            if choix == "3" and token['departement_id'] == GESTION:
+                delete_contrat(contrat)
+                from views.show_contrats_view import ShowContratsView
+                view = ShowContratsView()
+                view.display_contrats()
             if choix in ["2", "3", "4"] and token['departement_id'] == COMMERCIAL:
                 filtres = ["mes contrats", "non signe", "non totalement paye"]
                 from views.show_contrats_view import ShowContratsView
