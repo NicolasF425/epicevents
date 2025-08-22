@@ -361,6 +361,8 @@ def update_evenement(idEvenement, aModifier, nouvelleValeur):
     match aModifier:
         case "nom":
             stmt = update(Evenement).where(Evenement.id == idEvenement).values(nom=nouvelleValeur)
+        case "client_id":
+            stmt = update(Evenement).where(Evenement.id == idEvenement).values(client_id=nouvelleValeur)
         case "contrat_id":
             stmt = update(Evenement).where(Evenement.id == idEvenement).values(contrat_id=nouvelleValeur)
         case "responsable_support_id":

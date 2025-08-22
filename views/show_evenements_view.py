@@ -7,9 +7,18 @@ from utilities.constantes import COMMERCIAL, SUPPORT, GESTION, SUPPORT_COLOR, GE
 
 
 class ShowEvenementsView(CommonView):
+    """
+    Vue permettant l'affichage et la gestion des événements.
+
+    Cette vue s'appuie sur le contrôleur `ShowEvenementsControler` pour
+    exécuter les actions choisies par l'utilisateur.
+    """
     controler = ShowEvenementsControler()
 
     def display_evenements(self, filtered=False):
+        """
+        Affiche la liste des événements et propose des actions à l'utilisateur.
+        """
         clear_screen()
         token = self.check_token_validity()
 
@@ -56,7 +65,7 @@ class ShowEvenementsView(CommonView):
                 evenement = input("Entrez l'id de l'événement à modifier: ")
                 evenement = int(evenement)
             elif choix == "2" and modificateur > -1:
-                if modificateur == 0:
+                if modificateur == 0:   # Creation evenement
                     choix = "2"
                     evenement = 0
                 elif modificateur == 1:
@@ -91,6 +100,9 @@ class ShowEvenementsView(CommonView):
             print("Session expirée")
 
     def attribute_support_evenement(self, idEvenement):
+        """
+        Attribue un collaborateur du département support à un événement.
+        """
         collaborateurs = get_collaborateurs_by_idDepartement(SUPPORT)
         ids = []
         print("\n")

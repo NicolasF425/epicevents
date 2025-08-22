@@ -6,6 +6,7 @@ from base_managing.CRUD import update_evenement
 class ShowSingleEvenementControler(CommonControler):
 
     def check_action(self, element, idEvenement, idSupport, departementId):
+
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if element != "":
@@ -30,3 +31,6 @@ class ShowSingleEvenementControler(CommonControler):
     def save_new_value(self, idEvenement, field, value):
         if idEvenement > 0:
             update_evenement(idEvenement, field, value)
+            from views.show_evenements_view import ShowEvenementsView
+            view = ShowEvenementsView()
+            view.display_evenements()

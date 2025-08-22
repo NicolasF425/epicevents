@@ -1,5 +1,5 @@
 import time
 
 
-def pause(duration):
+def pause(duration=2):
     time.sleep(duration)

@@ -6,6 +6,9 @@ from utilities.constantes import SUPPORT, GESTION
 
 
 class ShowSingleEvenementView(CommonView):
+    '''
+    Vue pour l'affichage et la modification d'un seul événement
+    '''
     controler = ShowSingleEvenementControler()
 
     def display_single_evenement(self, evenement, update=False):
@@ -16,16 +19,16 @@ class ShowSingleEvenementView(CommonView):
             if token['departement_id'] == SUPPORT and update:
                 idSupport = 0
                 print("DONNEES EVENEMENT\n\n")
-                print(" 1) id: "+str(evenement.id))
-                print(" 2) nom: "+evenement.nom)
-                print(" 3) id client: "+str(evenement.client_id))
-                print(" 4) id contrat: "+str(evenement.contrat_id))
+                print(" id: "+str(evenement.id))
+                print(" 1) nom: "+evenement.nom)
+                print(" 2) id client: "+str(evenement.client_id))
+                print(" 3) id contrat: "+str(evenement.contrat_id))
                 print(" Id responsable support: "+str(evenement.responsable_support_id))
-                print(f" date début: {evenement.date_debut.strftime('%d/%m/%Y %H:%M:%S')}")
-                print(f" date fin: {evenement.date_fin.strftime('%d/%m/%Y %H:%M:%S')}")
-                print(" Lieu: "+evenement.lieu+" "+evenement.adresse_lieu)
-                print(" Attendus: "+str(evenement.nombre_participants))
-                print(" Notes: "+evenement.notes)
+                print(f" 4) date début: {evenement.date_debut.strftime('%d-%m-%Y %H:%M:%S')}")
+                print(f" 5) date fin: {evenement.date_fin.strftime('%d-%m-%Y %H:%M:%S')}")
+                print(" 6) Lieu: "+evenement.lieu+" "+evenement.adresse_lieu)
+                print(" 7) Attendus: "+str(evenement.nombre_participants))
+                print(" 8) Notes: "+evenement.notes)
                 element = input("\nEntrez le numéro de l'élément à "
                                 "modifier ou appyez sur Entrée pour revenir au menu: ")
             elif token['departement_id'] == GESTION and update:
@@ -50,8 +53,8 @@ class ShowSingleEvenementView(CommonView):
                 print(" id client: "+str(evenement.client_id))
                 print(" id contrat: "+str(evenement.contrat_id))
                 print("Id responsable support: "+str(evenement.responsable_support_id))
-                print(f" date début: {evenement.date_debut.strftime('%d/%m/%Y %H:%M:%S')}")
-                print(f" date fin: {evenement.date_fin.strftime('%d/%m/%Y %H:%M:%S')}")
+                print(f" date début: {evenement.date_debut.strftime('%d-%m-%Y %H:%M:%S')}")
+                print(f" date fin: {evenement.date_fin.strftime('%d-%m-%Y %H:%M:%S')}")
                 print(" Lieu: "+evenement.lieu+" "+evenement.adresse_lieu)
                 print(" Attendus: "+str(evenement.nombre_participants))
                 print(" Notes: "+evenement.notes)
@@ -65,9 +68,30 @@ class ShowSingleEvenementView(CommonView):
         print("\n")
         infos = []
         match field_number:
-            case 1:
+            case "1":
                 new_nom = input("nouveau nom: ")
                 infos = ["nom", new_nom]
+            case "2":
+                new_id_client = input("nouvel id client : ")
+                infos = ["client_id", new_id_client]
+            case "3":
+                new_contrat_id = input("nouvel id contrat: ")
+                infos = ["contrat_id", new_contrat_id]
+            case "4":
+                new_date_debut = input("nouvelle date début, au format AAAA-MM-JJ HH:MM:SS: ")
+                infos = ["date_debut", new_date_debut]
+            case "5":
+                new_date_fin = input("nouvelle date fin, au format AAAA-MM-JJ HH:MM:SS: ")
+                infos = ["date_fin", new_date_fin]
+            case "6":
+                new_lieu = input("nouveau lieu: ")
+                infos = ["nom", new_lieu]
+            case "7":
+                new_adresse = input("nouvelle adresse : ")
+                infos = ["adresse_lieu", new_adresse]
+            case "8":
+                new_notes = input("nouvelles notes: ")
+                infos = ["notes", new_notes]
 
         if self.controler.check_token_validity() is not False:
             if infos:
