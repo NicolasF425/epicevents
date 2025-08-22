@@ -14,11 +14,11 @@ class CreateEvenementControler(CommonControler):
             evenement.client_id = datas[1]
             evenement.contrat_id = datas[2]
             evenement.responsable_support_id = None
-            evenement.lieu = datas[4]
-            evenement.adresse_lieu = datas[5]
-            evenement.nombre_participants = datas[6]
-            evenement.date_debut = datas[7]
-            evenement.date_fin = datas[8]
+            evenement.lieu = datas[3]
+            evenement.adresse_lieu = datas[4]
+            evenement.nombre_participants = datas[5]
+            evenement.date_debut = datas[6]
+            evenement.date_fin = datas[7]
             add_evenement(evenement)
             from views.show_evenements_view import ShowEvenementsView
             view = ShowEvenementsView()

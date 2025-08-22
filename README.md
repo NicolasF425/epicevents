@@ -63,6 +63,10 @@ Sous Linux : dans le bash
 
 exécuter : git clone https://github.com/NicolasF425/epicevents.git
 
+### Création de l'environnement
+
+exécuter à partir du répertoire projet: virtualenv env
+
 **Activation de l'environnement sur Windows, à réaliser avant les actions qui suivent :**
 
 exécuter à partir du répertoire projet: env\Scripts\activate
@@ -93,9 +97,9 @@ FILENAME=token.txt
 
 A partir de la racine du projet exécuter :
 
-python init_base.py
+python -m base_managing.init_base
 
-python add_datas.py
+python -m base_managing.add_datas
 
 ### Exécutin du programme
 
