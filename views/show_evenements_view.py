@@ -45,6 +45,10 @@ class ShowEvenementsView(CommonView):
                 if len(ids_evenements) > 0:
                     print(" 2) Attribuer un événement")
                     modificateur = 2
+            if token["departement_id"] == COMMERCIAL:
+                if len(ids_evenements) > 0:
+                    print(COMMERCIAL_COLOR+" 3) Supprimer un événement"+RESET)
+                    modificateur = 3
             choix = input("\nEntrez le numéro d'une action \n"
                           "ou appuyez sur Entrée pour retourner au menu : ")
             # si action disponible et choisie
@@ -71,6 +75,14 @@ class ShowEvenementsView(CommonView):
                         print("id incorrect")
                         choix = ""
                         evenement = 0
+            elif choix == "3" and modificateur == 3:
+                evenement = input("Entrez l'id de l'événement à supprimer: ")
+                evenement = int(evenement)
+                choix = "5"
+                if evenement not in ids_evenements:
+                    print("id incorrect")
+                    choix = ""
+                    evenement = 0
             else:
                 choix = ""
                 evenement = 0

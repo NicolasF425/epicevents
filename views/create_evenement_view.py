@@ -1,19 +1,18 @@
 from views.common_view import CommonView
+from controlers.create_evenement_controler import CreateEvenementControler
 from utilities.clear_screen import clear_screen
 from utilities.constantes import COMMERCIAL_COLOR, RESET
 from base_managing.CRUD import get_client_by_id, get_contrat_by_id
 
 
 class CreateEvenementView(CommonView):
+    controler = CreateEvenementControler()
 
     def input_datas(self):
         clear_screen()
         print(COMMERCIAL_COLOR+"NOUVEL EVENEMENT\n\n"+RESET)
 
         nom = input("Nom de l'événement: ")
-        client_id = input("Id du client")
-        contrat_id = input("Id du contrat: ")
-        support_id = None
         OK = False
         while not OK:
             try:
@@ -37,6 +36,9 @@ class CreateEvenementView(CommonView):
                     print("identifiant non trouvé\n")
             except ValueError:
                 print("Veuillez entrer une valeur numérique")
+        lieu = input("lieu de l'évenement: ")
+        adresse = input("adresse du lieu: ")
+        participants = int(input("nombre de participants: "))
 
-            datas = [nom, client_id, support_id]
-            return datas
+        datas = [nom, client_id, contrat_id, lieu, adresse, participants]
+        self.controler.save_new_evenement(datas)

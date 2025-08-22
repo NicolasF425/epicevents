@@ -1,4 +1,4 @@
-from base_managing.CRUD import get_evenement_by_id, update_evenement
+from base_managing.CRUD import get_evenement_by_id, update_evenement, delete_evenement
 from controlers.common_controler import CommonControler
 from views.show_single_evenement_view import ShowSingleEvenementView
 from views.create_evenement_view import CreateEvenementView
@@ -9,7 +9,7 @@ class ShowEvenementsControler(CommonControler):
     def select_action(self, choix, evenement):
         # si le token est toujours valide
         if self.check_token_validity() is not False:
-            if choix in ["1", "2", "3", "4"]:
+            if choix in ["1", "2", "3", "4", "5"]:
                 if choix == "1":
                     evenement = int(evenement)
                     # selection d'une fiche evenement
@@ -23,7 +23,6 @@ class ShowEvenementsControler(CommonControler):
                     view = CreateEvenementView()
                     view.input_datas()
                 if choix == "3":  # modification
-                    evenement = int(evenement)
                     # selection d'une fiche evenement
                     evenement = get_evenement_by_id(evenement)
                     if evenement is not False:
@@ -32,7 +31,6 @@ class ShowEvenementsControler(CommonControler):
                     else:
                         print("id incorrect !")
                 if choix == "4":
-                    evenement = int(evenement)
                     # selection d'une fiche evenement
                     evenement = get_evenement_by_id(evenement)
                     if evenement is not False:
@@ -40,6 +38,11 @@ class ShowEvenementsControler(CommonControler):
                         view.display_single_evenement(evenement, True)
                     else:
                         print("id incorrect !")
+                if choix == "5":
+                    delete_evenement(evenement)
+                    from views.show_evenements_view import ShowEvenementsView
+                    view = ShowEvenementsView()
+                    view.display_evenements()
             else:
                 # retour au menu
                 from views.main_menu_view import MainMenuView
