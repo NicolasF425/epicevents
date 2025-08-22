@@ -39,6 +39,8 @@ class CreateEvenementView(CommonView):
         lieu = input("lieu de l'évenement: ")
         adresse = input("adresse du lieu: ")
         participants = int(input("nombre de participants: "))
+        date_debut = input("date début, format AAAA-MM-JJ HH:MM:SS: ")
+        date_fin = input("date fin, format AAAA-MM-JJ HH:MM:SS: ")
 
-        datas = [nom, client_id, contrat_id, lieu, adresse, participants]
+        datas = [nom, client_id, contrat_id, lieu, adresse, participants, date_debut, date_fin]
         self.controler.save_new_evenement(datas)

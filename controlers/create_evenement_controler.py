@@ -17,6 +17,8 @@ class CreateEvenementControler(CommonControler):
             evenement.lieu = datas[4]
             evenement.adresse_lieu = datas[5]
             evenement.nombre_participants = datas[6]
+            evenement.date_debut = datas[7]
+            evenement.date_fin = datas[8]
             add_evenement(evenement)
             from views.show_evenements_view import ShowEvenementsView
             view = ShowEvenementsView()
