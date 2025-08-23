@@ -5,6 +5,12 @@ from utilities.constantes import COMMERCIAL, COMMERCIAL_COLOR, RESET
 
 
 class ShowSingleClientView(CommonView):
+    '''
+    View to display and mofification of a single "client"
+
+    Use the controler `ShowSingleClientControler` to
+    manage user's actions
+    '''
     controler = ShowSingleClientControler()
 
     def display_single_client(self, client):

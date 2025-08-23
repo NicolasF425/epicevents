@@ -8,10 +8,10 @@ from utilities.constantes import COMMERCIAL, SUPPORT, GESTION, SUPPORT_COLOR, GE
 
 class ShowEvenementsView(CommonView):
     """
-    Vue permettant l'affichage et la gestion des événements.
+    View to display of a list of 'evenement'
 
-    Cette vue s'appuie sur le contrôleur `ShowEvenementsControler` pour
-    exécuter les actions choisies par l'utilisateur.
+    Use the controler `ShowEvenementsControler` to
+    manage user's actions
     """
     controler = ShowEvenementsControler()
 

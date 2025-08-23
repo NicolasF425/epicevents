@@ -6,6 +6,13 @@ from base_managing.CRUD import get_client_by_id, get_contrat_by_id
 
 
 class CreateEvenementView(CommonView):
+    """
+    View to manage the creation of an 'evenement'
+
+    Use the controler `CreateEvenementControler` to
+    manage user's inputs
+    """
+
     controler = CreateEvenementControler()
 
     def input_datas(self):

@@ -6,6 +6,13 @@ from utilities.constantes import GESTION, COMMERCIAL, GESTION_COLOR, COMMERCIAL_
 
 
 class ShowContratsView(CommonView):
+    """
+    View to display of a list of 'contrat'
+
+    Use the controler `ShowContratsControler` to
+    manage user's actions
+    """
+
     controler = ShowcontratsControler()
     filtre = "mes contrats"
 

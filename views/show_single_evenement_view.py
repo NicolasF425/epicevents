@@ -7,7 +7,10 @@ from utilities.constantes import SUPPORT, GESTION
 
 class ShowSingleEvenementView(CommonView):
     '''
-    Vue pour l'affichage et la modification d'un seul événement
+    View to display and mofification of a single "evenement"
+
+    Use the controler `ShowSingleEvenementControler` to
+    manage user's actions
     '''
     controler = ShowSingleEvenementControler()
 

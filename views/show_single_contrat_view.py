@@ -5,6 +5,12 @@ from utilities.constantes import CYAN, RESET
 
 
 class ShowSingleContratView(CommonView):
+    '''
+    View to display and mofification of a single "contrat"
+
+    Use the controler `ShowSingleContratsControler` to
+    manage user's actions
+    '''
     controler = ShowSingleContratControler()
 
     def display_single_contrat(self, contrat, update=False):

@@ -6,6 +6,12 @@ from controlers.show_clients_controler import ShowClientsControler
 
 
 class ShowClientsView(CommonView):
+    """
+    View to display of a list of 'client'
+
+    Use the controler `ShowClientsControler` to
+    manage user's actions
+    """
     controler = ShowClientsControler()
 
     def display_clients(self, filtered=False):

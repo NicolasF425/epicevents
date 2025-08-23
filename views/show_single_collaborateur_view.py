@@ -6,6 +6,12 @@ from controlers.show_single_collaborateur_controler import ShowSingleCollaborate
 
 
 class ShowSingleCollaborateurView(CommonView):
+    '''
+    View to display and mofification of a single "collaborateur"
+
+    Use the controler `ShowSingleCollaborateurControler` to
+    manage user's actions
+    '''
     controler = ShowSingleCollaborateursControler()
 
     def display_single_collaborateur(self, collaborateur):

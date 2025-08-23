@@ -6,6 +6,12 @@ from utilities.constantes import COMMERCIAL_COLOR, RESET
 
 
 class CreateClientView(CommonView):
+    """
+    View to manage the creation of a 'client'
+
+    Use the controler `CreateClientontroler` to
+    manage user's inputs
+    """
     controler = CreateClientControler()
 
     def input_datas(self):

@@ -7,6 +7,12 @@ from utilities.gestion_hashage import hash_password
 
 
 class CreateCollaborateurView(CommonView):
+    """
+    View to manage the creation of a 'collaborateur'
+
+    Use the controler `CreateCollaborateurControler` to
+    manage user's inputs
+    """
     controler = CreateCollaborateurControler()
 
     def input_datas(self):

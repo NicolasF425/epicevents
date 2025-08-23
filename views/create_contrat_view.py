@@ -6,6 +6,12 @@ from controlers.create_contrat_controler import CreateContratControler
 
 
 class CreateContratView(CommonView):
+    """
+    View to manage the creation of a 'contrat'
+
+    Use the controler `CreateContratControler` to
+    manage user's inputs
+    """
     controler = CreateContratControler()
 
     def input_datas(self):

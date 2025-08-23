@@ -6,6 +6,9 @@ from typing import Optional, Dict, Any
 
 
 class JWTManager:
+    """
+    Class for managing the token creation, refresh and validity
+    """
 
     def __init__(self, algorithm: str = 'HS256'):
         self.secret_key = os.getenv("SECRET_KEY")

@@ -6,6 +6,12 @@ from controlers.show_collaborateurs_controler import ShowCollaborateursControler
 
 
 class ShowCollaborateursView(CommonView):
+    """
+    View to display of a list of 'collaborateur'
+
+    Use the controler `ShowCollaborateursControler` to
+    manage user's actions
+    """
     controler = ShowCollaborateursControler()
 
     def display_collaborateurs(self):

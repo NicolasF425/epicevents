@@ -6,6 +6,12 @@ from utilities.clear_screen import clear_screen
 
 
 class MainMenuView(CommonView):
+    """
+    View to display the main menu after login
+
+    Use the controler `ShowMainControler` to
+    manage user's actions
+    """
     num = 0
     mapping = {}
     controler = MainMenuControler()

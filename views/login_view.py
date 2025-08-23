@@ -5,6 +5,12 @@ from utilities.constantes import PURPLE, RESET
 
 
 class LoginView:
+    """
+    View to manage the login
+
+    Use the controler 'LoginControler'
+    to manage the connection
+    """
 
     login_controler = LoginControler()
 
