@@ -28,7 +28,7 @@ Pour des question de limitation de temps de développement, des controles sur le
 + disposer d'un compte sentry
 + avoir créé un utilisateur epicevents avec les droits, pour cela :
 
-Voir le script new_user_script dans /base_managing, à exécuter connecté à la base.
+Voir le script new_user_script dans /base_managing, à exécuter connecté à la base avec les droits "root'.
 
 ### exécution des commandes
 
