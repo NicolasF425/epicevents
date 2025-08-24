@@ -5,6 +5,11 @@ from views.create_client_view import CreateClientView
 
 
 class ShowClientsControler(CommonControler):
+    """
+    Controler for the view ShowClientsView
+
+    Use to manage user's actions
+    """
 
     def select_action(self, action, idClient):
         print(action)

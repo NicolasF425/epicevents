@@ -5,6 +5,11 @@ from views.create_evenement_view import CreateEvenementView
 
 
 class ShowEvenementsControler(CommonControler):
+    """
+    Controler for the view ShowEvenementsView
+
+    Use to manage user's actions
+    """
 
     def select_action(self, choix, evenement):
         # si le token est toujours valide

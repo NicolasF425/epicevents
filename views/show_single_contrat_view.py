@@ -14,6 +14,13 @@ class ShowSingleContratView(CommonView):
     controler = ShowSingleContratControler()
 
     def display_single_contrat(self, contrat, update=False):
+        """
+        Display fields and values for a single 'contrat'
+
+        Args:
+            evenement : a 'contrat' object
+            update (bool, optional): if the update is doable. Defaults to False.
+        """
         clear_screen()
         token = self.check_token_validity()
         if token is not False:
@@ -45,6 +52,14 @@ class ShowSingleContratView(CommonView):
             self.controler.check_action(action, id)
 
     def display_update(self, field_number, id):
+        """
+        Display the field selected and input the new value
+        Save the updated 'contrat'
+
+        Args:
+            field_number (string): the number in the field list
+            id (int): the id of the 'contrat' to update
+        """
         print("\n")
         infos = []
         match field_number:

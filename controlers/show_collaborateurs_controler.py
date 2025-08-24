@@ -5,6 +5,11 @@ from views.create_collaborateur_view import CreateCollaborateurView
 
 
 class ShowCollaborateursControler(CommonControler):
+    """
+    Controler for the view ShowCollaborateursView
+
+    Use to manage user's actions
+    """
 
     def select_action(self, choix, collaborateur):
         # si le token est toujours valide

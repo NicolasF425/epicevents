@@ -6,6 +6,11 @@ from utilities.constantes import COMMERCIAL, GESTION
 
 
 class ShowcontratsControler(CommonControler):
+    """
+    Controler for the view ShowContratsView
+
+    Use to manage user's actions
+    """
 
     def select_action(self, choix, contrat, update=False):
         token = self.check_token_validity()

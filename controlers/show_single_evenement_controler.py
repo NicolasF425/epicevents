@@ -4,6 +4,11 @@ from base_managing.CRUD import update_evenement
 
 
 class ShowSingleEvenementControler(CommonControler):
+    """
+    Controler for the view ShowSingleEvenementView
+
+    Use to manage user's actions
+    """
 
     def check_action(self, element, idEvenement, idSupport, departementId):
 

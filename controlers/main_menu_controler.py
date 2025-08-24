@@ -5,6 +5,11 @@ from views.show_collaborateurs_view import ShowCollaborateursView
 
 
 class MainMenuControler:
+    """
+    Controler for the view MainMenuView
+
+    Use to manage user's actions
+    """
 
     def select_action(self, num_action, mapping):
 

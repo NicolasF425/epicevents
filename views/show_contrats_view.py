@@ -17,6 +17,12 @@ class ShowContratsView(CommonView):
     filtre = "mes contrats"
 
     def display_contrats(self, filtered=False):
+        """
+        Display a list of 'contrat' and input for an action
+
+        Args:
+            filtered (bool, optional): if a filter should be applied . Defaults to False.
+        """
         clear_screen()
         token = self.check_token_validity()
 

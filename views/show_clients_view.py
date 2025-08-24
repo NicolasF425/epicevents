@@ -15,6 +15,12 @@ class ShowClientsView(CommonView):
     controler = ShowClientsControler()
 
     def display_clients(self, filtered=False):
+        """
+        Display a list of 'client' and input for an action
+
+        Args:
+            filtered (bool, optional): if a filter should be applied . Defaults to False.
+        """
         clear_screen()
         token = self.check_token_validity()
 

@@ -3,6 +3,11 @@ from base_managing.CRUD import update_collaborateur
 
 
 class ShowSingleCollaborateursControler(CommonControler):
+    """
+    Controler for the view ShowSingleCollaborateurView
+
+    Use to manage user's actions
+    """
 
     def check_action(self, action, id):
         # si le token est toujours valide

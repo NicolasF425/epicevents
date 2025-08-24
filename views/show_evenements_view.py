@@ -17,7 +17,10 @@ class ShowEvenementsView(CommonView):
 
     def display_evenements(self, filtered=False):
         """
-        Affiche la liste des événements et propose des actions à l'utilisateur.
+        Display a list of 'client' and input for an action
+
+        Args:
+            filtered (bool, optional): if a filter should be applied . Defaults to False.
         """
         clear_screen()
         token = self.check_token_validity()
@@ -101,7 +104,8 @@ class ShowEvenementsView(CommonView):
 
     def attribute_support_evenement(self, idEvenement):
         """
-        Attribue un collaborateur du département support à un événement.
+        Display and manage the attribution
+        of a support department collaborator to an "evenement".
         """
         collaborateurs = get_collaborateurs_by_idDepartement(SUPPORT)
         ids = []

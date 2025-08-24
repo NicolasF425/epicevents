@@ -3,6 +3,11 @@ from base_managing.CRUD import update_contrat
 
 
 class ShowSingleContratControler(CommonControler):
+    """
+    Controler for the view ShowSingleContratView
+
+    Use to manage user's actions
+    """
 
     def check_action(self, action, id):
         # si le token est toujours valide

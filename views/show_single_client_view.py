@@ -14,6 +14,13 @@ class ShowSingleClientView(CommonView):
     controler = ShowSingleClientControler()
 
     def display_single_client(self, client):
+        """
+        Display fields and values for a single 'client'
+
+        Args:
+            evenement : a 'client' object
+            update (bool, optional): if the update is doable. Defaults to False.
+        """
         clear_screen()
         token = self.check_token_validity()
         if token is not False:
@@ -42,6 +49,14 @@ class ShowSingleClientView(CommonView):
             print("Session expirée")
 
     def display_update(self, idClient, field_number):
+        """
+        Display the field selected and input the new value
+        Save the updated 'client'
+
+        Args:
+            field_number (string): the number in the field list
+            id (int): the id of the 'client' to update
+        """
         print("\n")
         match field_number:
             case 1:

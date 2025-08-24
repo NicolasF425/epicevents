@@ -15,6 +15,10 @@ class LoginView:
     login_controler = LoginControler()
 
     def display_view(self):
+        """
+        Manage imputs for login and password
+        then check the credentials
+        """
         clear_screen()
         print(PURPLE+"CONNEXION\n\n"+RESET)
         login = input("login: ")

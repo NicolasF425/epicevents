@@ -15,6 +15,13 @@ class ShowSingleCollaborateurView(CommonView):
     controler = ShowSingleCollaborateursControler()
 
     def display_single_collaborateur(self, collaborateur):
+        """
+        Display fields and values for a single 'collaborateur'
+
+        Args:
+            evenement : a 'collaborateur' object
+            update (bool, optional): if the update is doable. Defaults to False.
+        """
         clear_screen()
         token = self.check_token_validity()
         if token is not False:
@@ -41,6 +48,14 @@ class ShowSingleCollaborateurView(CommonView):
             print("Session expirée")
 
     def display_update(self, field_number, id):
+        """
+        Display the field selected and input the new value
+        Save the updated 'collaborateur'
+
+        Args:
+            field_number (string): the number in the field list
+            id (int): the id of the 'collaborateur' to update
+        """
         print("\n")
         infos = []
         match field_number:

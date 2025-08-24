@@ -7,6 +7,11 @@ import sentry_sdk
 
 
 class LoginControler:
+    """
+    Controler for the view LoginView
+
+    Use to manage connection
+    """
 
     def check_credentials(self, login, password):
         user = get_collaborateur_by_login(login)

@@ -15,6 +15,9 @@ class ShowCollaborateursView(CommonView):
     controler = ShowCollaborateursControler()
 
     def display_collaborateurs(self):
+        """
+        Display a list of 'collaborateur' and input for an action
+        """
         clear_screen()
         token = self.check_token_validity()
 

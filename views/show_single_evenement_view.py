@@ -15,6 +15,13 @@ class ShowSingleEvenementView(CommonView):
     controler = ShowSingleEvenementControler()
 
     def display_single_evenement(self, evenement, update=False):
+        """
+        Display fields and values for a single 'evenement'
+
+        Args:
+            evenement : an 'evenement' object
+            update (bool, optional): if the update is doable. Defaults to False.
+        """
         clear_screen()
         token = self.check_token_validity()
 
@@ -68,6 +75,14 @@ class ShowSingleEvenementView(CommonView):
             self.controler.check_action(element, evenement.id, idSupport, token['departement_id'])
 
     def display_update(self, field_number, id):
+        """
+        Display the field selected and input the new value
+        Save the updated 'evenement'
+
+        Args:
+            field_number (string): the number in the field list
+            id (int): the id of the 'evenement' to update
+        """
         print("\n")
         infos = []
         match field_number:

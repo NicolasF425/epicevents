@@ -17,6 +17,9 @@ class MainMenuView(CommonView):
     controler = MainMenuControler()
 
     def build_menu(self):
+        """
+        Build the main menu structure
+        """
         token = self.check_token_validity()
 
         # listage des elements à afficher et des actions possibles
@@ -54,6 +57,9 @@ class MainMenuView(CommonView):
         else:
             print("Erreur de token")
 
+    # Following function are for defining
+    # a number for every item of the menu
+
     def item_manage_collaborateur(self, num):
         print(SUPPORT_COLOR+str(num)+") Gérer les collaborateurs"+RESET)
 
@@ -82,6 +88,9 @@ class MainMenuView(CommonView):
         print(str(num)+") Quitter")
 
     def display_items(self):
+        """
+        Display the main menu and input for an action
+        """
         clear_screen()
         self.build_menu()
         print("MENU PRINCIPAL\n\n")
