@@ -12,6 +12,13 @@ class ShowCollaborateursControler(CommonControler):
     """
 
     def select_action(self, choix, collaborateur):
+        """
+        Manage the action defined in the view
+
+        Args:
+            choix (string): number of the action
+            collaborateur (string): id of a 'collaborateur
+        """
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if choix in ["1", "2", "3"]:

@@ -12,6 +12,13 @@ class MainMenuControler:
     """
 
     def select_action(self, num_action, mapping):
+        """
+        Manage the action selected in the main menu
+
+        Args:
+            num_action (int): the action to execute
+            mapping (dict): map the number of the action to to the action to do
+        """
 
         for cle, valeur in mapping.items():
             if valeur == num_action:

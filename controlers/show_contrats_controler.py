@@ -13,6 +13,14 @@ class ShowcontratsControler(CommonControler):
     """
 
     def select_action(self, choix, contrat, update=False):
+        """
+        Manage the action defined in the view
+
+        Args:
+            choix (string): number of the action
+            contrat (string): id of a 'contrat'
+            update (bool, optional) : if the action is an update. Defaults to False
+        """
         token = self.check_token_validity()
 
         if token is not False:

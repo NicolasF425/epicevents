@@ -12,6 +12,13 @@ class ShowEvenementsControler(CommonControler):
     """
 
     def select_action(self, choix, evenement):
+        """
+        Manage the action defined in the view
+
+        Args:
+            choix (string): number of the action
+            evenement (string): id of an 'evenement'
+        """
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if choix in ["1", "2", "3", "4", "5"]:
@@ -57,4 +64,11 @@ class ShowEvenementsControler(CommonControler):
             print("Session expirée")
 
     def attribute_support_evenenement(self, idEvenement, idSupport):
+        """
+        Assigne a support collaborator to an 'evenement'
+
+        Args:
+            idEvenement (int): id of the 'evenement'
+            idSupport (int): id of the support collaborator to assign
+        """
         update_evenement(idEvenement, "responsable_support_id", idSupport)

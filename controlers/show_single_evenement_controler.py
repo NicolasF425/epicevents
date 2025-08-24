@@ -11,6 +11,15 @@ class ShowSingleEvenementControler(CommonControler):
     """
 
     def check_action(self, element, idEvenement, idSupport, departementId):
+        """
+        Manage the action defined in the view
+
+        Args:
+            element (string): number of the element to modify
+            idEvenement (int): id of the 'evenement'
+            idSupport (int): id of the support collaborator to assign
+            departementId (int): id of the departement of the current user
+        """
 
         # si le token est toujours valide
         if self.check_token_validity() is not False:

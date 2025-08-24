@@ -12,7 +12,14 @@ class ShowClientsControler(CommonControler):
     """
 
     def select_action(self, action, idClient):
-        print(action)
+        """
+        Manage the action defined in the view
+
+        Args:
+            action (string): number of the action
+            idClient (string): id of a 'client'
+        """
+
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if action in ["1", "2", "3"]:

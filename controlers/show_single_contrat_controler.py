@@ -10,6 +10,13 @@ class ShowSingleContratControler(CommonControler):
     """
 
     def check_action(self, action, id):
+        """
+        Manage the action defined in the view
+
+        Args:
+            action (string) : number of the field to modify
+            id (int) : id of the 'contrat'
+        """
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             if action != "":
