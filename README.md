@@ -28,30 +28,7 @@ Pour des question de limitation de temps de développement, des controles sur le
 + disposer d'un compte sentry
 + avoir créé un utilisateur epicevents avec les droits, pour cela :
 
--- Créer l'utilisateur (remplacez 'motdepasse' par un mot de passe sécurisé)
-
-CREATE USER 'epicevents'@'localhost' IDENTIFIED BY 'motdepasse';
-
--- Accorder les droits de création et modification des tables (DDL)
-
-GRANT CREATE ON epicevents_db TO 'epicevents'@'localhost';
-
-GRANT ALTER ON epicevents_db TO 'epicevents'@'localhost';
-
-GRANT DROP ON epicevents_db TO 'epicevents'@'localhost';
-
--- Accorder les droits de lecture, écriture et suppression sur les données (DML)
-
-GRANT SELECT ON epicevents_db TO 'epicevents'@'localhost';
-
-GRANT INSERT ON epicevents_db TO 'epicevents'@'localhost';
-
-GRANT UPDATE ON epicevents_db TO 'epicevents'@'localhost';
-
-GRANT DELETE ON epicevents_db TO 'epicevents'@'localhost';
-
--- Appliquer les changements
-FLUSH PRIVILEGES;
+Voir le script new_user_script dans /base_managing, à exécuter connecté à la base.
 
 ### exécution des commandes
 
