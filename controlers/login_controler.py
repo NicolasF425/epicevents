@@ -10,7 +10,7 @@ class LoginControler:
     """
     Controler for the view LoginView
 
-    Use to manage connection
+    Used to manage connection
     """
 
     def check_credentials(self, login, password):

@@ -5,8 +5,21 @@ from utilities.constantes import GESTION
 
 
 class CreateContratControler(CommonControler):
+    """
+    Controler for the view CreateContratView
+
+    Used to save a new 'contrat' with the datas
+    defined in the wiew
+    """
 
     def save_new_contrat(self, datas):
+        """
+        Save a new 'contrat'
+
+        Args:
+            datas (list) : a list of values to map
+            with the fields
+        """
         # si le token est toujours valide
         token = self.check_token_validity()
         if token is not False:

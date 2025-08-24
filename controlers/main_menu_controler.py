@@ -8,7 +8,7 @@ class MainMenuControler:
     """
     Controler for the view MainMenuView
 
-    Use to manage user's actions
+    Used to manage user's actions
     """
 
     def select_action(self, num_action, mapping):

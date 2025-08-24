@@ -5,8 +5,21 @@ from utilities.pause import pause
 
 
 class CreateEvenementControler(CommonControler):
+    """
+    Controler for the view CreateEvenementView
+
+    Used to save a new 'evenement' with the datas
+    defined in the wiew
+    """
 
     def save_new_evenement(self, datas):
+        """
+        Save a new 'evenenment'
+
+        Args:
+            datas (list) : a list of values to map
+            with the fields
+        """
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             evenement = Evenement()

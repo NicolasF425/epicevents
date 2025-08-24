@@ -16,6 +16,10 @@ class CreateEvenementView(CommonView):
     controler = CreateEvenementControler()
 
     def input_datas(self):
+        """
+        Manage the input of datas for the creation
+        of an 'evenement' and save the new 'evenement'
+        """
         clear_screen()
         print(COMMERCIAL_COLOR+"NOUVEL EVENEMENT\n\n"+RESET)
 

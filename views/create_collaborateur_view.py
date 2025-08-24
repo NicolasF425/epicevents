@@ -16,6 +16,10 @@ class CreateCollaborateurView(CommonView):
     controler = CreateCollaborateurControler()
 
     def input_datas(self):
+        """
+        Manage the input of datas for the creation
+        of a 'collaborateur' and save the new 'collaborateur'
+        """
         clear_screen()
         print(GESTION_COLOR+"NOUVEAU COLLABORATEUR"+RESET)
 

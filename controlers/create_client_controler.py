@@ -5,8 +5,21 @@ from utilities.pause import pause
 
 
 class CreateClientControler(CommonControler):
+    """
+    Controler for the view CreateClientView
+
+    Used to save a new 'client' with the datas
+    defined in the wiew
+    """
 
     def save_new_client(self, datas):
+        """
+        Save a new 'client' 
+        
+        Args:
+            datas (list) : a list of values to map
+            with the fields            
+        """
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             client = Client()

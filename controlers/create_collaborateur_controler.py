@@ -5,8 +5,21 @@ from utilities.pause import pause
 
 
 class CreateCollaborateurControler(CommonControler):
+    """
+    Controler for the view CreateCollaborateurView
+
+    Used to save a new 'collaborateur' with the datas
+    defined in the wiew
+    """
 
     def save_new_collaborateur(self, datas):
+        """
+        Save a new 'collaborateur'
+
+        Args:
+            datas (list) : a list of values to map
+            with the fields
+        """
         # si le token est toujours valide
         if self.check_token_validity() is not False:
             collaborateur = Collaborateur()

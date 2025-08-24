@@ -6,7 +6,7 @@ class ShowSingleClientControler(CommonControler):
     """
     Controler for the view ShowSingleClientView
 
-    Use to manage user's actions
+    Used to manage user's actions
     """
 
     def check_action(self, action, id):

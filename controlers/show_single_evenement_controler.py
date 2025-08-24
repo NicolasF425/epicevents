@@ -7,7 +7,7 @@ class ShowSingleEvenementControler(CommonControler):
     """
     Controler for the view ShowSingleEvenementView
 
-    Use to manage user's actions
+    Used to manage user's actions
     """
 
     def check_action(self, element, idEvenement, idSupport, departementId):

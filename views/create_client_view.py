@@ -15,6 +15,10 @@ class CreateClientView(CommonView):
     controler = CreateClientControler()
 
     def input_datas(self):
+        """
+        Manage the input of datas for the creation
+        of a 'client' and save the new 'client'
+        """
         clear_screen()
         print(COMMERCIAL_COLOR+"NOUVEAU CLIENT\n\n"+RESET)
 

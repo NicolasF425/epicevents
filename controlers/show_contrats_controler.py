@@ -9,7 +9,7 @@ class ShowcontratsControler(CommonControler):
     """
     Controler for the view ShowContratsView
 
-    Use to manage user's actions
+    Used to manage user's actions
     """
 
     def select_action(self, choix, contrat, update=False):

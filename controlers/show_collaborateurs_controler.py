@@ -8,7 +8,7 @@ class ShowCollaborateursControler(CommonControler):
     """
     Controler for the view ShowCollaborateursView
 
-    Use to manage user's actions
+    Used to manage user's actions
     """
 
     def select_action(self, choix, collaborateur):
