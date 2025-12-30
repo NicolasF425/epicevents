@@ -6,7 +6,7 @@ Des ajustements sur le code et la procédure peuvent être nécessaires pour une
 
 Pour des question de limitation de temps de développement, des controles sur les valeurs entrées ne sont pas effectués.
 
-Important : le sépare modèles, vues et contrôleurs mais ne suis pas l'architecture MVC. Ici la vue appelle le controleur.
+Important : le projet sépare modèles, vues et contrôleurs mais ne suis pas l'architecture MVC. Ici la vue appelle le controleur.
 
 ### Description du contexte du projet
 
